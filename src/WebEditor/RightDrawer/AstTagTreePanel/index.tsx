@@ -73,8 +73,8 @@ const AstTagTree = observer(
 const AstTagTreePanel = observer(() => {
   const { editor } = useStores();
   return (
-    <div>
-      <div className={styles.astTreePanelTitle}>AstTagTreePanel</div>
+    <div className={styles.astTreePanel}>
+      <div className={styles.astTreePanelTitle}>Tree</div>
       {editor.selectedAstNode && <AstTagTree node={editor.selectedAstNode} />}
     </div>
   );

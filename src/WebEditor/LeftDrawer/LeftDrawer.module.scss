@@ -1,22 +1,14 @@
+@import "../../_variables";
+
 .leftDrawer {
-  width: 0px;
-  background-color: #030303;
+  display: none;
+  flex: 0 0 0px;
+  background-color: $panel-bg;
+  border-right: 1px solid $panel-border;
 }
 
 .leftDrawerOpen {
-  width: 500px;
-  max-width: 500px;
+  display: block;
+  flex: 1 0 300px;
   height: 100%;
-}
-
-.toggleDrawerButton {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: transparent;
-  border: none;
-  color: white;
-  background-color: black;
-  font-size: 1.2rem;
-  cursor: pointer;
 }

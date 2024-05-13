@@ -9,7 +9,8 @@ const styleKeys: StyleEnum[] = [...Object.values(StyleEnum)];
 const NormalText = ({ label, value }: { label: string; value: string }) => {
   return (
     <div className={styles.styleEditorFormItem}>
-      {label}:<span>{value}</span>
+      <label className={styles.styleEditorFormItemLabel}>{label}</label>
+      <span className={styles.styleEditorFormItemText}>{value}</span>
     </div>
   );
 };
@@ -28,7 +29,7 @@ const NormalSelect = ({
 }) => {
   return (
     <div className={styles.styleEditorFormItem}>
-      <label>{label}</label>
+      <label className={styles.styleEditorFormItemLabel}>{label}</label>
       <select
         className={styles.styleEditorFormItemSelect}
         value={value}
@@ -57,7 +58,7 @@ const NormalInput = ({
 }) => {
   return (
     <div className={styles.styleEditorFormItem}>
-      <label>{label}</label>
+      <label className={styles.styleEditorFormItemLabel}>{label}</label>
       <input
         className={styles.styleEditorFormItemInput}
         value={value}
@@ -132,43 +133,46 @@ const StyleEditor = observer(() => {
     node.save();
   };
 
-  if (!node) {
-    return <div style={{ color: "white" }}>請先選擇節點 </div>;
-  }
-
   return (
     <div className={styles.styleEditor}>
-      <NormalText label={"uuid"} value={node.uuid} />
-      <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
-      {node.isPureTextNode ? (
-        <NormalInput
-          label="content"
-          value={node.editingContent || ""}
-          onChange={(v) => {
-            node.setEditingContent(v);
-          }}
-        ></NormalInput>
+      <div className={styles.styleEditorTitle}>Layout</div>
+      {!node ? (
+        <div>select node first</div>
       ) : (
         <>
-          {styleKeys.map((styleKey) => {
-            const { Component, props } = renderConfigs[styleKey];
-            return (
-              <Component
-                key={styleKey}
-                label={styleKey}
-                value={`${node.editingStyle[styleKey] || ""}`}
-                onChange={(v) => {
-                  node.updateEditingStyle({ styleKey, styleValue: v });
-                }}
-                {...props}
-              />
-            );
-          })}
+          <NormalText label={"uuid"} value={node.uuid} />
+          <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
+          {node.isPureTextNode ? (
+            <NormalInput
+              label="content"
+              value={node.editingContent || ""}
+              onChange={(v) => {
+                node.setEditingContent(v);
+              }}
+            ></NormalInput>
+          ) : (
+            <>
+              {styleKeys.map((styleKey) => {
+                const { Component, props } = renderConfigs[styleKey];
+                return (
+                  <Component
+                    key={styleKey}
+                    label={styleKey}
+                    value={`${node.editingStyle[styleKey] || ""}`}
+                    onChange={(v) => {
+                      node.updateEditingStyle({ styleKey, styleValue: v });
+                    }}
+                    {...props}
+                  />
+                );
+              })}
+            </>
+          )}
+          <button disabled={!node.isChanged} onClick={saveAst}>
+            save
+          </button>
         </>
       )}
-      <button disabled={!node.isChanged} onClick={saveAst}>
-        save
-      </button>
     </div>
   );
 });

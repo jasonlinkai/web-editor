@@ -1,14 +1,15 @@
+@import "../../../variables";
 
 .astTreePanel {
+  padding: 15px;
 }
 
 .astTreePanelTitle {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 15px;
   margin-bottom: 5px;
-  color: white;
+  color: $text;
 }
 
 .astTreePanelItem {
@@ -18,22 +19,22 @@
 
 
 .astTreePanelItemStartTag {
-  color: #0022ff;
+  color: $text;
 }
 .astTreePanelItemStartTagSelected {
-  color: #00ffff;
+  color: $label;
 }
 
 .astTreePanelItemContent {
-  color: #0022ff;
+  color: $text;
 }
 .astTreePanelItemContentSelected {
-  color: #00ffff;
+  color: $label;
 }
 
 .astTreePanelItemEndTag {
-  color: #0022ff;
+  color: $text;
 }
 .astTreePanelItemEndTagSelected {
-  color: #00ffff;
+  color: $label;
 }

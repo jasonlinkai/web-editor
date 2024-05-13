@@ -1,18 +1,39 @@
+@import "../../../variables";
+
 .styleEditor {
-  color: white;
   padding: 15px;
+  text-align: center;
+}
+.styleEditorTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  color: $text;
 }
 .styleEditorFormItem {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-bottom: 15px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.styleEditorFormItemLabel {
+  color: $label;
+}
+.styleEditorFormItemFieldCommon {
+  width: 100px;
+  height: 1.3rem;
+}
+.styleEditorFormItemText {
+  @extend .styleEditorFormItemFieldCommon;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .styleEditorFormItemSelect {
-  width: 10rem;
-  height: 1.5rem;
+  @extend .styleEditorFormItemFieldCommon;
 }
 .styleEditorFormItemInput {
-  width: 10rem;
-  height: 1.5rem;
+  @extend .styleEditorFormItemFieldCommon;
 }
