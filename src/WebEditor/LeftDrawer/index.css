@@ -1,0 +1,22 @@
+.left-drawer {
+  width: 0px;
+  background-color: #030303;
+}
+
+.left-drawer.open {
+  width: 500px;
+  max-width: 500px;
+  height: 100%;
+}
+
+.left-drawer .open-drawer-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  color: white;
+  background-color: black;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

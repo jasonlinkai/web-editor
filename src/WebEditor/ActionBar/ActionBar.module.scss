@@ -1,0 +1,14 @@
+.actionBar {
+  width: 100%;
+  height: 50px;
+  background-color: #f3f3f3;
+  display: flex;
+  justify-content: space-between;
+}
+
+.actionBarLeftArea {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
