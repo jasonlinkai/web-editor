@@ -1,0 +1,18 @@
+.styleEditor {
+  color: white;
+  padding: 15px;
+}
+.styleEditorFormItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+.styleEditorFormItemSelect {
+  width: 10rem;
+  height: 1.5rem;
+}
+.styleEditorFormItemInput {
+  width: 10rem;
+  height: 1.5rem;
+}

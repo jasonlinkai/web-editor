@@ -1,15 +1,14 @@
-import "./index.css";
+import styles from "./StyleEditor.module.scss";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { AstNodeModelType } from "../../../mobx/AstNodeModel";
 import { StyleEnum } from "../../types";
-import { Fragment } from "react/jsx-runtime";
 
 const styleKeys: StyleEnum[] = [...Object.values(StyleEnum)];
 
 const NormalText = ({ label, value }: { label: string; value: string }) => {
   return (
-    <div className="style-editor-form-item">
+    <div className={styles.styleEditorFormItem}>
       {label}:<span>{value}</span>
     </div>
   );
@@ -28,10 +27,10 @@ const NormalSelect = ({
   options?: { label: string; value: string }[];
 }) => {
   return (
-    <div className="style-editor-form-item">
-      <label className="style-editor-form-item__label">{label}</label>
+    <div className={styles.styleEditorFormItem}>
+      <label>{label}</label>
       <select
-        className="style-editor-form-item__select"
+        className={styles.styleEditorFormItemSelect}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       >
@@ -57,10 +56,10 @@ const NormalInput = ({
   onChange: (v: string) => void;
 }) => {
   return (
-    <div className="style-editor-form-item">
-      <label className="style-editor-form-item__label">{label}</label>
+    <div className={styles.styleEditorFormItem}>
+      <label>{label}</label>
       <input
-        className="style-editor-form-item__input"
+        className={styles.styleEditorFormItemInput}
         value={value}
         onChange={(e) => onChange(e.target.value)}
       />
@@ -138,7 +137,7 @@ const StyleEditor = observer(() => {
   }
 
   return (
-    <div className="style-editor">
+    <div className={styles.styleEditor}>
       <NormalText label={"uuid"} value={node.uuid} />
       <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
       {node.isPureTextNode ? (
@@ -150,7 +149,7 @@ const StyleEditor = observer(() => {
           }}
         ></NormalInput>
       ) : (
-        <Fragment>
+        <>
           {styleKeys.map((styleKey) => {
             const { Component, props } = renderConfigs[styleKey];
             return (
@@ -165,9 +164,11 @@ const StyleEditor = observer(() => {
               />
             );
           })}
-        </Fragment>
+        </>
       )}
-      <button disabled={!node.isChanged} onClick={saveAst}>save</button>
+      <button disabled={!node.isChanged} onClick={saveAst}>
+        save
+      </button>
     </div>
   );
 });
