@@ -1,15 +1,15 @@
-.left-drawer {
+.leftDrawer {
   width: 0px;
   background-color: #030303;
 }
 
-.left-drawer.open {
+.leftDrawerOpen {
   width: 500px;
   max-width: 500px;
   height: 100%;
 }
 
-.left-drawer .open-drawer-button {
+.toggleDrawerButton {
   position: fixed;
   top: 20px;
   right: 20px;
