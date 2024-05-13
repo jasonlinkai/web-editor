@@ -1,4 +1,4 @@
-.render-node .selected-node {
+.selectedNode {
   background: linear-gradient(90deg, red 50%, transparent 0) repeat-x,
     linear-gradient(90deg, red 50%, transparent 0) repeat-x,
     linear-gradient(0deg, red 50%, transparent 0) repeat-y,
@@ -8,7 +8,7 @@
   animation: linearGradientMove 0.3s infinite linear;
 }
 
-.render-node .drag-over-element {
+.dragOverElement {
   background: linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
     linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
     linear-gradient(0deg, blue 50%, transparent 0) repeat-y,
@@ -24,7 +24,7 @@
   }
 }
 
-.render-node .container {
+.container {
   display: flex;
   justify-content: center;
   align-items: center;

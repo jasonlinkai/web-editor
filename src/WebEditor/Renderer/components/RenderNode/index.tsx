@@ -1,4 +1,4 @@
-import "./index.css";
+import styles from "./RenderNode.module.scss";
 import clsx from "clsx";
 import React, { Fragment, SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
@@ -79,9 +79,8 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
       className: clsx([
         props.className,
         {
-          "render-node": true,
-          "selected-node": isSelectedNode,
-          "drag-over-node": node.isDragOvered,
+          [styles.selectedNode]: isSelectedNode,
+          [styles.dragOverElement]: node.isDragOvered,
         },
       ]),
     },
