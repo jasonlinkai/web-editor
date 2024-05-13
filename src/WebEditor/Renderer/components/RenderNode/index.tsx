@@ -62,6 +62,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     };
     editorEventListeners.onDrop = (e: React.DragEvent) => {
       handleOnDrop(e, node);
+      node.setIsDragOvered(false);
     };
   }
 
