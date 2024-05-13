@@ -1,15 +1,21 @@
 import styles from "./ActionBar.module.scss";
 import { observer } from "mobx-react-lite";
-import { useStores } from "../../mobx/useMobxStateTreeStores";
 import {
   FaAngleDoubleLeft,
   FaAngleDoubleRight,
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
+import { useStores } from "../../mobx/useMobxStateTreeStores";
 
-const ActionButton: React.FC<React.PropsWithChildren> = ({ children }) => {
-  return <button className="action-button">{children}</button>;
+const ActionButton: React.FC<
+  React.PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
+> = ({ children, ...p }) => {
+  return (
+    <button {...p} className={styles.actionButton}>
+      {children}
+    </button>
+  );
 };
 
 const ActionBar: React.FC = observer(() => {
@@ -22,15 +28,15 @@ const ActionBar: React.FC = observer(() => {
   } = editor;
 
   return (
-    <div id="action-bar" className={styles.actionBar}>
+    <div className={styles.actionBar}>
       <div className={styles.actionBarLeftArea}>
-        <ActionButton>
+        <ActionButton
+          onClick={() => {
+            setIsLeftDrawerOpen(!isLeftDrawerOpen);
+          }}
+        >
           {isLeftDrawerOpen ? (
-            <FaAngleDoubleLeft
-              onClick={() => {
-                setIsLeftDrawerOpen(!isLeftDrawerOpen);
-              }}
-            />
+            <FaAngleDoubleLeft />
           ) : (
             <FaAngleDoubleRight
               onClick={() => {
@@ -39,28 +45,29 @@ const ActionBar: React.FC = observer(() => {
             />
           )}
         </ActionButton>
-        <ActionButton>
-          <FaArrowLeft
-            onClick={canUndo ? undoAst : undefined}
-            color={canUndo ? "#333" : "#aaa"}
-          />
+        <ActionButton onClick={canUndo ? undoAst : undefined}>
+          <FaArrowLeft color={canUndo ? "#333" : "#aaa"} />
         </ActionButton>
-        <ActionButton>
-          <FaArrowRight
-            onClick={canRedo ? redoAst : undefined}
-            color={canRedo ? "#333" : "#aaa"}
-          />
+        <ActionButton onClick={canRedo ? redoAst : undefined}>
+          <FaArrowRight color={canRedo ? "#333" : "#aaa"} />
         </ActionButton>
       </div>
-      <div>
-        <button
-          className="open-drawer-button"
+      <div className={styles.actionBarRightArea}>
+        <ActionButton
           onClick={() => {
             setIsRightDrawerOpen(!isRightDrawerOpen);
           }}
         >
-          {isRightDrawerOpen ? "關閉樹狀編輯器" : "開啟樹狀編輯器"}
-        </button>
+          {isRightDrawerOpen ? (
+            <FaAngleDoubleRight />
+          ) : (
+            <FaAngleDoubleLeft
+              onClick={() => {
+                setIsRightDrawerOpen(!isRightDrawerOpen);
+              }}
+            />
+          )}
+        </ActionButton>
       </div>
     </div>
   );

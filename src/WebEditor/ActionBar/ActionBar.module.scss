@@ -1,12 +1,31 @@
+@import '../../variables';
+
 .actionBar {
   width: 100%;
   height: 50px;
   background-color: #f3f3f3;
   display: flex;
   justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.actionButton {
+  border: 1px solid $text-color;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .actionBarLeftArea {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 5px;
+}
+
+.actionBarRightArea {
   display: flex;
   justify-content: space-around;
   align-items: center;
