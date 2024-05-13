@@ -1,4 +1,4 @@
-import "./index.css";
+import styles from "./AstTagTreePanel.module.scss";
 import { observer } from "mobx-react-lite";
 import clsx from "clsx";
 import { AstNodeModelType } from "../../../mobx/AstNodeModel";
@@ -13,7 +13,7 @@ const AstTagTree = observer(
     return (
       <div
         key={`ast-tree-panel-item-${node.uuid}`}
-        className="ast-tree-panel-item"
+        className={styles.astTreePanelItem}
         style={{ marginLeft }}
         onClick={(e) => {
           e.stopPropagation();
@@ -23,9 +23,9 @@ const AstTagTree = observer(
         {isPureTextNode ? (
           <span
             className={clsx([
-              "ast-tree-panel-item__content",
+              styles.astTreePanelItemContent,
               {
-                "ast-tree-panel-item__content--selected":
+                [styles.astTreePanelItemContentSelected]:
                   selectedAstNode?.uuid === node.uuid,
               },
             ])}
@@ -36,9 +36,9 @@ const AstTagTree = observer(
           <>
             <span
               className={clsx([
-                "ast-tree-panel-item__start-tag",
+                styles.astTreePanelItemStartTag,
                 {
-                  "ast-tree-panel-item__start-tag--selected":
+                  [styles.astTreePanelItemStartTagSelected]:
                     selectedAstNode?.uuid === node.uuid,
                 },
               ])}
@@ -56,9 +56,9 @@ const AstTagTree = observer(
 
             <span
               className={clsx([
-                "ast-tree-panel-item__end-tag",
+                styles.astTreePanelItemEndTag,
                 {
-                  "ast-tree-panel-item__end-tag--selected":
+                  [styles.astTreePanelItemEndTagSelected]:
                     selectedAstNode?.uuid === node.uuid,
                 },
               ])}
@@ -73,13 +73,9 @@ const AstTagTree = observer(
 const AstTagTreePanel = observer(() => {
   const { editor } = useStores();
   return (
-    <div className="ast-tree-panel">
-      <div className="ast-tree-panel__title">AstTagTreePanel</div>
-      {
-        editor.selectedAstNode && (
-          <AstTagTree node={editor.selectedAstNode} />
-        )
-      }
+    <div>
+      <div className={styles.astTreePanelTitle}>AstTagTreePanel</div>
+      {editor.selectedAstNode && <AstTagTree node={editor.selectedAstNode} />}
     </div>
   );
 });

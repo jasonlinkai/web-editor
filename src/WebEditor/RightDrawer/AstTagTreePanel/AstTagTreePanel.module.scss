@@ -1,0 +1,39 @@
+
+.astTreePanel {
+}
+
+.astTreePanelTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  color: white;
+}
+
+.astTreePanelItem {
+  display: flex;
+  flex-direction: column;
+}
+
+
+.astTreePanelItemStartTag {
+  color: #0022ff;
+}
+.astTreePanelItemStartTagSelected {
+  color: #00ffff;
+}
+
+.astTreePanelItemContent {
+  color: #0022ff;
+}
+.astTreePanelItemContentSelected {
+  color: #00ffff;
+}
+
+.astTreePanelItemEndTag {
+  color: #0022ff;
+}
+.astTreePanelItemEndTagSelected {
+  color: #00ffff;
+}
