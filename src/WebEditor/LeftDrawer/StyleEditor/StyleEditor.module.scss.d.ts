@@ -1,4 +1,6 @@
 export declare const styleEditor: string;
+export declare const styleEditorForm: string;
+export declare const styleEditorFormActionBar: string;
 export declare const styleEditorFormItem: string;
 export declare const styleEditorFormItemFieldCommon: string;
 export declare const styleEditorFormItemInput: string;

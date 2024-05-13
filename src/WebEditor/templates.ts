@@ -1,6 +1,55 @@
 import { ElementType } from "./types";
 import { EventNames } from "./event";
-
+export const templateDefault = {
+  uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
+  parent: undefined,
+  type: ElementType.div,
+  props: {
+    className: "",
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "white",
+      paddingTop: "1rem",
+      paddingRight: "1rem",
+      paddingBottom: "1rem",
+      paddingLeft: "1rem",
+    },
+  },
+  events: {},
+  children: [
+    {
+      uuid: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
+      parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
+      type: ElementType.h1,
+      props: {
+        className: "",
+        style: {
+          color: "black",
+        },
+      },
+      events: {},
+      children: [
+        {
+          uuid: "40dfd631-0a98-4c4e-9693-951278f68689",
+          parent: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
+          type: ElementType["pure-text"],
+          props: {
+            className: "",
+            style: {
+            },
+          },
+          events: {},
+          children: [],
+          content: "Default Template"
+        },
+      ],
+    },
+  ],
+};
 export const template1 = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
   parent: undefined,

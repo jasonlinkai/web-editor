@@ -18,6 +18,13 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.styleEditorForm {
+  height: 85vh;
+  overflow: scroll;
+}
+.styleEditorFormActionBar {
+  @extend .styleEditorFormItem;
+}
 .styleEditorFormItemLabel {
   color: $label;
 }

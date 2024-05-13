@@ -79,6 +79,21 @@ const renderConfigs = {
     props: {},
     Component: NormalInput,
   },
+  [StyleEnum.display]: {
+    styleKey: StyleEnum.display,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.justifyContent]: {
+    styleKey: StyleEnum.justifyContent,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.alignItems]: {
+    styleKey: StyleEnum.alignItems,
+    props: {},
+    Component: NormalInput,
+  },
   [StyleEnum.color]: {
     styleKey: StyleEnum.color,
     props: {},
@@ -122,6 +137,46 @@ const renderConfigs = {
     props: {},
     Component: NormalInput,
   },
+  [StyleEnum.paddingTop]: {
+    styleKey: StyleEnum.paddingTop,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.paddingRight]: {
+    styleKey: StyleEnum.paddingRight,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.paddingBottom]: {
+    styleKey: StyleEnum.paddingBottom,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.paddingLeft]: {
+    styleKey: StyleEnum.paddingLeft,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.marginTop]: {
+    styleKey: StyleEnum.marginTop,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.marginRight]: {
+    styleKey: StyleEnum.marginRight,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.marginBottom]: {
+    styleKey: StyleEnum.marginBottom,
+    props: {},
+    Component: NormalInput,
+  },
+  [StyleEnum.marginLeft]: {
+    styleKey: StyleEnum.marginLeft,
+    props: {},
+    Component: NormalInput,
+  },
 };
 
 const StyleEditor = observer(() => {
@@ -139,7 +194,12 @@ const StyleEditor = observer(() => {
       {!node ? (
         <div>select node first</div>
       ) : (
-        <>
+        <div className={styles.styleEditorForm}>
+          <div className={styles.styleEditorFormActionBar}>
+            <button disabled={!node.isChanged} onClick={saveAst}>
+              save
+            </button>
+          </div>
           <NormalText label={"uuid"} value={node.uuid} />
           <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
           {node.isPureTextNode ? (
@@ -168,10 +228,7 @@ const StyleEditor = observer(() => {
               })}
             </>
           )}
-          <button disabled={!node.isChanged} onClick={saveAst}>
-            save
-          </button>
-        </>
+        </div>
       )}
     </div>
   );

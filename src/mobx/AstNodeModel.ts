@@ -13,6 +13,9 @@ import { StyleEnum } from "../WebEditor/types";
 const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   width: t.maybe(t.string),
   height: t.maybe(t.string),
+  display: t.maybe(t.string),
+  justifyContent: t.maybe(t.string),
+  alignItems: t.maybe(t.string),
   color: t.maybe(t.string),
   backgroundColor: t.maybe(t.string),
   position: t.maybe(t.string),
@@ -20,6 +23,14 @@ const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   right: t.maybe(t.string),
   bottom: t.maybe(t.string),
   left: t.maybe(t.string),
+  paddingTop: t.maybe(t.string),
+  paddingRight: t.maybe(t.string),
+  paddingBottom: t.maybe(t.string),
+  paddingLeft: t.maybe(t.string),
+  marginTop: t.maybe(t.string),
+  marginRight: t.maybe(t.string),
+  marginBottom: t.maybe(t.string),
+  marginLeft: t.maybe(t.string),
 });
 
 export type AstNodeModelPropsStyleType = Instance<
