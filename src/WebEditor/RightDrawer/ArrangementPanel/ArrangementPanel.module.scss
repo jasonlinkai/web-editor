@@ -29,6 +29,14 @@
   margin-bottom: $gap2;
 }
 
+.arrangementPanelItemGroup {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: $gap3;
+}
+
 .arrangementPanelItemButtonGroup {
   display: flex;
   width: 100%;

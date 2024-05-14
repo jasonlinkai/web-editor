@@ -1,0 +1,22 @@
+@import "../../../variables";
+
+.actionButton {
+  border: 1px solid $text;
+  border-radius: $gap1;
+  padding: $gap1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.actionIcon {
+  color: $text;
+}
+
+.actionIconActive {
+  color: $active;
+}
+
+.actionButtonActive {
+  border-color: $active;
+}

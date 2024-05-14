@@ -15,21 +15,21 @@ const NormalText = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-const NormalSelect = ({
-  label,
-  value,
-  onChange,
+export const NormalSelect = ({
+  label = '',
+  value = '',
+  onChange = (v) => console.log(v),
 
   options = [],
 }: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
+  label?: string;
+  value?: string;
+  onChange?: (v: string) => void;
   options?: { label: string; value: string }[];
 }) => {
   return (
     <div className={styles.styleEditorFormItem}>
-      <label className={styles.styleEditorFormItemLabel}>{label}</label>
+      { label && <label className={styles.styleEditorFormItemLabel}>{label}</label> }
       <select
         className={styles.styleEditorFormItemSelect}
         value={value}
@@ -47,7 +47,7 @@ const NormalSelect = ({
   );
 };
 
-const NormalInput = ({
+export const NormalInput = ({
   label,
   value,
   onChange,

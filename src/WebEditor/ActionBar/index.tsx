@@ -7,16 +7,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
-
-const ActionButton: React.FC<
-  React.PropsWithChildren<React.HTMLAttributes<HTMLButtonElement>>
-> = ({ children, ...p }) => {
-  return (
-    <button {...p} className={styles.actionButton}>
-      {children}
-    </button>
-  );
-};
+import ActionButton from "../components/ActionButton";
 
 const ActionBar: React.FC = observer(() => {
   const { canUndo, canRedo, undoAst, redoAst, editor } = useStores();
