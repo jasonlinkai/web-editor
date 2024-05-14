@@ -1,46 +1,57 @@
 @import "../../../variables";
 
-.arrangementPanel {
+.panel {
+  width: 225px;
   border: 1px solid $panel-border;
-  border-top: 0px;
+  border-radius: 20px;
 }
 
-.arrangementPanelTitle {
+.panelTitle {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-top: $gap3;
-  padding-bottom: $gap3;
   color: $text;
-  border-bottom: 1px solid $panel-border;
+  font-size: 1.2rem;
+  font-weight: bolder;
 }
 
-.arrangementPanelArea {
+.panelArea {
   padding: $gap3;
 }
 
-.arrangementPanelItem {
+.panelItem {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.arrangementPanelItemLabel {
   margin-bottom: $gap2;
 }
 
-.arrangementPanelItemGroup {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: $gap3;
+.panelItemLabel {
+  margin-bottom: $gap2;
 }
 
-.arrangementPanelItemButtonGroup {
+.panelItemRowCenterArea {
   display: flex;
   width: 100%;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.panelItemColumnArea {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: space-between;
+  gap: $gap2;
+}
+
+.panelItemRowBetweenAera {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: $gap3;
 }

@@ -5,10 +5,22 @@
   flex: 0 0 0px;
   background-color: $panel-bg;
   border-left: 1px solid $panel-border;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap3;
+  overflow: scroll;
+  padding-top: $gap1;
+  padding-bottom: $gap1;
 }
 
 .rightDrawerOpen {
   display: block;
-  flex: 1 0 200px;
+  flex: 1 0 250px;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $gap1;
+  overflow: scroll;
 }

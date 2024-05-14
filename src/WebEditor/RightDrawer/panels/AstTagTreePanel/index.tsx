@@ -1,8 +1,8 @@
 import styles from "./AstTagTreePanel.module.scss";
 import { observer } from "mobx-react-lite";
 import clsx from "clsx";
-import { AstNodeModelType } from "../../../mobx/AstNodeModel";
-import { useStores } from "../../../mobx/useMobxStateTreeStores";
+import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
+import { useStores } from "../../../../mobx/useMobxStateTreeStores";
 
 const AstTagTree = observer(
   ({ node, level = 0 }: { node: AstNodeModelType; level?: number }) => {

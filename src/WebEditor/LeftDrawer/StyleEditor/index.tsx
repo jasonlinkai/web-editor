@@ -6,17 +6,9 @@ import { StyleEnum } from "../../types";
 import FormItem from "../../components/FormItem";
 import Select from "../../components/Select";
 import Input from "../../components/Input";
+import options from "../../components/Select/options";
 
 const styleKeys: StyleEnum[] = [...Object.values(StyleEnum)];
-
-const NormalText = ({ label, value }: { label: string; value: string }) => {
-  return (
-    <div className={styles.styleEditorFormItem}>
-      <label className={styles.styleEditorFormItemLabel}>{label}</label>
-      <span className={styles.styleEditorFormItemText}>{value}</span>
-    </div>
-  );
-};
 
 const renderConfigs = {
   [StyleEnum.width]: {
@@ -57,13 +49,7 @@ const renderConfigs = {
   [StyleEnum.position]: {
     styleKey: StyleEnum.position,
     props: {
-      options: [
-        { label: "static", value: "static" },
-        { label: "relative", value: "relative" },
-        { label: "absolute", value: "absolute" },
-        { label: "fixed", value: "fixed" },
-        { label: "sticky", value: "sticky" },
-      ],
+      options: options.position,
     },
     Component: Select,
   },
@@ -141,12 +127,6 @@ const StyleEditor = observer(() => {
         <div>select node first</div>
       ) : (
         <div className={styles.styleEditorForm}>
-          <FormItem>
-            <NormalText label={"uuid"} value={node.uuid} />
-          </FormItem>
-          <FormItem>
-            <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
-          </FormItem>
           {node.isPureTextNode ? (
             <FormItem>
               <Input

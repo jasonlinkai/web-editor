@@ -1,4 +1,4 @@
-import styles from "./ArrangementPanel.module.scss";
+import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
 import {
   LuAlignHorizontalJustifyStart,
@@ -11,26 +11,18 @@ import Select from "../../components/Select";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
 import ActionButton from "../../components/ActionButton";
+import options from "../../components/Select/options";
 
-const options = {
-  display: [
-    { label: "block", value: "block" },
-    { label: "flex", value: "flex" },
-    { label: "inline", value: "inline" },
-    { label: "none", value: "none" },
-  ],
-};
-
-const ArrangementPanel = observer(() => {
+const panel = observer(() => {
   const { editor } = useStores();
   const node = editor.selectedAstNode;
   return (
-    <div className={styles.arrangementPanel}>
-      <div className={styles.arrangementPanelTitle}>Arrangement</div>
-      <div className={styles.arrangementPanelArea}>
-        <div className={styles.arrangementPanelItem}>
-          <label className={styles.arrangementPanelItemLabel}>display</label>
-          <div className={styles.arrangementPanelItemGroup}>
+    <div className={styles.panel}>
+      <div className={styles.panelTitle}>Arrangement</div>
+      <div className={styles.panelArea}>
+        <div className={styles.panelItem}>
+          <label className={styles.panelItemLabel}>display</label>
+          <div className={styles.panelItemRowCenterArea}>
             <Select
               value={node?.props.style.display || ""}
               onChange={(e) =>
@@ -45,11 +37,11 @@ const ArrangementPanel = observer(() => {
         </div>
         {node?.props.style.display === "flex" && (
           <>
-            <div className={styles.arrangementPanelItem}>
-              <label className={styles.arrangementPanelItemLabel}>
+            <div className={styles.panelItem}>
+              <label className={styles.panelItemLabel}>
                 justify-content
               </label>
-              <div className={styles.arrangementPanelItemButtonGroup}>
+              <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
                   IconComponent={LuAlignHorizontalJustifyStart}
                   isActive={node.props.style.justifyContent === "start"}
@@ -102,11 +94,11 @@ const ArrangementPanel = observer(() => {
                 ></ActionButton>
               </div>
             </div>
-            <div className={styles.arrangementPanelItem}>
-              <label className={styles.arrangementPanelItemLabel}>
+            <div className={styles.panelItem}>
+              <label className={styles.panelItemLabel}>
                 align-items
               </label>
-              <div className={styles.arrangementPanelItemButtonGroup}>
+              <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
                   IconComponent={LuAlignHorizontalJustifyStart}
                   isActive={node.props.style.alignItems === "start"}
@@ -166,4 +158,4 @@ const ArrangementPanel = observer(() => {
   );
 });
 
-export default ArrangementPanel;
+export default panel;

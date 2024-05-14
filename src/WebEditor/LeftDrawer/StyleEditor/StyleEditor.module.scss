@@ -15,16 +15,3 @@
   height: 85vh;
   overflow: scroll;
 }
-.styleEditorFormItem {
-  margin-bottom: $gap3;
-}
-.styleEditorFormItemLabel {
-  color: $label;
-}
-.styleEditorFormItemText {
-  width: 100px;
-  height: 1.3rem;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
