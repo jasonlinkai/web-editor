@@ -1,3 +1,4 @@
+import panelStyles from "../Panel.module.scss";
 import styles from "./AstTagTreePanel.module.scss";
 import { observer } from "mobx-react-lite";
 import clsx from "clsx";
@@ -70,12 +71,20 @@ const AstTagTree = observer(
   }
 );
 
+export const astTagTreePanelHeight = 200;
+
 const AstTagTreePanel = observer(() => {
   const { editor } = useStores();
   return (
-    <div className={styles.astTreePanel}>
-      <div className={styles.astTreePanelTitle}>Tree</div>
-      <div className={styles.astTreePanelArea}>
+    <div className={panelStyles.panel}>
+      <div className={panelStyles.panelTitle}>Tree</div>
+      <div
+        className={styles.astTreePanelArea}
+        style={{
+          height: `${astTagTreePanelHeight}px`,
+          minHeight: `${astTagTreePanelHeight}px`,
+        }}
+      >
         {editor.selectedAstNode && <AstTagTree node={editor.selectedAstNode} />}
       </div>
     </div>

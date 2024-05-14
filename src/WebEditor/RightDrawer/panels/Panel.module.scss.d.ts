@@ -1,5 +1,8 @@
 export declare const panel: string;
 export declare const panelArea: string;
+export declare const panelAreaClose: string;
+export declare const panelHeader: string;
+export declare const panelHeaderToggleButton: string;
 export declare const panelItem: string;
 export declare const panelItemColumnArea: string;
 export declare const panelItemLabel: string;

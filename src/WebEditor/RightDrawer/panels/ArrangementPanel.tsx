@@ -12,16 +12,36 @@ import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
 import ActionButton from "../../components/ActionButton";
 import options from "../../components/Select/options";
+import { useState } from "react";
+import clsx from "clsx";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
-const panel = observer(() => {
+const ArrangementPanel = observer(() => {
   const { editor } = useStores();
+  const [isOpen, setIsOpen] = useState(false);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>
-      <div className={styles.panelTitle}>Arrangement</div>
-      <div className={styles.panelArea}>
+      <div className={styles.panelHeader}>
+        <div className={styles.panelTitle}>Arrangement</div>
+        <ActionButton
+          className={styles.panelHeaderToggleButton}
+          IconComponent={isOpen ? FaArrowUp : FaArrowDown}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        ></ActionButton>
+      </div>
+      <div
+        className={clsx([
+          styles.panelArea,
+          {
+            [styles.panelAreaClose]: !isOpen,
+          },
+        ])}
+      >
         <div className={styles.panelItem}>
-          <label className={styles.panelItemLabel}>display</label>
+          <label className={styles.panelItemLabel}>Display</label>
           <div className={styles.panelItemRowCenterArea}>
             <Select
               value={node?.props.style.display || ""}
@@ -39,7 +59,7 @@ const panel = observer(() => {
           <>
             <div className={styles.panelItem}>
               <label className={styles.panelItemLabel}>
-                justify-content
+                JustifyContent
               </label>
               <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
@@ -96,7 +116,7 @@ const panel = observer(() => {
             </div>
             <div className={styles.panelItem}>
               <label className={styles.panelItemLabel}>
-                align-items
+                AlignItems
               </label>
               <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
@@ -158,4 +178,4 @@ const panel = observer(() => {
   );
 });
 
-export default panel;
+export default ArrangementPanel;

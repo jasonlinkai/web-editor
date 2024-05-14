@@ -1,32 +1,13 @@
 @import "../../../../variables";
 
-.astTreePanel {
-  border: 1px solid $panel-border;
-  border-top: 0px;
-}
-
-.astTreePanelTitle {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-top: $gap2;
-  padding-bottom: $gap2;
-  color: $text;
-  border-bottom: 1px solid $panel-border;
-}
-
 .astTreePanelArea {
   padding: $gap2;
-  min-height: 200px;
-  height: 200px;
   overflow: scroll;
 }
-
 .astTreePanelItem {
   display: flex;
   flex-direction: column;
 }
-
 
 .astTreePanelItemStartTag {
   color: $text;

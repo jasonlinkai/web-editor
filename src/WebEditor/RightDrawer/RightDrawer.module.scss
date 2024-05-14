@@ -3,24 +3,32 @@
 .rightDrawer {
   display: none;
   flex: 0 0 0px;
-  background-color: $panel-bg;
-  border-left: 1px solid $panel-border;
-  display: flex;
   flex-direction: column;
   align-items: center;
-  gap: $gap3;
+  background-color: $panel-bg;
+  border-left: 1px solid $panel-border;
+}
+
+.rightDrawerOpen {
+  flex: 1 0 250px;
+  display: flex;
+}
+
+.rightDrawerPanelArea {
   overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: $gap3;
   padding-top: $gap1;
   padding-bottom: $gap1;
 }
 
-.rightDrawerOpen {
-  display: block;
-  flex: 1 0 250px;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: $gap1;
-  overflow: scroll;
+.gap {
+  border-top: 1px solid $panel-border;
+  width: 100%;
+  height: 1px;
+}
+
+.rightDrawerTreeArea {
+  padding-top: $gap3;
 }

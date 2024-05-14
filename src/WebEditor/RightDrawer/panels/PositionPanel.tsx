@@ -5,14 +5,35 @@ import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
 import options from "../../components/Select/options";
 import Input from "../../components/Input";
+import { useState } from "react";
+import clsx from "clsx";
+import ActionButton from "../../components/ActionButton";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const PositionPanel = observer(() => {
   const { editor } = useStores();
+  const [isOpen, setIsOpen] = useState(false);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>
-      <div className={styles.panelTitle}>Position</div>
-      <div className={styles.panelArea}>
+      <div className={styles.panelHeader}>
+        <div className={styles.panelTitle}>Position</div>
+        <ActionButton
+          className={styles.panelHeaderToggleButton}
+          IconComponent={isOpen ? FaArrowUp : FaArrowDown}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        ></ActionButton>
+      </div>
+      <div
+        className={clsx([
+          styles.panelArea,
+          {
+            [styles.panelAreaClose]: !isOpen,
+          },
+        ])}
+      >
         <div className={styles.panelItem}>
           <div className={styles.panelItemRowCenterArea}>
             <Select

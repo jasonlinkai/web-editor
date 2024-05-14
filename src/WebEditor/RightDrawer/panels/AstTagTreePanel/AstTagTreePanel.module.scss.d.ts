@@ -1,4 +1,3 @@
-export declare const astTreePanel: string;
 export declare const astTreePanelArea: string;
 export declare const astTreePanelItem: string;
 export declare const astTreePanelItemContent: string;
@@ -7,4 +6,3 @@ export declare const astTreePanelItemEndTag: string;
 export declare const astTreePanelItemEndTagSelected: string;
 export declare const astTreePanelItemStartTag: string;
 export declare const astTreePanelItemStartTagSelected: string;
-export declare const astTreePanelTitle: string;

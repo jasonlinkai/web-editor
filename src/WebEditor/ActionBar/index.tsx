@@ -9,6 +9,8 @@ import {
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import ActionButton from "../components/ActionButton";
 
+export const actionBarHeight = 50;
+
 const ActionBar: React.FC = observer(() => {
   const { canUndo, canRedo, undoAst, redoAst, editor } = useStores();
   const {
@@ -19,7 +21,7 @@ const ActionBar: React.FC = observer(() => {
   } = editor;
 
   return (
-    <div className={styles.actionBar}>
+    <div className={styles.actionBar} style={{ height: `${actionBarHeight}px` }}>
       <div className={styles.actionBarLeftArea}>
         <ActionButton
           onClick={() => {

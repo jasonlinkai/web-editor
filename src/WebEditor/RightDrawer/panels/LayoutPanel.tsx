@@ -3,16 +3,37 @@ import { observer } from "mobx-react-lite";
 import Input from "../../components/Input";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
+import { useState } from "react";
+import clsx from "clsx";
+import ActionButton from "../../components/ActionButton";
+import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const LayoutPanel = observer(() => {
   const { editor } = useStores();
+  const [isOpen, setIsOpen] = useState(false);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>
-      <div className={styles.panelTitle}>Layout</div>
-      <div className={styles.panelArea}>
+      <div className={styles.panelHeader}>
+        <div className={styles.panelTitle}>Layout</div>
+        <ActionButton
+          className={styles.panelHeaderToggleButton}
+          IconComponent={isOpen ? FaArrowUp : FaArrowDown}
+          onClick={() => {
+            setIsOpen(!isOpen);
+          }}
+        ></ActionButton>
+      </div>
+      <div
+        className={clsx([
+          styles.panelArea,
+          {
+            [styles.panelAreaClose]: !isOpen,
+          },
+        ])}
+      >
         <div className={styles.panelItem}>
-          <label className={styles.panelItemLabel}>padding</label>
+          <label className={styles.panelItemLabel}>Padding</label>
           <div className={styles.panelItemColumnArea}>
             <Input
               label="top:"
@@ -57,7 +78,7 @@ const LayoutPanel = observer(() => {
           </div>
         </div>
         <div className={styles.panelItem}>
-          <label className={styles.panelItemLabel}>margin</label>
+          <label className={styles.panelItemLabel}>Margin</label>
           <div className={styles.panelItemColumnArea}>
             <Input
               label="top:"
