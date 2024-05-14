@@ -1,0 +1,38 @@
+@import "../../../variables";
+
+.arrangementPanel {
+  border: 1px solid $panel-border;
+  border-top: 0px;
+}
+
+.arrangementPanelTitle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: $gap3;
+  padding-bottom: $gap3;
+  color: $text;
+  border-bottom: 1px solid $panel-border;
+}
+
+.arrangementPanelArea {
+  padding: $gap3;
+}
+
+.arrangementPanelItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrangementPanelItemLabel {
+  margin-bottom: $gap2;
+}
+
+.arrangementPanelItemButtonGroup {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $gap3;
+}

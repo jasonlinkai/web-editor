@@ -8,7 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 25px;
+  margin-bottom: $gap5;
   color: $text;
 }
 .styleEditorFormItem {
@@ -16,7 +16,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: $gap4;
 }
 .styleEditorForm {
   height: 85vh;

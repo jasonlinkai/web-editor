@@ -1,15 +1,22 @@
 @import "../../../variables";
 
 .astTreePanel {
-  padding: 15px;
+  border: 1px solid $panel-border;
+  border-top: 0px;
 }
 
 .astTreePanelTitle {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 5px;
+  padding-top: $gap2;
+  padding-bottom: $gap2;
   color: $text;
+  border-bottom: 1px solid $panel-border;
+}
+
+.astTreePanelArea {
+  padding: $gap2;
 }
 
 .astTreePanelItem {

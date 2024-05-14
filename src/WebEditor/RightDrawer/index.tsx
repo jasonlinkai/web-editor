@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import AstTagTreePanel from "./AstTagTreePanel";
+import ArrangementPanel from "./ArrangementPanel";
 
 const RightDrawer: React.FC = observer(() => {
   const { editor } = useStores();
@@ -17,6 +18,7 @@ const RightDrawer: React.FC = observer(() => {
       ])}
     >
       <AstTagTreePanel />
+      <ArrangementPanel />  
     </div>
   );
 });
