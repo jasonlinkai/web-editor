@@ -15,36 +15,45 @@ const renderConfigs = {
     styleKey: StyleEnum.width,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.height]: {
     styleKey: StyleEnum.height,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.display]: {
     styleKey: StyleEnum.display,
-    props: {},
-    Component: Input,
+    props: {
+      options: options.display,
+    },
+    Component: Select,
+    isPanelReady: true,
   },
   [StyleEnum.justifyContent]: {
     styleKey: StyleEnum.justifyContent,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.alignItems]: {
     styleKey: StyleEnum.alignItems,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.color]: {
     styleKey: StyleEnum.color,
     props: {},
     Component: Input,
+    isPanelReady: false,
   },
   [StyleEnum.backgroundColor]: {
     styleKey: StyleEnum.backgroundColor,
     props: {},
     Component: Input,
+    isPanelReady: false,
   },
   [StyleEnum.position]: {
     styleKey: StyleEnum.position,
@@ -52,66 +61,79 @@ const renderConfigs = {
       options: options.position,
     },
     Component: Select,
+    isPanelReady: true,
   },
   [StyleEnum.top]: {
     styleKey: StyleEnum.top,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.right]: {
     styleKey: StyleEnum.right,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.bottom]: {
     styleKey: StyleEnum.bottom,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.left]: {
     styleKey: StyleEnum.left,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.paddingTop]: {
     styleKey: StyleEnum.paddingTop,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.paddingRight]: {
     styleKey: StyleEnum.paddingRight,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.paddingBottom]: {
     styleKey: StyleEnum.paddingBottom,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.paddingLeft]: {
     styleKey: StyleEnum.paddingLeft,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.marginTop]: {
     styleKey: StyleEnum.marginTop,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.marginRight]: {
     styleKey: StyleEnum.marginRight,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.marginBottom]: {
     styleKey: StyleEnum.marginBottom,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.marginLeft]: {
     styleKey: StyleEnum.marginLeft,
     props: {},
     Component: Input,
+    isPanelReady: true,
   },
 };
 
@@ -122,7 +144,7 @@ const StyleEditor = observer(() => {
 
   return (
     <div className={styles.styleEditor}>
-      <div className={styles.styleEditorTitle}>Layout</div>
+      <div className={styles.styleEditorTitle}>Common</div>
       {!node ? (
         <div>select node first</div>
       ) : (
@@ -140,7 +162,10 @@ const StyleEditor = observer(() => {
           ) : (
             <>
               {styleKeys.map((styleKey) => {
-                const { Component, props } = renderConfigs[styleKey];
+                const config = renderConfigs[styleKey];
+                if (!config) return null;
+                const { Component, props, isPanelReady } = config;
+                if (isPanelReady) return null;
                 return (
                   <FormItem>
                     <Component
