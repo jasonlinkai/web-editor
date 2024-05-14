@@ -3,4 +3,5 @@ export declare const rightDrawer: string;
 export declare const rightDrawerOpen: string;
 export declare const rightDrawerPanelArea: string;
 export declare const rightDrawerPanelAreaNoSelectedNode: string;
+export declare const rightDrawerTabsArea: string;
 export declare const rightDrawerTreeArea: string;

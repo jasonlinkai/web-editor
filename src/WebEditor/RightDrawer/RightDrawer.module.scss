@@ -14,6 +14,15 @@
   display: flex;
 }
 
+.rightDrawerTabsArea {
+  width: 100%;
+  display: flex;
+  padding: $gap2;
+  gap: $gap2;
+  overflow-y: scroll;
+  height: 50px;
+} 
+
 .rightDrawerPanelArea {
   overflow: scroll;
   display: flex;

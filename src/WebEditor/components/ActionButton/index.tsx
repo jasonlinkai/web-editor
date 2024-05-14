@@ -28,6 +28,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
     >
       {IconComponent && (
         <IconComponent
+          width={100}
           className={clsx([
             styles.actionIcon,
             {
