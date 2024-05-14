@@ -75,11 +75,9 @@ const AstTagTreePanel = observer(() => {
   return (
     <div className={styles.astTreePanel}>
       <div className={styles.astTreePanelTitle}>Tree</div>
-      {editor.selectedAstNode && (
-        <div className={styles.astTreePanelArea}>
-          <AstTagTree node={editor.selectedAstNode} />
-        </div>
-      )}
+      <div className={styles.astTreePanelArea}>
+        {editor.selectedAstNode && <AstTagTree node={editor.selectedAstNode} />}
+      </div>
     </div>
   );
 });

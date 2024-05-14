@@ -17,6 +17,9 @@
 
 .astTreePanelArea {
   padding: $gap2;
+  min-height: 200px;
+  height: 200px;
+  overflow: scroll;
 }
 
 .astTreePanelItem {
