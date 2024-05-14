@@ -11,7 +11,7 @@ import { astTagTreePanelHeight } from "./panels/AstTagTreePanel";
 
 const RightDrawer: React.FC = observer(() => {
   const { editor } = useStores();
-
+  const node = editor.selectedAstNode;
   return (
     <div
       className={clsx([
@@ -21,13 +21,27 @@ const RightDrawer: React.FC = observer(() => {
         },
       ])}
     >
-      <div className={styles.rightDrawerPanelArea} style={{ height: window.innerHeight - actionBarHeight - astTagTreePanelHeight }}>
-        <PositionPanel />
-        <LayoutPanel />
-        <ArrangementPanel />
+      <div
+        className={styles.rightDrawerPanelArea}
+        style={{
+          height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
+        }}
+      >
+        {node ? (
+          <>
+            <PositionPanel />
+            <LayoutPanel />
+            <ArrangementPanel />
+          </>
+        ) : (
+          <div className={styles.rightDrawerPanelAreaNoSelectedNode}>select node first</div>
+        )}
       </div>
       <div className={styles.gap} />
-      <div className={styles.rightDrawerTreeArea} style={{ height: astTagTreePanelHeight + 115 }}>
+      <div
+        className={styles.rightDrawerTreeArea}
+        style={{ height: astTagTreePanelHeight + 115 }}
+      >
         <AstTagTreePanel />
       </div>
     </div>
