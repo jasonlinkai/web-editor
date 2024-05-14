@@ -3,6 +3,9 @@ import { observer } from "mobx-react-lite";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { AstNodeModelType } from "../../../mobx/AstNodeModel";
 import { StyleEnum } from "../../types";
+import FormItem from "../../components/FormItem";
+import Select from "../../components/Select";
+import Input from "../../components/Input";
 
 const styleKeys: StyleEnum[] = [...Object.values(StyleEnum)];
 
@@ -15,94 +18,41 @@ const NormalText = ({ label, value }: { label: string; value: string }) => {
   );
 };
 
-export const NormalSelect = ({
-  label = '',
-  value = '',
-  onChange = (v) => console.log(v),
-
-  options = [],
-}: {
-  label?: string;
-  value?: string;
-  onChange?: (v: string) => void;
-  options?: { label: string; value: string }[];
-}) => {
-  return (
-    <div className={styles.styleEditorFormItem}>
-      { label && <label className={styles.styleEditorFormItemLabel}>{label}</label> }
-      <select
-        className={styles.styleEditorFormItemSelect}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {options.map((option) => {
-          return (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          );
-        })}
-      </select>
-    </div>
-  );
-};
-
-export const NormalInput = ({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-}) => {
-  return (
-    <div className={styles.styleEditorFormItem}>
-      <label className={styles.styleEditorFormItemLabel}>{label}</label>
-      <input
-        className={styles.styleEditorFormItemInput}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      />
-    </div>
-  );
-};
-
 const renderConfigs = {
   [StyleEnum.width]: {
     styleKey: StyleEnum.width,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.height]: {
     styleKey: StyleEnum.height,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.display]: {
     styleKey: StyleEnum.display,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.justifyContent]: {
     styleKey: StyleEnum.justifyContent,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.alignItems]: {
     styleKey: StyleEnum.alignItems,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.color]: {
     styleKey: StyleEnum.color,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.backgroundColor]: {
     styleKey: StyleEnum.backgroundColor,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.position]: {
     styleKey: StyleEnum.position,
@@ -115,67 +65,67 @@ const renderConfigs = {
         { label: "sticky", value: "sticky" },
       ],
     },
-    Component: NormalSelect,
+    Component: Select,
   },
   [StyleEnum.top]: {
     styleKey: StyleEnum.top,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.right]: {
     styleKey: StyleEnum.right,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.bottom]: {
     styleKey: StyleEnum.bottom,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.left]: {
     styleKey: StyleEnum.left,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.paddingTop]: {
     styleKey: StyleEnum.paddingTop,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.paddingRight]: {
     styleKey: StyleEnum.paddingRight,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.paddingBottom]: {
     styleKey: StyleEnum.paddingBottom,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.paddingLeft]: {
     styleKey: StyleEnum.paddingLeft,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.marginTop]: {
     styleKey: StyleEnum.marginTop,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.marginRight]: {
     styleKey: StyleEnum.marginRight,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.marginBottom]: {
     styleKey: StyleEnum.marginBottom,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
   [StyleEnum.marginLeft]: {
     styleKey: StyleEnum.marginLeft,
     props: {},
-    Component: NormalInput,
+    Component: Input,
   },
 };
 
@@ -191,30 +141,38 @@ const StyleEditor = observer(() => {
         <div>select node first</div>
       ) : (
         <div className={styles.styleEditorForm}>
-          <NormalText label={"uuid"} value={node.uuid} />
-          <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
+          <FormItem>
+            <NormalText label={"uuid"} value={node.uuid} />
+          </FormItem>
+          <FormItem>
+            <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
+          </FormItem>
           {node.isPureTextNode ? (
-            <NormalInput
-              label="content"
-              value={node.content || ""}
-              onChange={(v) => {
-                node.setContent(v);
-              }}
-            ></NormalInput>
+            <FormItem>
+              <Input
+                label="content"
+                value={node.content || ""}
+                onChange={(v) => {
+                  node.setContent(v);
+                }}
+              ></Input>
+            </FormItem>
           ) : (
             <>
               {styleKeys.map((styleKey) => {
                 const { Component, props } = renderConfigs[styleKey];
                 return (
-                  <Component
-                    key={styleKey}
-                    label={styleKey}
-                    value={`${node.props.style[styleKey] || ""}`}
-                    onChange={(v) => {
-                      node.updateStyle({ styleKey, styleValue: v });
-                    }}
-                    {...props}
-                  />
+                  <FormItem>
+                    <Component
+                      key={styleKey}
+                      label={styleKey}
+                      value={`${node.props.style[styleKey] || ""}`}
+                      onChange={(v) => {
+                        node.updateStyle({ styleKey, styleValue: v });
+                      }}
+                      {...props}
+                    />
+                  </FormItem>
                 );
               })}
             </>

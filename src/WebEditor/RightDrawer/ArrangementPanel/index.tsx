@@ -7,7 +7,7 @@ import {
   LuAlignHorizontalSpaceBetween,
   LuAlignHorizontalSpaceAround,
 } from "react-icons/lu";
-import { NormalSelect } from "../../LeftDrawer/StyleEditor";
+import Select from "../../components/Select";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
 import ActionButton from "../../components/ActionButton";
@@ -31,7 +31,7 @@ const ArrangementPanel = observer(() => {
         <div className={styles.arrangementPanelItem}>
           <label className={styles.arrangementPanelItemLabel}>display</label>
           <div className={styles.arrangementPanelItemGroup}>
-            <NormalSelect
+            <Select
               value={node?.props.style.display || ""}
               onChange={(e) =>
                 node?.updateStyle({

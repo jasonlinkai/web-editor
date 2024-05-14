@@ -11,36 +11,20 @@
   margin-bottom: $gap5;
   color: $text;
 }
-.styleEditorFormItem {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: $gap4;
-}
 .styleEditorForm {
   height: 85vh;
   overflow: scroll;
 }
-.styleEditorFormActionBar {
-  @extend .styleEditorFormItem;
+.styleEditorFormItem {
+  margin-bottom: $gap3;
 }
 .styleEditorFormItemLabel {
   color: $label;
 }
-.styleEditorFormItemFieldCommon {
+.styleEditorFormItemText {
   width: 100px;
   height: 1.3rem;
-}
-.styleEditorFormItemText {
-  @extend .styleEditorFormItemFieldCommon;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.styleEditorFormItemSelect {
-  @extend .styleEditorFormItemFieldCommon;
-}
-.styleEditorFormItemInput {
-  @extend .styleEditorFormItemFieldCommon;
 }
