@@ -28,27 +28,27 @@ export const EditorModel = t
       if (node) {
         if (!self.selectedAstNode) {
           self.selectedAstNode = node;
-          node.setEditingStyle(node.props.style);
+          node.setStyle(node.props.style);
           if (node.isPureTextNode) {
-            node.setEditingContent(node.content || "");
+            node.setContent(node.content || "");
           }
         } else {
           if (node.uuid !== self.selectedAstNode.uuid) {
-            self.selectedAstNode.setEditingStyle({});
+            self.selectedAstNode.setStyle({});
             if (node.isPureTextNode) {
-              node.setEditingContent(node.content || "");
+              node.setContent(node.content || "");
             }
             self.selectedAstNode = node;
-            node.setEditingStyle(getSnapshot(node.props.style));
+            node.setStyle(getSnapshot(node.props.style));
           }
         }
       } else {
         if (!self.selectedAstNode) {
           self.selectedAstNode = undefined;
         } else {
-          self.selectedAstNode.setEditingStyle({});
+          self.selectedAstNode.setStyle({});
           if (self.selectedAstNode.isPureTextNode) {
-            self.selectedAstNode.setEditingContent(
+            self.selectedAstNode.setContent(
               self.selectedAstNode.content || ""
             );
           }

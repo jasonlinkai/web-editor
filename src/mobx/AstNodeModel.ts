@@ -64,18 +64,14 @@ export const AstNodeModel = t
       t.array(t.late((): IAnyModelType => AstNodeModel)),
       []
     ),
-    content: t.optional(t.string, ''),
+    content: t.optional(t.string, ""),
   })
   .volatile<{
     isSelected: boolean;
     isDragOvered: boolean;
-    editingStyle: Partial<SnapshotOut<AstNodeModelPropsStyleType>>;
-    editingContent: string;
   }>(() => ({
     isSelected: false,
     isDragOvered: false,
-    editingStyle: {},
-    editingContent: "",
   }))
   .views((self) => ({
     get isRootNode() {
@@ -84,23 +80,10 @@ export const AstNodeModel = t
     get isPureTextNode() {
       return self.type === ElementType["pure-text"];
     },
-    get isChanged() {
-      if (self.content !== self.editingContent) {
-        console.log('content...');
-        return true;
-      }
-      if (
-        JSON.stringify(self.props.style) !== JSON.stringify(self.editingStyle)
-      ) {
-        console.log('style...');
-        return true;
-      }
-      return false;
-    },
   }))
   .actions((self) => ({
-    setEditingContent(content: string) {
-      self.editingContent = content;
+    setContent(content: string) {
+      self.content = content;
     },
     setParent(uuid: string) {
       self.parent = uuid;
@@ -111,28 +94,23 @@ export const AstNodeModel = t
     setIsDragOvered(v: boolean) {
       self.isDragOvered = v;
     },
-    save() {
-      if (self.isChanged) {
-        self.props.style = AstNodeModelPropsStyle.create(self.editingStyle);
-        if (self.isPureTextNode) {
-          self.content = self.editingContent;
-        }
-      }
-    },
-    setEditingStyle(
-      editingStyle: Partial<SnapshotOut<AstNodeModelPropsStyleType>>
+    setStyle(
+      style: Partial<SnapshotOut<AstNodeModelPropsStyleType>>
     ) {
-      self.editingStyle = editingStyle;
+      self.props.style = {
+        ...self.props.style,
+        ...style,
+      };
     },
-    updateEditingStyle({
+    updateStyle({
       styleKey,
       styleValue,
     }: {
       styleKey: StyleEnum;
       styleValue: string;
     }) {
-      self.editingStyle = {
-        ...self.editingStyle,
+      self.props.style = {
+        ...self.props.style,
         [styleKey]: styleValue,
       };
     },

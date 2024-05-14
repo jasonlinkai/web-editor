@@ -31,13 +31,13 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   // Base case: If the node is a text node, render it as is
   if (isPureTextNode) {
     return (
-      <Fragment>{isSelectedNode ? ast.editingContent : ast.content}</Fragment>
+      <Fragment>{ast.content}</Fragment>
     );
   }
 
   const node: AstNodeModelType = ast;
   // Otherwise, it's an element node
-  const { type, props, editingStyle, children } = node;
+  const { type, props, children } = node;
 
   // register event for web-editor
   const editorEventListeners: {
@@ -75,7 +75,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
       ...editorEventListeners,
       draggable,
       style: {
-        ...{ ...props.style, ...editingStyle },
+        ...props.style,
       },
       className: clsx([
         props.className,

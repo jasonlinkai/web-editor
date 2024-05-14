@@ -1,6 +1,5 @@
 import styles from "./ArrangementPanel.module.scss";
 import { observer } from "mobx-react-lite";
-import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import {
   LuAlignHorizontalJustifyStart,
   LuAlignHorizontalJustifyCenter,
@@ -10,7 +9,6 @@ import {
 } from "react-icons/lu";
 
 const ArrangementPanel = observer(() => {
-  const { editor } = useStores();
   return (
     <div className={styles.arrangementPanel}>
       <div className={styles.arrangementPanelTitle}>Arrangement</div>

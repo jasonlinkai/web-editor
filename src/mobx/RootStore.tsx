@@ -51,8 +51,6 @@ export const RootStore = t
         const prev = self.astSnapshotsIndex - 1;
         self.astSnapshotsIndex = prev;
         const prevAstSnapshot = self.astSnapshots[prev];
-        self.editor.setSelectedAstNode(undefined);
-        self.editor.setDragingAstNode(undefined);
         self.canSaveSnapshot = false;
         applySnapshot(self.ast, prevAstSnapshot);
       }
@@ -63,8 +61,6 @@ export const RootStore = t
         const next = self.astSnapshotsIndex + 1;
         self.astSnapshotsIndex = next;
         const nextAstSnapshot = self.astSnapshots[next];
-        self.editor.setSelectedAstNode(undefined);
-        self.editor.setDragingAstNode(undefined);
         self.canSaveSnapshot = false;
         applySnapshot(self.ast, nextAstSnapshot);
       }

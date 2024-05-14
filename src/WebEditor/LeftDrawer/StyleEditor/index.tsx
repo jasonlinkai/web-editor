@@ -184,10 +184,6 @@ const StyleEditor = observer(() => {
   const { selectedAstNode } = editor;
   const node = selectedAstNode as AstNodeModelType;
 
-  const saveAst = () => {
-    node.save();
-  };
-
   return (
     <div className={styles.styleEditor}>
       <div className={styles.styleEditorTitle}>Layout</div>
@@ -195,19 +191,14 @@ const StyleEditor = observer(() => {
         <div>select node first</div>
       ) : (
         <div className={styles.styleEditorForm}>
-          <div className={styles.styleEditorFormActionBar}>
-            <button disabled={!node.isChanged} onClick={saveAst}>
-              save
-            </button>
-          </div>
           <NormalText label={"uuid"} value={node.uuid} />
           <NormalText label={"parent"} value={node?.parent?.uuid || ""} />
           {node.isPureTextNode ? (
             <NormalInput
               label="content"
-              value={node.editingContent || ""}
+              value={node.content || ""}
               onChange={(v) => {
-                node.setEditingContent(v);
+                node.setContent(v);
               }}
             ></NormalInput>
           ) : (
@@ -218,9 +209,9 @@ const StyleEditor = observer(() => {
                   <Component
                     key={styleKey}
                     label={styleKey}
-                    value={`${node.editingStyle[styleKey] || ""}`}
+                    value={`${node.props.style[styleKey] || ""}`}
                     onChange={(v) => {
-                      node.updateEditingStyle({ styleKey, styleValue: v });
+                      node.updateStyle({ styleKey, styleValue: v });
                     }}
                     {...props}
                   />
