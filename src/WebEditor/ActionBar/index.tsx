@@ -36,7 +36,6 @@ const ActionBar: React.FC = observer(() => {
 
   const onShortCurUndo = useCallback(
     (e: KeyboardEvent) => {
-      e.preventDefault();
       if (e.ctrlKey && e.key === "z") {
         undoAst();
       }
@@ -46,7 +45,6 @@ const ActionBar: React.FC = observer(() => {
 
   const onShortCurRedo = useCallback(
     (e: KeyboardEvent) => {
-      e.preventDefault();
       if (e.ctrlKey && e.key === "r") {
         redoAst();
       }
