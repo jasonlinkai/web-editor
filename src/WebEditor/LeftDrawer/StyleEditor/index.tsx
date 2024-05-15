@@ -155,9 +155,8 @@ const StyleEditor = observer(() => {
             const { Component, props, isPanelReady } = config;
             if (isPanelReady) return null;
             return (
-              <FormItem>
+              <FormItem key={styleKey}>
                 <Component
-                  key={styleKey}
                   label={styleKey}
                   value={`${node.props.style[styleKey] || ""}`}
                   onChange={(v) => {

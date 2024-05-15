@@ -47,6 +47,7 @@ const RightDrawer: React.FC = observer(() => {
           const { IconComponent, type } = tab;
           return (
             <ActionButton
+              key={type}
               IconComponent={IconComponent}
               isActive={type === tabType}
               onClick={() => {
@@ -62,26 +63,23 @@ const RightDrawer: React.FC = observer(() => {
           height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
         }}
       >
-        {node ? (
+        {tabType === TabTypes.ADD_CHILDREN && (
           <>
-            {tabType === TabTypes.ADD_CHILDREN && (
-              <>
-                <NewNodePanel />
-              </>
-            )}
-            {tabType === TabTypes.EDIT_STYLE && (
-              <>
-                <PositionPanel />
-                <LayoutPanel />
-                <ArrangementPanel />
-              </>
-            )}
+            <NewNodePanel />
           </>
-        ) : (
-          <div className={styles.rightDrawerPanelAreaNoSelectedNode}>
-            select node first
-          </div>
         )}
+        {tabType === TabTypes.EDIT_STYLE &&
+          (node ? (
+            <>
+              <PositionPanel />
+              <LayoutPanel />
+              <ArrangementPanel />
+            </>
+          ) : (
+            <div className={styles.rightDrawerPanelAreaNoSelectedNode}>
+              select node first
+            </div>
+          ))}
       </div>
       <div className={styles.gap} />
       <div

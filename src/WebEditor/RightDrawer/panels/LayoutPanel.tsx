@@ -33,6 +33,30 @@ const LayoutPanel = observer(() => {
         ])}
       >
         <div className={styles.panelItem}>
+          <div className={styles.panelItemColumnArea}>
+            <Input
+              label="width:"
+              value={node?.props.style.width || ""}
+              onChange={(e) =>
+                node?.updateStyle({
+                  styleKey: StyleEnum.width,
+                  styleValue: e,
+                })
+              }
+            />
+            <Input
+              label="height:"
+              value={node?.props.style.height || ""}
+              onChange={(e) =>
+                node?.updateStyle({
+                  styleKey: StyleEnum.height,
+                  styleValue: e,
+                })
+              }
+            />
+          </div>
+        </div>
+        <div className={styles.panelItem}>
           <label className={styles.panelItemLabel}>Padding</label>
           <div className={styles.panelItemColumnArea}>
             <Input

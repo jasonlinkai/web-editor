@@ -9,10 +9,7 @@ import { LuContainer } from "react-icons/lu";
 import { GoTypography } from "react-icons/go";
 
 const NewNodePanel = observer(() => {
-  const { editor } = useStores();
   const [isOpen, setIsOpen] = useState(false);
-  const node = editor.selectedAstNode;
-  if (!node) return null;
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
