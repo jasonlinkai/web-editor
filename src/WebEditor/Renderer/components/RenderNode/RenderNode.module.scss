@@ -5,10 +5,10 @@
 }
 .selectedNode {
   cursor: grab;
-  background: linear-gradient(90deg, red 50%, transparent 0) repeat-x,
-    linear-gradient(90deg, red 50%, transparent 0) repeat-x,
-    linear-gradient(0deg, red 50%, transparent 0) repeat-y,
-    linear-gradient(0deg, red 50%, transparent 0) repeat-y;
+  background: linear-gradient(90deg, $selected 50%, transparent 0) repeat-x,
+    linear-gradient(90deg, $selected 50%, transparent 0) repeat-x,
+    linear-gradient(0deg, $selected 50%, transparent 0) repeat-y,
+    linear-gradient(0deg, $selected 50%, transparent 0) repeat-y;
   background-size: 4px 2px, 4px 2px, 2px 4px, 2px 4px;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   animation: linearGradientMove 0.3s infinite linear;
@@ -16,7 +16,7 @@
     content: attr(dataNodeType);
     position: absolute;
     transform: translate(0rem, -1em);
-    background-color: red;
+    background-color: $selected;
     color: white;
     font-size: 0.8rem;
     padding-left: $gap1;
@@ -27,10 +27,10 @@
 }
 
 .dragOverNode {
-  background: linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
-    linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
-    linear-gradient(0deg, blue 50%, transparent 0) repeat-y,
-    linear-gradient(0deg, blue 50%, transparent 0) repeat-y;
+  background: linear-gradient(90deg, $active 50%, transparent 0) repeat-x,
+    linear-gradient(90deg, $active 50%, transparent 0) repeat-x,
+    linear-gradient(0deg, $active 50%, transparent 0) repeat-y,
+    linear-gradient(0deg, $active 50%, transparent 0) repeat-y;
   background-size: 4px 4px, 4px 4px, 4px 4px, 4px 4px;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   animation: linearGradientMove 0.3s infinite linear;
@@ -38,7 +38,7 @@
     content: attr(dataNodeType);
     position: absolute;
     transform: translate(0rem, -1em);
-    background-color: blue;
+    background-color: $active;
     color: white;
     font-size: 0.8rem;
     padding-left: $gap1;
