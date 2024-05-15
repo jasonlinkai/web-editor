@@ -58,9 +58,22 @@ const ArrangementPanel = observer(() => {
         {node?.props.style.display === "flex" && (
           <>
             <div className={styles.panelItem}>
-              <label className={styles.panelItemLabel}>
-                JustifyContent
-              </label>
+              <label className={styles.panelItemLabel}>FlexDirection</label>
+              <div className={styles.panelItemRowCenterArea}>
+                <Select
+                  value={node?.props.style.flexDirection || ""}
+                  onChange={(e) =>
+                    node?.updateStyle({
+                      styleKey: StyleEnum.flexDirection,
+                      styleValue: e,
+                    })
+                  }
+                  options={options.flexDirection}
+                />
+              </div>
+            </div>
+            <div className={styles.panelItem}>
+              <label className={styles.panelItemLabel}>JustifyContent</label>
               <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
                   IconComponent={LuAlignHorizontalJustifyStart}
@@ -115,9 +128,7 @@ const ArrangementPanel = observer(() => {
               </div>
             </div>
             <div className={styles.panelItem}>
-              <label className={styles.panelItemLabel}>
-                AlignItems
-              </label>
+              <label className={styles.panelItemLabel}>AlignItems</label>
               <div className={styles.panelItemRowBetweenAera}>
                 <ActionButton
                   IconComponent={LuAlignHorizontalJustifyStart}

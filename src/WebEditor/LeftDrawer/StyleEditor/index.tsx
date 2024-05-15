@@ -31,6 +31,14 @@ const renderConfigs = {
     Component: Select,
     isPanelReady: true,
   },
+  [StyleEnum.flexDirection]: {
+    styleKey: StyleEnum.flexDirection,
+    props: {
+      options: options.flexDirection,
+    },
+    Component: Select,
+    isPanelReady: true,
+  },
   [StyleEnum.justifyContent]: {
     styleKey: StyleEnum.justifyContent,
     props: {},

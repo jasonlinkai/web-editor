@@ -26,6 +26,7 @@ export enum StyleEnum {
   width = "width",
   height = "height",
   display = "display",
+  flexDirection = "flexDirection",
   justifyContent = "justifyContent",
   alignItems = "alignItems",
   color = "color",
