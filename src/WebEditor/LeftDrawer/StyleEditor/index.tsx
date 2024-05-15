@@ -70,6 +70,14 @@ const renderConfigs = {
     Component: Input,
     isPanelReady: true,
   },
+  [StyleEnum.textAlign]: {
+    styleKey: StyleEnum.textAlign,
+    props: {
+      options: options.textAlign,
+    },
+    Component: Select,
+    isPanelReady: true,
+  },
   [StyleEnum.backgroundColor]: {
     styleKey: StyleEnum.backgroundColor,
     props: {},

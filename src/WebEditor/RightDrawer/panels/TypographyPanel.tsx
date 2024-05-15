@@ -7,6 +7,8 @@ import { useState } from "react";
 import clsx from "clsx";
 import ActionButton from "../../components/ActionButton";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import Select from "../../components/Select";
+import options from "../../components/Select/options";
 
 const TypographyPanel = observer(() => {
   const { editor } = useStores();
@@ -63,6 +65,17 @@ const TypographyPanel = observer(() => {
                   styleValue: e,
                 })
               }
+            />
+            <Select
+              label="textAlign:"
+              value={node?.props.style.textAlign || ""}
+              onChange={(e) =>
+                node?.updateStyle({
+                  styleKey: StyleEnum.textAlign,
+                  styleValue: e,
+                })
+              }
+              options={options.textAlign}
             />
           </div>
         </div>

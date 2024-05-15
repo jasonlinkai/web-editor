@@ -32,6 +32,7 @@ export enum StyleEnum {
   color = "color",
   fontSize = "fontSize",
   fontWeight = "fontWeight",
+  textAlign = "textAlign",
   backgroundColor = "backgroundColor",
   position = "position",
   top = "top",

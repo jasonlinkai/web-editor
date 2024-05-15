@@ -24,6 +24,7 @@ const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   color: t.maybe(t.string),
   fontSize: t.maybe(t.string),
   fontWeight: t.maybe(t.string),
+  textAlign: t.maybe(t.string),
   backgroundColor: t.maybe(t.string),
   position: t.maybe(t.string),
   top: t.maybe(t.string),

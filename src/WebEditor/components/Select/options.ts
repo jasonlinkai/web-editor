@@ -18,6 +18,14 @@ const options = {
     { label: "fixed", value: "fixed" },
     { label: "sticky", value: "sticky" },
   ],
+  textAlign: [
+    { label: "center", value: "center" },
+    { label: "left", value: "left" },
+    { label: "right", value: "right" },
+    { label: "start", value: "start" },
+    { label: "end", value: "end" },
+    { label: "justify", value: "justify" },
+  ],
 };
 
 export default options;

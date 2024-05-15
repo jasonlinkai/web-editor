@@ -83,6 +83,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
       draggable,
       style: {
         ...props.style,
+        cursor: dropable ? 'pointer' : undefined,
       },
       className: clsx([
         props.className,
