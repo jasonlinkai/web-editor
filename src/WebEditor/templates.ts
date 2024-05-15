@@ -1,4 +1,4 @@
-import { ContainerElementType, TextElementType } from "./types";
+import { ContainerElementType, SelfClosingElementType, TextElementType } from "./types";
 import { EventNames } from "./event";
 export const templateDefault = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
@@ -34,6 +34,19 @@ export const templateDefault = {
       events: {},
       children: [],
       content: 'Default Template',
+    },
+    {
+      uuid: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
+      parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
+      type: SelfClosingElementType.img,
+      props: {
+        className: "",
+        style: {
+          color: "black",
+        },
+      },
+      events: {},
+      children: [],
     },
   ],
 };

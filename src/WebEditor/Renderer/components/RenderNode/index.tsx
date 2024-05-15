@@ -61,8 +61,18 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     };
   }
 
-  // Render the element with event listeners
-  const renderChildren = Array.isArray(children) ? children : [children];
+  let renderChildren;
+  if (node.isContainerElement) {
+    renderChildren = Array.isArray(children) ? children : [children];
+    renderChildren = renderChildren.map((child) => {
+      return <RenderNode key={child.uuid} ast={child} {...p} />;
+    });
+  } else if (node.isTextElement) {
+    renderChildren = node.content;
+  } else if (node.isSelfClosingElement) {
+    renderChildren = null;
+  }
+
   return React.createElement(
     type,
     {
@@ -80,11 +90,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
         },
       ]),
     },
-    isTextElement
-      ? node.content
-      : renderChildren.map((child) => {
-          return <RenderNode key={child.uuid} ast={child} {...p} />;
-        })
+    renderChildren,
   );
 });
 

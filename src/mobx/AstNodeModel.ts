@@ -85,9 +85,19 @@ export const AstNodeModel = t
     get isRootNode() {
       return self.parent === undefined;
     },
+    get isContainerElement() {
+      return Object.values(ContainerElementType).includes(
+        self.type as ContainerElementType
+      );
+    },
     get isTextElement() {
       return Object.values(TextElementType).includes(
         self.type as TextElementType
+      );
+    },
+    get isSelfClosingElement() {
+      return Object.values(SelfClosingElementType).includes(
+        self.type as SelfClosingElementType
       );
     },
   }))

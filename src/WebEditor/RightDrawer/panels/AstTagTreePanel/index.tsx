@@ -9,7 +9,7 @@ const AstTagTree = observer(
   ({ node, level = 0 }: { node: AstNodeModelType; level?: number }) => {
     const { editor } = useStores();
     const { selectedAstNode, setSelectedAstNode } = editor;
-    const { isTextElement } = node;
+    const { isContainerElement, isTextElement, isSelfClosingElement } = node;
     const marginLeft = `${10 * level}px`;
     return (
       <div
@@ -29,11 +29,9 @@ const AstTagTree = observer(
                 selectedAstNode?.uuid === node.uuid,
             },
           ])}
-        >{`<${node.type}>`}</span>
-        
-        {isTextElement ? (
-          node.content
-        ) : (
+        >{`<${node.type}${isSelfClosingElement ? " /" : ""}>`}</span>
+
+        {isContainerElement && (
           <>
             {node.children.map((child: AstNodeModelType) => {
               return (
@@ -47,15 +45,21 @@ const AstTagTree = observer(
           </>
         )}
 
-        <span
-          className={clsx([
-            styles.astTreePanelItemEndTag,
-            {
-              [styles.astTreePanelItemEndTagSelected]:
-                selectedAstNode?.uuid === node.uuid,
-            },
-          ])}
-        >{`</${node.type}>`}</span>
+        {isTextElement && (
+          <span style={{ marginLeft: 10 }}>{node.content}</span>
+        )}
+
+        {!isSelfClosingElement && (
+          <span
+            className={clsx([
+              styles.astTreePanelItemEndTag,
+              {
+                [styles.astTreePanelItemEndTagSelected]:
+                  selectedAstNode?.uuid === node.uuid,
+              },
+            ])}
+          >{`</${node.type}>`}</span>
+        )}
       </div>
     );
   }
