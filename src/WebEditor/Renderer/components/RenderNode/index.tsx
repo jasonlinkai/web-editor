@@ -4,7 +4,6 @@ import React, { SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
 import { useStores } from "../../../../mobx/useMobxStateTreeStores";
-import { SelfClosingNodeType } from "../../../types";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;
@@ -75,16 +74,13 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   } else if (node.isSelfClosingNode) {
     renderChildren = undefined;
   }
-  const attribute: Record<string,any> = {};
-  if (type === SelfClosingNodeType.img) {
-    attribute.alt = "default-alt";
-  }
+
   return React.createElement(
     type,
     {
       ...props,
       ...editorEventListeners,
-      ...attribute,
+      ...props.attributes,
       draggable,
       style: {
         ...props.style,

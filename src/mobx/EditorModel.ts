@@ -79,8 +79,9 @@ export const EditorModel = t
       });
     },
     newImageNode() {
+      const id = uuid();
       return AstNodeModel.create({
-        uuid: uuid(),
+        uuid: id,
         parent: undefined,
         type: SelfClosingNodeType.img,
         props: {
@@ -88,7 +89,11 @@ export const EditorModel = t
             width: '100px',
             height: '100px',
             backgroundColor: getRandomColor(),
-          }
+          },
+          attributes: {
+            src: '',
+            alt: id,
+          },
         }
       });
     },

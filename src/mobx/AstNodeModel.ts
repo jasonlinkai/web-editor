@@ -8,11 +8,27 @@ import {
 } from "mobx-state-tree";
 import { Event, EventNames } from "../WebEditor/event";
 import {
+  AttributesEnum,
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
 } from "../WebEditor/types";
 import { StyleEnum } from "../WebEditor/types";
+
+const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
+  src: t.maybe(t.string),
+  alt: t.maybe(t.string),
+});
+
+export type AstNodeModelPropsAttributesType = Instance<
+  typeof AstNodeModelPropsAttributes
+>;
+export type AstNodeModelPropsAttributesSnapshotInType = SnapshotIn<
+  typeof AstNodeModelPropsAttributes
+>;
+export type AstNodeModelPropsAttributesSnapshotOutType = SnapshotOut<
+  typeof AstNodeModelPropsAttributes
+>;
 
 const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   width: t.maybe(t.string),
@@ -54,6 +70,7 @@ export type AstNodeModelPropsStyleSnapshotOutType = SnapshotOut<
 const AstNodeModelProps = t.model("AstNodeModelProps", {
   className: t.optional(t.string, ""),
   style: t.optional(AstNodeModelPropsStyle, {}),
+  attributes: t.optional(AstNodeModelPropsAttributes, {}),
 });
 
 export const AstNodeModel = t
@@ -127,6 +144,12 @@ export const AstNodeModel = t
         ...style,
       };
     },
+    setAttributes(attributes: Partial<SnapshotOut<AstNodeModelPropsAttributesType>>) {
+      self.props.attributes = {
+        ...self.props.attributes,
+        ...attributes,
+      };
+    },
     updateStyle({
       styleKey,
       styleValue,
@@ -137,6 +160,18 @@ export const AstNodeModel = t
       self.props.style = {
         ...self.props.style,
         [styleKey]: styleValue,
+      };
+    },
+    updateAttributes({
+      key,
+      value,
+    }: {
+      key: AttributesEnum;
+      value: string;
+    }) {
+      self.props.attributes = {
+        ...self.props.attributes,
+        [key]: value,
       };
     },
     addChild(child: any) {

@@ -88,16 +88,26 @@ const ActionBar: React.FC = observer(() => {
           IconComponent={FaArrowLeft}
           isDisable={!canUndo}
           onClick={canUndo ? undoAst : undefined}
-          >Undo(ctrl + z)</ActionButton>
+        >
+          Undo(ctrl + z)
+        </ActionButton>
         <ActionButton
           IconComponent={FaArrowRight}
           isDisable={!canRedo}
           onClick={canRedo ? redoAst : undefined}
-        >Redo(ctrl + r)</ActionButton>
+        >
+          Redo(ctrl + r)
+        </ActionButton>
         <ActionButton
           IconComponent={FaTrash}
           isDisable={!selectedAstNode?.isSelfCanBeDeleted}
-          onClick={canRedo ? redoAst : undefined}
+          onClick={
+            selectedAstNode?.isSelfCanBeDeleted
+              ? () => {
+                  selectedAstNode.parent.deletChild(selectedAstNode);
+                }
+              : undefined
+          }
         >
           Delete(ctrl + backspace)
         </ActionButton>

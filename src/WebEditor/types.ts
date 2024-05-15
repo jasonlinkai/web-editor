@@ -22,6 +22,10 @@ export type ElementType =
   | TextNodeType
   | SelfClosingNodeType;
 
+export enum AttributesEnum {
+  src = "src",
+  alt = "alt",
+}
 export enum StyleEnum {
   width = "width",
   height = "height",
