@@ -7,21 +7,55 @@ import {
   detach,
 } from "mobx-state-tree";
 import { AstNodeModel } from "./AstNodeModel";
-import type { AstNodeModelType } from "./AstNodeModel";
+import type {
+  AstNodeModelSnapshotInType,
+  AstNodeModelType,
+} from "./AstNodeModel";
 import { v4 as uuid } from "uuid";
-import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../WebEditor/types";
+import {
+  ContainerNodeType,
+  SelfClosingNodeType,
+  TextNodeType,
+} from "../WebEditor/types";
 import { getRandomColor } from "../WebEditor/utils";
 
 export const EditorModel = t
   .model("EditorModel", {
     selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
     dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
+    snippets: t.optional(t.array(AstNodeModel), []),
   })
   .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
     isLeftDrawerOpen: true,
     isRightDrawerOpen: true,
   }))
+  .actions((self) => {
+    const recursiveClearUuid = (
+      ast: AstNodeModelSnapshotInType,
+      parentUuid?: string
+    ) => {
+      ast.uuid = uuid();
+      ast.parent = parentUuid;
+      if (ast.children) {
+        ast.children.forEach((child) => {
+          recursiveClearUuid(child, ast.uuid);
+        });
+      }
+      return ast;
+    };
+    return {
+      recursiveClearUuid,
+    };
+  })
   .actions((self) => ({
+    pushToSnippets(snippet: AstNodeModelType) {
+      const snapshot = getSnapshot(snippet);
+      const clearedSnapshot = self.recursiveClearUuid(
+        JSON.parse(JSON.stringify(snapshot)),
+        undefined
+      );
+      self.snippets.push(AstNodeModel.create(clearedSnapshot));
+    },
     setIsLeftDrawerOpen(open: boolean) {
       self.isLeftDrawerOpen = open;
     },
@@ -71,11 +105,11 @@ export const EditorModel = t
         type: ContainerNodeType.div,
         props: {
           style: {
-            width: '300px',
-            height: '300px',
+            width: "300px",
+            height: "300px",
             backgroundColor: getRandomColor(),
-          }
-        }
+          },
+        },
       });
     },
     newImageNode() {
@@ -86,15 +120,15 @@ export const EditorModel = t
         type: SelfClosingNodeType.img,
         props: {
           style: {
-            width: '100px',
-            height: '100px',
+            width: "100px",
+            height: "100px",
             backgroundColor: getRandomColor(),
           },
           attributes: {
-            src: '',
+            src: "",
             alt: id,
           },
-        }
+        },
       });
     },
     newTextNode() {
@@ -104,10 +138,10 @@ export const EditorModel = t
         type: TextNodeType.span,
         props: {
           style: {
-            display: 'block',
+            display: "block",
           },
         },
-        content: 'please enter text'
+        content: "please enter text",
       });
     },
   }));

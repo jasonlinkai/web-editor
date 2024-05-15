@@ -1,7 +1,7 @@
 import styles from "./Renderer.module.scss";
 import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import { AstNodeModelType } from "../../mobx/AstNodeModel";
+import { AstNodeModel, AstNodeModelType } from "../../mobx/AstNodeModel";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import RenderNode from "./components/RenderNode";
 import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../types";
@@ -108,6 +108,9 @@ const Renderer: React.FC = observer(() => {
           } else if (data.nodeType === SelfClosingNodeType.img) {
             newNode = newImageNode();
           }
+          node.addToChildren(newNode, insertIndex);
+        } else if (type === "add new node from snippets") {
+          newNode = AstNodeModel.create(data);
           node.addToChildren(newNode, insertIndex);
         }
         setSelectedAstNode(newNode);

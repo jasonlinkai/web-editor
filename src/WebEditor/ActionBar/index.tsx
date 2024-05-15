@@ -8,6 +8,9 @@ import {
   FaArrowRight,
   FaTrash,
 } from "react-icons/fa";
+import {
+  MdFavorite
+} from "react-icons/md"
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import ActionButton from "../components/ActionButton";
 
@@ -21,6 +24,7 @@ const ActionBar: React.FC = observer(() => {
     isRightDrawerOpen,
     setIsRightDrawerOpen,
     selectedAstNode,
+    pushToSnippets,
   } = editor;
 
   const onShortCutDelete = useCallback(
@@ -34,7 +38,7 @@ const ActionBar: React.FC = observer(() => {
     [selectedAstNode]
   );
 
-  const onShortCurUndo = useCallback(
+  const onShortCutUndo = useCallback(
     (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "z") {
         undoAst();
@@ -43,7 +47,7 @@ const ActionBar: React.FC = observer(() => {
     [undoAst]
   );
 
-  const onShortCurRedo = useCallback(
+  const onShortCutRedo = useCallback(
     (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === "r") {
         redoAst();
@@ -52,16 +56,28 @@ const ActionBar: React.FC = observer(() => {
     [redoAst]
   );
 
+  const onShortCutAddToSnippets = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.ctrlKey && e.key === "f") {
+        if (selectedAstNode) {
+          pushToSnippets(selectedAstNode);
+        }
+      }
+    },
+    [pushToSnippets, selectedAstNode]
+  );
+
   useEffect(() => {
     window.addEventListener("keyup", onShortCutDelete);
-    window.addEventListener("keyup", onShortCurUndo);
-    window.addEventListener("keyup", onShortCurRedo);
+    window.addEventListener("keyup", onShortCutUndo);
+    window.addEventListener("keyup", onShortCutRedo);
+    window.addEventListener("keyup", onShortCutAddToSnippets);
     return () => {
       window.removeEventListener("keyup", onShortCutDelete);
-      window.removeEventListener("keyup", onShortCurUndo);
-      window.removeEventListener("keyup", onShortCurRedo);
+      window.removeEventListener("keyup", onShortCutUndo);
+      window.removeEventListener("keyup", onShortCutRedo);
     };
-  }, [onShortCutDelete, onShortCurUndo, onShortCurRedo]);
+  }, [onShortCutDelete, onShortCutUndo, onShortCutRedo, onShortCutAddToSnippets]);
 
   return (
     <div
@@ -110,6 +126,17 @@ const ActionBar: React.FC = observer(() => {
           }
         >
           Delete(ctrl + backspace)
+        </ActionButton>
+        <ActionButton
+          IconComponent={MdFavorite}
+          isDisable={!selectedAstNode}
+          onClick={() => {
+            if (selectedAstNode) {
+              pushToSnippets(selectedAstNode);
+            }
+          }}
+        >
+          Add to Snippets(ctrl + f)
         </ActionButton>
       </div>
       <div className={styles.actionBarRightArea}>

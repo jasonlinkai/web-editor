@@ -8,15 +8,22 @@ import ActionButton from "../components/ActionButton";
 import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import InfoPanel from "../components/panels/InfoPanel";
+import { MdFavoriteBorder } from "react-icons/md";
+import SnippetsPanel from "../components/panels/SnippetsPanel";
 
 enum TabTypes {
   INFO = "INFO",
   ADD_CHILDREN = "ADD_CHILDREN",
+  ADD_SNIPPETS = "ADD_SNIPPETS",
 }
 const tabs = [
   {
     type: TabTypes.ADD_CHILDREN,
     IconComponent: FaPlus,
+  },
+  {
+    type: TabTypes.ADD_SNIPPETS,
+    IconComponent: MdFavoriteBorder,
   },
 ];
 
@@ -51,6 +58,11 @@ const LeftDrawer: React.FC = observer(() => {
         {tabType === TabTypes.ADD_CHILDREN && (
           <>
             <NewNodePanel />
+          </>
+        )}
+        {tabType === TabTypes.ADD_SNIPPETS && (
+          <>
+            <SnippetsPanel />
           </>
         )}
       </div>

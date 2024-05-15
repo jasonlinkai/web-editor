@@ -7,11 +7,11 @@ import { useStores } from "../../../../mobx/useMobxStateTreeStores";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;
-  handleOnClick: (ev: React.MouseEvent, node: AstNodeModelType) => void;
-  handleOnDragStart: (ev: React.DragEvent, node: AstNodeModelType) => void;
-  handleOnDragOver: (ev: React.DragEvent, node: AstNodeModelType) => void;
-  handleOnDragLeave: (ev: React.DragEvent, node: AstNodeModelType) => void;
-  handleOnDrop: (ev: React.DragEvent, node: AstNodeModelType) => void;
+  handleOnClick?: (ev: React.MouseEvent, node: AstNodeModelType) => void;
+  handleOnDragStart?: (ev: React.DragEvent, node: AstNodeModelType) => void;
+  handleOnDragOver?: (ev: React.DragEvent, node: AstNodeModelType) => void;
+  handleOnDragLeave?: (ev: React.DragEvent, node: AstNodeModelType) => void;
+  handleOnDrop?: (ev: React.DragEvent, node: AstNodeModelType) => void;
 }
 
 const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
@@ -41,25 +41,25 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   } = {};
   editorEventListeners.onClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    handleOnClick(e, node);
+    handleOnClick && handleOnClick(e, node);
   };
   if (draggable) {
     editorEventListeners.onDragStart = (e: React.DragEvent) => {
-      handleOnDragStart(e, node);
+      handleOnDragStart && handleOnDragStart(e, node);
     };
   }
   if (dropable) {
     editorEventListeners.onDragOver = (e: React.DragEvent) => {
-      handleOnDragOver(e, node);
+      handleOnDragOver && handleOnDragOver(e, node);
       node.setIsDragOvered(true);
     };
     editorEventListeners.onDragLeave = (e: React.DragEvent) => {
-      handleOnDragLeave(e, node);
+      handleOnDragLeave && handleOnDragLeave(e, node);
       node.setIsDragOvered(false);
     };
 
     editorEventListeners.onDrop = (e: React.DragEvent) => {
-      handleOnDrop(e, node);
+      handleOnDrop && handleOnDrop(e, node);
       node.setIsDragOvered(false);
     };
   }
