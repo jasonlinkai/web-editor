@@ -56,6 +56,16 @@ const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   marginRight: t.maybe(t.string),
   marginBottom: t.maybe(t.string),
   marginLeft: t.maybe(t.string),
+  borderStyle: t.maybe(t.string),
+  borderColor: t.maybe(t.string),
+  borderTopWidth: t.maybe(t.string),
+  borderBottomWidth: t.maybe(t.string),
+  borderLeftWidth: t.maybe(t.string),
+  borderRightWidth: t.maybe(t.string),
+  borderTopLeftRadius: t.maybe(t.string),
+  borderTopRightRadius: t.maybe(t.string),
+  borderBottomLeftRadius: t.maybe(t.string),
+  borderBottomRightRadius: t.maybe(t.string),
 });
 
 export type AstNodeModelPropsStyleType = Instance<

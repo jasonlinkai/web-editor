@@ -9,6 +9,7 @@ import TypographyPanel from "../components/panels/TypographyPanel";
 import ActionButton from "../components/ActionButton";
 import { TfiPanel } from "react-icons/tfi";
 import { useState } from "react";
+import BorderPanel from "../components/panels/BorderPanel";
 
 enum TabTypes {
   EDIT_STYLE = "EDIT_STYLE",
@@ -53,8 +54,9 @@ const RightDrawer: React.FC = observer(() => {
           (node ? (
             <>
               <PositionPanel />
-              <LayoutPanel />
               <ArrangementPanel />
+              <LayoutPanel />
+              <BorderPanel />
               <TypographyPanel />
             </>
           ) : (
