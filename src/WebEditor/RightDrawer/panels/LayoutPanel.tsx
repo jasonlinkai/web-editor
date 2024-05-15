@@ -10,7 +10,7 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const LayoutPanel = observer(() => {
   const { editor } = useStores();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>

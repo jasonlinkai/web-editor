@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../mobx/AstNodeModel";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import RenderNode from "./components/RenderNode";
-import { ContainerElementType, SelfClosingElementType, TextElementType } from "../types";
+import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../types";
 
 const Renderer: React.FC = observer(() => {
   const { ast, editor } = useStores();
@@ -69,11 +69,11 @@ const Renderer: React.FC = observer(() => {
           }
         } else if (type === "add new node") {
           let newNode;
-          if (data.nodeType === ContainerElementType.div) {
+          if (data.nodeType === ContainerNodeType.div) {
             newNode = newContainerNode();
-          } else if (data.nodeType === TextElementType.span) {
+          } else if (data.nodeType === TextNodeType.span) {
             newNode = newTextNode();
-          } else if (data.nodeType === SelfClosingElementType.img) {
+          } else if (data.nodeType === SelfClosingNodeType.img) {
             newNode = newImageNode();
           }
 

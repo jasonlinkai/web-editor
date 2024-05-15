@@ -9,7 +9,7 @@ const AstTagTree = observer(
   ({ node, level = 0 }: { node: AstNodeModelType; level?: number }) => {
     const { editor } = useStores();
     const { selectedAstNode, setSelectedAstNode } = editor;
-    const { isContainerElement, isTextElement, isSelfClosingElement } = node;
+    const { isContainerNode, isTextNode, isSelfClosingNode } = node;
     const marginLeft = `${10 * level}px`;
     return (
       <div
@@ -29,9 +29,9 @@ const AstTagTree = observer(
                 selectedAstNode?.uuid === node.uuid,
             },
           ])}
-        >{`<${node.type}${isSelfClosingElement ? " /" : ""}>`}</span>
+        >{`<${node.type}${isSelfClosingNode ? " /" : ""}>`}</span>
 
-        {isContainerElement && (
+        {isContainerNode && (
           <>
             {node.children.map((child: AstNodeModelType) => {
               return (
@@ -45,11 +45,11 @@ const AstTagTree = observer(
           </>
         )}
 
-        {isTextElement && (
+        {isTextNode && (
           <span style={{ marginLeft: 10 }}>{node.content}</span>
         )}
 
-        {!isSelfClosingElement && (
+        {!isSelfClosingNode && (
           <span
             className={clsx([
               styles.astTreePanelItemEndTag,
@@ -68,7 +68,7 @@ const AstTagTree = observer(
 export const astTagTreePanelHeight = 200;
 
 const AstTagTreePanel = observer(() => {
-  const { editor } = useStores();
+  const { ast } = useStores();
   return (
     <div className={panelStyles.panel}>
       <div className={panelStyles.panelTitle}>Tree</div>
@@ -79,7 +79,7 @@ const AstTagTreePanel = observer(() => {
           minHeight: `${astTagTreePanelHeight}px`,
         }}
       >
-        {editor.selectedAstNode && <AstTagTree node={editor.selectedAstNode} />}
+        {ast && <AstTagTree node={ast} />}
       </div>
     </div>
   );

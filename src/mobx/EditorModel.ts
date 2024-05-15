@@ -8,12 +8,13 @@ import {
 import { AstNodeModel } from "./AstNodeModel";
 import type { AstNodeModelType } from "./AstNodeModel";
 import { v4 as uuid } from "uuid";
-import { ContainerElementType, SelfClosingElementType, TextElementType } from "../WebEditor/types";
+import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../WebEditor/types";
+import { getRandomColor } from "../WebEditor/utils";
 
 export const EditorModel = t
   .model("EditorModel", {
-    selectedAstNode: t.maybe(t.reference(AstNodeModel)),
-    dragingAstNode: t.maybe(t.reference(AstNodeModel)),
+    selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
+    dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
   })
   .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
     isLeftDrawerOpen: true,
@@ -31,13 +32,13 @@ export const EditorModel = t
         if (!self.selectedAstNode) {
           self.selectedAstNode = node;
           node.setStyle(node.props.style);
-          if (node.isTextElement) {
+          if (node.isTextNode) {
             node.setContent(node.content || "");
           }
         } else {
           if (node.uuid !== self.selectedAstNode.uuid) {
             self.selectedAstNode.setStyle({});
-            if (node.isTextElement) {
+            if (node.isTextNode) {
               node.setContent(node.content || "");
             }
             self.selectedAstNode = node;
@@ -49,7 +50,7 @@ export const EditorModel = t
           self.selectedAstNode = undefined;
         } else {
           self.selectedAstNode.setStyle({});
-          if (self.selectedAstNode.isTextElement) {
+          if (self.selectedAstNode.isTextNode) {
             self.selectedAstNode.setContent(self.selectedAstNode.content || "");
           }
           self.selectedAstNode = undefined;
@@ -63,12 +64,12 @@ export const EditorModel = t
       return AstNodeModel.create({
         uuid: uuid(),
         parent: undefined,
-        type: ContainerElementType.div,
+        type: ContainerNodeType.div,
         props: {
           style: {
             width: '300px',
             height: '300px',
-            backgroundColor: 'yellow',
+            backgroundColor: getRandomColor(),
           }
         }
       });
@@ -77,7 +78,7 @@ export const EditorModel = t
       return AstNodeModel.create({
         uuid: uuid(),
         parent: undefined,
-        type: SelfClosingElementType.img,
+        type: SelfClosingNodeType.img,
         props: {
           style: {
             width: '100px',
@@ -91,7 +92,7 @@ export const EditorModel = t
       return AstNodeModel.create({
         uuid: uuid(),
         parent: undefined,
-        type: TextElementType.span,
+        type: TextNodeType.span,
         content: 'please enter text'
       });
     },

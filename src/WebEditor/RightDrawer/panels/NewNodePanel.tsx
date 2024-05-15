@@ -6,10 +6,10 @@ import clsx from "clsx";
 import { FaArrowUp, FaArrowDown, FaImage } from "react-icons/fa";
 import { LuContainer } from "react-icons/lu";
 import { GoTypography } from "react-icons/go";
-import { ContainerElementType, SelfClosingElementType, TextElementType } from "../../types";
+import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../../types";
 
 const NewNodePanel = observer(() => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>
@@ -40,7 +40,7 @@ const NewNodePanel = observer(() => {
                 ev.dataTransfer.setData("application/json", JSON.stringify({
                   type: 'add new node',
                   data: {
-                    nodeType: ContainerElementType.div,
+                    nodeType: ContainerNodeType.div,
                   },
                 }));
               }}
@@ -56,7 +56,7 @@ const NewNodePanel = observer(() => {
                 ev.dataTransfer.setData("application/json", JSON.stringify({
                   type: 'add new node',
                   data: {
-                    nodeType: SelfClosingElementType.img,
+                    nodeType: SelfClosingNodeType.img,
                   },
                 }));
               }}
@@ -72,7 +72,7 @@ const NewNodePanel = observer(() => {
                 ev.dataTransfer.setData("application/json", JSON.stringify({
                   type: 'add new node',
                   data: {
-                    nodeType: TextElementType.span,
+                    nodeType: TextNodeType.span,
                   },
                 }));
               }}

@@ -1,8 +1,8 @@
-export enum ContainerElementType {
+export enum ContainerNodeType {
   div = "div",
 }
 
-export enum TextElementType {
+export enum TextNodeType {
   span = "span",
   h1 = "h1",
   h2 = "h2",
@@ -12,15 +12,15 @@ export enum TextElementType {
   button = "button",
 }
 
-export enum SelfClosingElementType {
+export enum SelfClosingNodeType {
   img = "img",
   video = "video",
 }
 
 export type ElementType =
-  | ContainerElementType
-  | TextElementType
-  | SelfClosingElementType;
+  | ContainerNodeType
+  | TextNodeType
+  | SelfClosingNodeType;
 
 export enum StyleEnum {
   width = "width",

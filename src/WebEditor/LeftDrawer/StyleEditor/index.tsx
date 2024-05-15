@@ -175,7 +175,7 @@ const StyleEditor = observer(() => {
               </FormItem>
             );
           })}
-          {node.isTextElement && (
+          {node.isTextNode && (
             <FormItem>
               <Input
                 label="content"

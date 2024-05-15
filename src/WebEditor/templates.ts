@@ -1,9 +1,9 @@
-import { ContainerElementType, SelfClosingElementType, TextElementType } from "./types";
+import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "./types";
 import { EventNames } from "./event";
 export const templateDefault = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
   parent: undefined,
-  type: ContainerElementType.div,
+  type: ContainerNodeType.div,
   props: {
     className: "",
     style: {
@@ -24,7 +24,7 @@ export const templateDefault = {
     {
       uuid: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: TextElementType.h1,
+      type: TextNodeType.h1,
       props: {
         className: "",
         style: {
@@ -38,7 +38,7 @@ export const templateDefault = {
     {
       uuid: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: SelfClosingElementType.img,
+      type: SelfClosingNodeType.img,
       props: {
         className: "",
         style: {
@@ -54,7 +54,7 @@ export const templateDefault = {
 export const template1 = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
   parent: undefined,
-  type: ContainerElementType.div,
+  type: ContainerNodeType.div,
   props: {
     className: "container",
     style: {
@@ -73,7 +73,7 @@ export const template1 = {
     {
       uuid: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: ContainerElementType.div,
+      type: ContainerNodeType.div,
       props: {
         className: "",
         style: {
@@ -88,7 +88,7 @@ export const template1 = {
     {
       uuid: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: TextElementType.button,
+      type: TextNodeType.button,
       props: {
         style: {
           color: "blue",

@@ -8,9 +8,9 @@ import {
 } from "mobx-state-tree";
 import { Event, EventNames } from "../WebEditor/event";
 import {
-  ContainerElementType,
-  SelfClosingElementType,
-  TextElementType,
+  ContainerNodeType,
+  SelfClosingNodeType,
+  TextNodeType,
 } from "../WebEditor/types";
 import { StyleEnum } from "../WebEditor/types";
 
@@ -58,9 +58,9 @@ export const AstNodeModel = t
     uuid: t.identifier,
     parent: t.maybe(t.reference(t.late((): IAnyModelType => AstNodeModel))),
     type: t.enumeration([
-      ...Object.values(ContainerElementType),
-      ...Object.values(TextElementType),
-      ...Object.values(SelfClosingElementType),
+      ...Object.values(ContainerNodeType),
+      ...Object.values(TextNodeType),
+      ...Object.values(SelfClosingNodeType),
     ]),
     events: t.optional(
       t.frozen<{
@@ -86,19 +86,19 @@ export const AstNodeModel = t
     get isRootNode() {
       return self.parent === undefined;
     },
-    get isContainerElement() {
-      return Object.values(ContainerElementType).includes(
-        self.type as ContainerElementType
+    get isContainerNode() {
+      return Object.values(ContainerNodeType).includes(
+        self.type as ContainerNodeType
       );
     },
-    get isTextElement() {
-      return Object.values(TextElementType).includes(
-        self.type as TextElementType
+    get isTextNode() {
+      return Object.values(TextNodeType).includes(
+        self.type as TextNodeType
       );
     },
-    get isSelfClosingElement() {
-      return Object.values(SelfClosingElementType).includes(
-        self.type as SelfClosingElementType
+    get isSelfClosingNode() {
+      return Object.values(SelfClosingNodeType).includes(
+        self.type as SelfClosingNodeType
       );
     },
   }))

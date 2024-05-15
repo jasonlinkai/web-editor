@@ -27,6 +27,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
 
   const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid;
   const draggable = !ast.isRootNode && isSelectedNode;
+  const dropable =  ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid;
   // Base case: If the node is a text node, render it as is
 
   const node: AstNodeModelType = ast;
@@ -45,7 +46,8 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     editorEventListeners.onDragStart = (e: React.DragEvent) => {
       handleOnDragStart(e, node);
     };
-  } else {
+  }
+  if (dropable) {
     editorEventListeners.onDragOver = (e: React.DragEvent) => {
       handleOnDragOver(e, node);
       node.setIsDragOvered(true);
@@ -54,6 +56,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
       handleOnDragLeave(e, node);
       node.setIsDragOvered(false);
     };
+  
     editorEventListeners.onDrop = (e: React.DragEvent) => {
       handleOnDrop(e, node);
       node.setIsDragOvered(false);
@@ -61,14 +64,14 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   }
 
   let renderChildren;
-  if (node.isContainerElement) {
+  if (node.isContainerNode) {
     renderChildren = Array.isArray(children) ? children : [children];
     renderChildren = renderChildren.map((child) => {
       return <RenderNode key={child.uuid} ast={child} {...p} />;
     });
-  } else if (node.isTextElement) {
+  } else if (node.isTextNode) {
     renderChildren = node.content;
-  } else if (node.isSelfClosingElement) {
+  } else if (node.isSelfClosingNode) {
     renderChildren = null;
   }
 
