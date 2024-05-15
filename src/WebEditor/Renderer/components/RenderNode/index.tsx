@@ -80,7 +80,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     {
       ...props,
       ...editorEventListeners,
-      ...{ ...props.attributes, dataNodeType: type },
+      ...{ ...props.attributes, datanodetype: type },
       style: {
         ...props.style,
       },

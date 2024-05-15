@@ -2,6 +2,7 @@
 
 .node {
   cursor: pointer;
+  user-select: none;
 }
 .selectedNode {
   cursor: grab;
@@ -13,7 +14,7 @@
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   animation: linearGradientMove 0.3s infinite linear;
   &::before {
-    content: attr(dataNodeType);
+    content: attr(datanodetype);
     position: absolute;
     transform: translate(0rem, -1em);
     background-color: $selected;
@@ -35,7 +36,7 @@
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   animation: linearGradientMove 0.3s infinite linear;
   &::before {
-    content: attr(dataNodeType);
+    content: attr(datanodetype);
     position: absolute;
     transform: translate(0rem, -1em);
     background-color: $active;

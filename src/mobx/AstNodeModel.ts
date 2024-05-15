@@ -16,7 +16,7 @@ import {
 import { StyleEnum } from "../WebEditor/types";
 
 const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
-  dataNodeType: t.optional(t.string, ""),
+  datanodetype: t.optional(t.string, ""),
   src: t.maybe(t.string),
   alt: t.maybe(t.string),
 });
@@ -169,18 +169,19 @@ export const AstNodeModel = t
         [key]: value,
       };
     },
-    addChild(child: any) {
+    moveToChildren(child: any, index: number) {
+      child.parent.deletChild(child);
       child.setParent(self.uuid);
-      self.children.push(child);
+      self.children.splice(index, 0, child);
+      return child;
+    },
+    addToChildren(child: any, index: number) {
+      child.setParent(self.uuid);
+      self.children.splice(index, 0, child);
       return child;
     },
     deletChild(child: any) {
       detach(child);
-    },
-    moveChild(child: any, drop: any) {
-      detach(child);
-      drop.addChild(child);
-      return child;
     },
   }));
 
