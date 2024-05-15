@@ -3,10 +3,9 @@ import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import NewNodePanel from "../components/panels/NewNodePanel";
-import { actionBarHeight } from "../ActionBar";
-import { astTagTreePanelHeight } from "../components/panels/AstTagTreePanel";
+import AstTagTreePanel from "../components/panels/AstTagTreePanel";
 import ActionButton from "../components/ActionButton";
-import { FaInfo, FaPlus } from "react-icons/fa";
+import { FaPlus } from "react-icons/fa";
 import { useState } from "react";
 import InfoPanel from "../components/panels/InfoPanel";
 
@@ -15,10 +14,6 @@ enum TabTypes {
   ADD_CHILDREN = "ADD_CHILDREN",
 }
 const tabs = [
-  {
-    type: TabTypes.INFO,
-    IconComponent: FaInfo,
-  },
   {
     type: TabTypes.ADD_CHILDREN,
     IconComponent: FaPlus,
@@ -52,18 +47,18 @@ const LeftDrawer: React.FC = observer(() => {
           );
         })}
       </div>
-      <div
-        className={styles.leftDrawerPanelArea}
-        style={{
-          height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
-        }}
-      >
-        {tabType === TabTypes.INFO && <InfoPanel />}
+      <div className={styles.leftDrawerPanelArea}>
         {tabType === TabTypes.ADD_CHILDREN && (
           <>
             <NewNodePanel />
           </>
         )}
+      </div>
+      <div className={styles.leftDrawerPanelArea}>
+        <InfoPanel />
+      </div>
+      <div className={styles.leftDrawerPanelArea}>
+        <AstTagTreePanel />
       </div>
     </div>
   );

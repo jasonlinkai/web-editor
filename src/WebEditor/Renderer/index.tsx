@@ -63,13 +63,13 @@ const Renderer: React.FC = observer(() => {
         ev.stopPropagation();
         const jsonData = ev.dataTransfer.getData("application/json");
         const { type, data } = JSON.parse(jsonData);
+        let newNode;
         if (type === "move node") {
           if (dragingAstNode) {
-            dragingAstNode.parent.moveChild(dragingAstNode, node);
+            newNode = dragingAstNode.parent.moveChild(dragingAstNode, node);
             setDragingAstNode(undefined);
           }
         } else if (type === "add new node") {
-          let newNode;
           if (data.nodeType === ContainerNodeType.div) {
             newNode = newContainerNode();
           } else if (data.nodeType === TextNodeType.span) {
@@ -77,12 +77,9 @@ const Renderer: React.FC = observer(() => {
           } else if (data.nodeType === SelfClosingNodeType.img) {
             newNode = newImageNode();
           }
-
-          if (newNode) {
-            node.addChild(newNode)
-            setSelectedAstNode(newNode);
-          }
+          node.addChild(newNode)
         }
+        setSelectedAstNode(newNode);
       },
       [dragingAstNode, setDragingAstNode, newContainerNode, newImageNode, newTextNode, setSelectedAstNode]
     );

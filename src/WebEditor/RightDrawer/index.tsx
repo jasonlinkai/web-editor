@@ -5,10 +5,7 @@ import { useStores } from "../../mobx/useMobxStateTreeStores";
 import PositionPanel from "../components/panels/PositionPanel";
 import LayoutPanel from "../components/panels/LayoutPanel";
 import ArrangementPanel from "../components/panels/ArrangementPanel";
-import TypographyPanel from "../components/panels/TypographyPanel"
-import AstTagTreePanel from "../components/panels/AstTagTreePanel";
-import { actionBarHeight } from "../ActionBar";
-import { astTagTreePanelHeight } from "../components/panels/AstTagTreePanel";
+import TypographyPanel from "../components/panels/TypographyPanel";
 import ActionButton from "../components/ActionButton";
 import { TfiPanel } from "react-icons/tfi";
 import { useState } from "react";
@@ -51,12 +48,7 @@ const RightDrawer: React.FC = observer(() => {
           );
         })}
       </div>
-      <div
-        className={styles.rightDrawerPanelArea}
-        style={{
-          height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
-        }}
-      >
+      <div className={styles.rightDrawerPanelArea}>
         {tabType === TabTypes.EDIT_STYLE &&
           (node ? (
             <>
@@ -70,13 +62,6 @@ const RightDrawer: React.FC = observer(() => {
               select node first
             </div>
           ))}
-      </div>
-      <div className={styles.gap} />
-      <div
-        className={styles.rightDrawerTreeArea}
-        style={{ height: astTagTreePanelHeight + 115 }}
-      >
-        <AstTagTreePanel />
       </div>
     </div>
   );

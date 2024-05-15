@@ -180,6 +180,7 @@ export const AstNodeModel = t
     moveChild(child: any, drop: any) {
       detach(child);
       drop.addChild(child);
+      return child;
     },
   }));
 
