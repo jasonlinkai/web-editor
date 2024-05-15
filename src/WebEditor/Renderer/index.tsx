@@ -64,7 +64,7 @@ const Renderer: React.FC = observer(() => {
         const { type, data } = JSON.parse(jsonData);
         if (type === "move node") {
           if (dragingAstNode) {
-            dragingAstNode.parent.removeChild(dragingAstNode, node);
+            dragingAstNode.parent.moveChild(dragingAstNode, node);
             setDragingAstNode(undefined);
           }
         } else if (type === "add new node") {

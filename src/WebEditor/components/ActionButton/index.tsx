@@ -7,22 +7,26 @@ interface ActionButtonProps
   className?: string,
   IconComponent?: IconType;
   isActive?: boolean;
+  isDisable?: boolean;
 }
 const ActionButton: React.FC<ActionButtonProps> = ({
   className,
   children,
   IconComponent,
   isActive = false,
+  isDisable = false,
   ...p
 }) => {
   return (
     <button
       {...p}
+      disabled={isDisable}
       className={clsx([
         styles.actionButton,
         className,
         {
           [styles.actionButtonActive]: isActive,
+          [styles.actionButtonDisable]: isDisable,
         },
       ])}
     >
@@ -33,6 +37,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
             styles.actionIcon,
             {
               [styles.actionIconActive]: isActive,
+              [styles.actionIconDisable]: isDisable,
             },
           ])}
         />

@@ -22,6 +22,8 @@ const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
   justifyContent: t.maybe(t.string),
   alignItems: t.maybe(t.string),
   color: t.maybe(t.string),
+  fontSize: t.maybe(t.string),
+  fontWeight: t.maybe(t.string),
   backgroundColor: t.maybe(t.string),
   position: t.maybe(t.string),
   top: t.maybe(t.string),
@@ -138,7 +140,10 @@ export const AstNodeModel = t
       self.children.push(child);
       return child;
     },
-    removeChild(child: any, drop: any) {
+    deletChild(child: any) {
+      detach(child);
+    },
+    moveChild(child: any, drop: any) {
       detach(child);
       drop.addChild(child);
     },

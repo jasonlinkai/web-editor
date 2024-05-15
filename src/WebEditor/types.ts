@@ -30,6 +30,8 @@ export enum StyleEnum {
   justifyContent = "justifyContent",
   alignItems = "alignItems",
   color = "color",
+  fontSize = "fontSize",
+  fontWeight = "fontWeight",
   backgroundColor = "backgroundColor",
   position = "position",
   top = "top",

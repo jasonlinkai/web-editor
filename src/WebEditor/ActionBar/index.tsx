@@ -1,4 +1,5 @@
 import styles from "./ActionBar.module.scss";
+import { useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import {
   FaAngleDoubleLeft,
@@ -18,10 +19,53 @@ const ActionBar: React.FC = observer(() => {
     setIsLeftDrawerOpen,
     isRightDrawerOpen,
     setIsRightDrawerOpen,
+    selectedAstNode,
   } = editor;
 
+  const onShortCutDelete = useCallback((e: KeyboardEvent) => {
+    if (e.key === "Backspace" || e.key === "Delete") {
+      if (selectedAstNode && selectedAstNode.parent) {
+        selectedAstNode.parent.deletChild(selectedAstNode);
+      }
+    }
+  }, [selectedAstNode]);
+
+  const onShortCurUndo = useCallback(
+    (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (e.ctrlKey && e.key === "z") {
+        undoAst();
+      }
+    },
+    [undoAst]
+  );
+
+  const onShortCurRedo = useCallback(
+    (e: KeyboardEvent) => {
+      e.preventDefault();
+      if (e.ctrlKey && e.key === "r") {
+        redoAst();
+      }
+    },
+    [redoAst]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keyup", onShortCutDelete);
+    window.addEventListener("keyup", onShortCurUndo);
+    window.addEventListener("keyup", onShortCurRedo);
+    return () => {
+      window.removeEventListener("keyup", onShortCutDelete);
+      window.removeEventListener("keyup", onShortCurUndo);
+      window.removeEventListener("keyup", onShortCurRedo);
+    };
+  }, [onShortCutDelete, onShortCurUndo, onShortCurRedo]);
+
   return (
-    <div className={styles.actionBar} style={{ height: `${actionBarHeight}px` }}>
+    <div
+      className={styles.actionBar}
+      style={{ height: `${actionBarHeight}px` }}
+    >
       <div className={styles.actionBarLeftArea}>
         <ActionButton
           onClick={() => {
@@ -38,12 +82,16 @@ const ActionBar: React.FC = observer(() => {
             />
           )}
         </ActionButton>
-        <ActionButton onClick={canUndo ? undoAst : undefined}>
-          <FaArrowLeft color={canUndo ? "#333" : "#aaa"} />
-        </ActionButton>
-        <ActionButton onClick={canRedo ? redoAst : undefined}>
-          <FaArrowRight color={canRedo ? "#333" : "#aaa"} />
-        </ActionButton>
+        <ActionButton
+          IconComponent={FaArrowLeft}
+          isDisable={!canUndo}
+          onClick={canUndo ? undoAst : undefined}
+        />
+        <ActionButton
+          IconComponent={FaArrowRight}
+          isDisable={!canRedo}
+          onClick={canRedo ? redoAst : undefined}
+        />
       </div>
       <div className={styles.actionBarRightArea}>
         <ActionButton

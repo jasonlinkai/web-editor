@@ -9,7 +9,7 @@ import { GoTypography } from "react-icons/go";
 import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../../types";
 
 const NewNodePanel = observer(() => {
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>

@@ -5,6 +5,7 @@ import { useStores } from "../../mobx/useMobxStateTreeStores";
 import PositionPanel from "./panels/PositionPanel";
 import LayoutPanel from "./panels/LayoutPanel";
 import ArrangementPanel from "./panels/ArrangementPanel";
+import TypographyPanel from "./panels/TypographyPanel"
 import NewNodePanel from "./panels/NewNodePanel";
 import AstTagTreePanel from "./panels/AstTagTreePanel";
 import { actionBarHeight } from "../ActionBar";
@@ -74,6 +75,7 @@ const RightDrawer: React.FC = observer(() => {
               <PositionPanel />
               <LayoutPanel />
               <ArrangementPanel />
+              <TypographyPanel />
             </>
           ) : (
             <div className={styles.rightDrawerPanelAreaNoSelectedNode}>

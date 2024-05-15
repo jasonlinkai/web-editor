@@ -16,7 +16,14 @@
 .actionIconActive {
   color: $active;
 }
+.actionIconDisable {
+  color: $disable;
+}
+
 
 .actionButtonActive {
   border-color: $active;
+}
+.actionButtonDisable {
+  border-color: $disable;
 }

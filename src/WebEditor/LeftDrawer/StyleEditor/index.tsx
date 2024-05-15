@@ -7,6 +7,7 @@ import FormItem from "../../components/FormItem";
 import Select from "../../components/Select";
 import Input from "../../components/Input";
 import options from "../../components/Select/options";
+import InfoField from "../../components/InfoField";
 
 const styleKeys: StyleEnum[] = [...Object.values(StyleEnum)];
 
@@ -55,13 +56,25 @@ const renderConfigs = {
     styleKey: StyleEnum.color,
     props: {},
     Component: Input,
-    isPanelReady: false,
+    isPanelReady: true,
+  },
+  [StyleEnum.fontSize]: {
+    styleKey: StyleEnum.fontSize,
+    props: {},
+    Component: Input,
+    isPanelReady: true,
+  },
+  [StyleEnum.fontWeight]: {
+    styleKey: StyleEnum.fontWeight,
+    props: {},
+    Component: Input,
+    isPanelReady: true,
   },
   [StyleEnum.backgroundColor]: {
     styleKey: StyleEnum.backgroundColor,
     props: {},
     Component: Input,
-    isPanelReady: false,
+    isPanelReady: true,
   },
   [StyleEnum.position]: {
     styleKey: StyleEnum.position,
@@ -157,6 +170,8 @@ const StyleEditor = observer(() => {
         <div>select node first</div>
       ) : (
         <div className={styles.styleEditorForm}>
+          <InfoField label="uuid" value={node.uuid}></InfoField>
+          <InfoField label="parent" value={node?.parent?.uuid}></InfoField>
           {styleKeys.map((styleKey) => {
             const config = renderConfigs[styleKey];
             if (!config) return null;

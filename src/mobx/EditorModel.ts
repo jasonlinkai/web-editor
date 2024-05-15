@@ -4,6 +4,7 @@ import {
   SnapshotIn,
   SnapshotOut,
   getSnapshot,
+  detach,
 } from "mobx-state-tree";
 import { AstNodeModel } from "./AstNodeModel";
 import type { AstNodeModelType } from "./AstNodeModel";
@@ -59,6 +60,9 @@ export const EditorModel = t
     },
     setDragingAstNode(node: AstNodeModelType | undefined) {
       self.dragingAstNode = node;
+    },
+    deleteNode(node: AstNodeModelType) {
+      detach(node);
     },
     newContainerNode() {
       return AstNodeModel.create({

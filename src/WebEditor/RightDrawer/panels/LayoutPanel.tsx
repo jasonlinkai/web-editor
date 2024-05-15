@@ -10,7 +10,7 @@ import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const LayoutPanel = observer(() => {
   const { editor } = useStores();
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>
@@ -50,6 +50,16 @@ const LayoutPanel = observer(() => {
               onChange={(e) =>
                 node?.updateStyle({
                   styleKey: StyleEnum.height,
+                  styleValue: e,
+                })
+              }
+            />
+            <Input
+              label="backgroundColor:"
+              value={node?.props.style.backgroundColor || ""}
+              onChange={(e) =>
+                node?.updateStyle({
+                  styleKey: StyleEnum.backgroundColor,
                   styleValue: e,
                 })
               }
