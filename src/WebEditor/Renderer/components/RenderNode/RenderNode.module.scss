@@ -26,7 +26,7 @@
   }
 }
 
-.dragOverElement {
+.dragOverNode {
   background: linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
     linear-gradient(90deg, blue 50%, transparent 0) repeat-x,
     linear-gradient(0deg, blue 50%, transparent 0) repeat-y,
@@ -34,6 +34,18 @@
   background-size: 4px 4px, 4px 4px, 4px 4px, 4px 4px;
   background-position: 0 0, 0 100%, 0 0, 100% 0;
   animation: linearGradientMove 0.3s infinite linear;
+  &::before {
+    content: attr(dataNodeType);
+    position: absolute;
+    transform: translate(0rem, -1em);
+    background-color: blue;
+    color: white;
+    font-size: 0.8rem;
+    padding-left: $gap1;
+    padding-right: $gap1;
+    border-top-left-radius: $gap1; 
+    border-top-right-radius: $gap1; 
+  }
 }
 
 @keyframes linearGradientMove {

@@ -88,8 +88,8 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
         props.className,
         {
           [styles.node]: true,
-          [styles.selectedNode]: isSelectedNode,
-          [styles.dragOverElement]: node.isDragOvered,
+          [styles.selectedNode]: isSelectedNode && !node.isDragOvered,
+          [styles.dragOverNode]: !isSelectedNode && node.isDragOvered,
         },
       ]),
       draggable,
