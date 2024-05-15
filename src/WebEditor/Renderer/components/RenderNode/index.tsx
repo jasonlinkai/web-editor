@@ -4,6 +4,7 @@ import React, { SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
 import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { SelfClosingNodeType } from "../../../types";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;
@@ -43,6 +44,9 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     handleOnClick(e, node);
   };
   if (draggable) {
+    editorEventListeners.onDrag = (e) => {
+      console.log(e);
+    }
     editorEventListeners.onDragStart = (e: React.DragEvent) => {
       handleOnDragStart(e, node);
     };
@@ -72,18 +76,22 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   } else if (node.isTextNode) {
     renderChildren = node.content;
   } else if (node.isSelfClosingNode) {
-    renderChildren = null;
+    renderChildren = undefined;
   }
-
+  const attribute: Record<string,any> = {};
+  if (type === SelfClosingNodeType.img) {
+    attribute.alt = "default-alt";
+  }
   return React.createElement(
     type,
     {
       ...props,
       ...editorEventListeners,
+      ...attribute,
       draggable,
       style: {
         ...props.style,
-        cursor: dropable ? 'pointer' : undefined,
+        cursor: isSelectedNode ? 'grab' : 'pointer',
       },
       className: clsx([
         props.className,

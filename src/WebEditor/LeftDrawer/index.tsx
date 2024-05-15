@@ -5,15 +5,20 @@ import { useStores } from "../../mobx/useMobxStateTreeStores";
 import NewNodePanel from "../components/panels/NewNodePanel";
 import { actionBarHeight } from "../ActionBar";
 import { astTagTreePanelHeight } from "../components/panels/AstTagTreePanel";
-import ActionButton   from "../components/ActionButton";
-import { FaPlus } from "react-icons/fa";
+import ActionButton from "../components/ActionButton";
+import { FaInfo, FaPlus } from "react-icons/fa";
 import { useState } from "react";
+import InfoPanel from "../components/panels/InfoPanel";
 
 enum TabTypes {
+  INFO = "INFO",
   ADD_CHILDREN = "ADD_CHILDREN",
-  EDIT_STYLE = "EDIT_STYLE",
 }
 const tabs = [
+  {
+    type: TabTypes.INFO,
+    IconComponent: FaInfo,
+  },
   {
     type: TabTypes.ADD_CHILDREN,
     IconComponent: FaPlus,
@@ -53,6 +58,7 @@ const LeftDrawer: React.FC = observer(() => {
           height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
         }}
       >
+        {tabType === TabTypes.INFO && <InfoPanel />}
         {tabType === TabTypes.ADD_CHILDREN && (
           <>
             <NewNodePanel />

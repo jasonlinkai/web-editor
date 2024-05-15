@@ -24,12 +24,13 @@ const Renderer: React.FC = observer(() => {
     node: AstNodeModelType
   ) => void = useCallback(
     (ev, node) => {
+      ev.stopPropagation();
       ev.dataTransfer.effectAllowed = "move";
       ev.dataTransfer.setData(
         "application/json",
         JSON.stringify({
           type: "move node",
-          data: null,
+          data: "",
         })
       );
       setDragingAstNode(node);
