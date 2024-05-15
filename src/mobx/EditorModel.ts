@@ -102,6 +102,11 @@ export const EditorModel = t
         uuid: uuid(),
         parent: undefined,
         type: TextNodeType.span,
+        props: {
+          style: {
+            display: 'block',
+          },
+        },
         content: 'please enter text'
       });
     },
