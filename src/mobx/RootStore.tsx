@@ -42,6 +42,11 @@ export const RootStore = t
     };
 
     const addAstSnapshot = (astSnapshot: AstNodeModelSnapshotOutType) => {
+      if (self.astSnapshotsIndex !== self.astSnapshots.length - 1) {
+        // 快照位置不在最新，代表有回退過，進入這個方法則代表收到新的異動。
+        // 我們捨棄比現在索引位置還新的快照
+        self.astSnapshots = self.astSnapshots.slice(0, self.astSnapshotsIndex + 1);
+      }
       self.astSnapshots = [...self.astSnapshots, astSnapshot];
       self.astSnapshotsIndex = self.astSnapshots.length - 1;
     };
