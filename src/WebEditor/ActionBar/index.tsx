@@ -6,6 +6,7 @@ import {
   FaAngleDoubleRight,
   FaArrowLeft,
   FaArrowRight,
+  FaTrash,
 } from "react-icons/fa";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import ActionButton from "../components/ActionButton";
@@ -22,13 +23,16 @@ const ActionBar: React.FC = observer(() => {
     selectedAstNode,
   } = editor;
 
-  const onShortCutDelete = useCallback((e: KeyboardEvent) => {
-    if (e.key === "Backspace" || e.key === "Delete") {
-      if (selectedAstNode && selectedAstNode.parent) {
-        selectedAstNode.parent.deletChild(selectedAstNode);
+  const onShortCutDelete = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Backspace") {
+        if (selectedAstNode?.isSelfCanBeDeleted) {
+          selectedAstNode.parent.deletChild(selectedAstNode);
+        }
       }
-    }
-  }, [selectedAstNode]);
+    },
+    [selectedAstNode]
+  );
 
   const onShortCurUndo = useCallback(
     (e: KeyboardEvent) => {
@@ -86,12 +90,19 @@ const ActionBar: React.FC = observer(() => {
           IconComponent={FaArrowLeft}
           isDisable={!canUndo}
           onClick={canUndo ? undoAst : undefined}
-        />
+          >Undo(ctrl + z)</ActionButton>
         <ActionButton
           IconComponent={FaArrowRight}
           isDisable={!canRedo}
           onClick={canRedo ? redoAst : undefined}
-        />
+        >Redo(ctrl + r)</ActionButton>
+        <ActionButton
+          IconComponent={FaTrash}
+          isDisable={!selectedAstNode?.isSelfCanBeDeleted}
+          onClick={canRedo ? redoAst : undefined}
+        >
+          Delete(Backspace)
+        </ActionButton>
       </div>
       <div className={styles.actionBarRightArea}>
         <ActionButton

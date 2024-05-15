@@ -85,6 +85,9 @@ export const AstNodeModel = t
     isDragOvered: false,
   }))
   .views((self) => ({
+    get isSelfCanBeDeleted() {
+      return !!self.parent;
+    },
     get isRootNode() {
       return self.parent === undefined;
     },
