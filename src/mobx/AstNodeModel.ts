@@ -16,6 +16,7 @@ import {
 import { StyleEnum } from "../WebEditor/types";
 
 const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
+  dataNodeType: t.optional(t.string, ""),
   src: t.maybe(t.string),
   alt: t.maybe(t.string),
 });
@@ -115,9 +116,7 @@ export const AstNodeModel = t
       );
     },
     get isTextNode() {
-      return Object.values(TextNodeType).includes(
-        self.type as TextNodeType
-      );
+      return Object.values(TextNodeType).includes(self.type as TextNodeType);
     },
     get isSelfClosingNode() {
       return Object.values(SelfClosingNodeType).includes(
@@ -144,7 +143,9 @@ export const AstNodeModel = t
         ...style,
       };
     },
-    setAttributes(attributes: Partial<SnapshotOut<AstNodeModelPropsAttributesType>>) {
+    setAttributes(
+      attributes: Partial<SnapshotOut<AstNodeModelPropsAttributesType>>
+    ) {
       self.props.attributes = {
         ...self.props.attributes,
         ...attributes,
@@ -162,13 +163,7 @@ export const AstNodeModel = t
         [styleKey]: styleValue,
       };
     },
-    updateAttributes({
-      key,
-      value,
-    }: {
-      key: AttributesEnum;
-      value: string;
-    }) {
+    updateAttributes({ key, value }: { key: AttributesEnum; value: string }) {
       self.props.attributes = {
         ...self.props.attributes,
         [key]: value,

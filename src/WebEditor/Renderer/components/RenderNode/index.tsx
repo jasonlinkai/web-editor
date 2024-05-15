@@ -27,7 +27,8 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
 
   const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid;
   const draggable = !ast.isRootNode && isSelectedNode;
-  const dropable =  ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid;
+  const dropable =
+    ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid;
   // Base case: If the node is a text node, render it as is
 
   const node: AstNodeModelType = ast;
@@ -56,7 +57,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
       handleOnDragLeave(e, node);
       node.setIsDragOvered(false);
     };
-  
+
     editorEventListeners.onDrop = (e: React.DragEvent) => {
       handleOnDrop(e, node);
       node.setIsDragOvered(false);
@@ -74,27 +75,26 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   } else if (node.isSelfClosingNode) {
     renderChildren = undefined;
   }
-
   return React.createElement(
     type,
     {
       ...props,
       ...editorEventListeners,
-      ...props.attributes,
-      draggable,
+      ...{ ...props.attributes, dataNodeType: type },
       style: {
         ...props.style,
-        cursor: isSelectedNode ? 'grab' : 'pointer',
       },
       className: clsx([
         props.className,
         {
+          [styles.node]: true,
           [styles.selectedNode]: isSelectedNode,
           [styles.dragOverElement]: node.isDragOvered,
         },
       ]),
+      draggable,
     },
-    renderChildren,
+    renderChildren
   );
 });
 
