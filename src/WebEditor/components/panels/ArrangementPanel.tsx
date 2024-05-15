@@ -7,18 +7,18 @@ import {
   LuAlignHorizontalSpaceBetween,
   LuAlignHorizontalSpaceAround,
 } from "react-icons/lu";
-import Select from "../../components/Select";
+import Select from "../Select";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
-import ActionButton from "../../components/ActionButton";
-import options from "../../components/Select/options";
+import ActionButton from "../ActionButton";
+import options from "../Select/options";
 import { useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const ArrangementPanel = observer(() => {
   const { editor } = useStores();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>

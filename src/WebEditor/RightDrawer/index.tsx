@@ -2,28 +2,21 @@ import styles from "./RightDrawer.module.scss";
 import clsx from "clsx";
 import { observer } from "mobx-react-lite";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
-import PositionPanel from "./panels/PositionPanel";
-import LayoutPanel from "./panels/LayoutPanel";
-import ArrangementPanel from "./panels/ArrangementPanel";
-import TypographyPanel from "./panels/TypographyPanel"
-import NewNodePanel from "./panels/NewNodePanel";
-import AstTagTreePanel from "./panels/AstTagTreePanel";
+import PositionPanel from "../components/panels/PositionPanel";
+import LayoutPanel from "../components/panels/LayoutPanel";
+import ArrangementPanel from "../components/panels/ArrangementPanel";
+import TypographyPanel from "../components/panels/TypographyPanel"
+import AstTagTreePanel from "../components/panels/AstTagTreePanel";
 import { actionBarHeight } from "../ActionBar";
-import { astTagTreePanelHeight } from "./panels/AstTagTreePanel";
+import { astTagTreePanelHeight } from "../components/panels/AstTagTreePanel";
 import ActionButton from "../components/ActionButton";
-import { FaPlus } from "react-icons/fa";
 import { TfiPanel } from "react-icons/tfi";
 import { useState } from "react";
 
 enum TabTypes {
-  ADD_CHILDREN = "ADD_CHILDREN",
   EDIT_STYLE = "EDIT_STYLE",
 }
 const tabs = [
-  {
-    type: TabTypes.ADD_CHILDREN,
-    IconComponent: FaPlus,
-  },
   {
     type: TabTypes.EDIT_STYLE,
     IconComponent: TfiPanel,
@@ -33,7 +26,7 @@ const tabs = [
 const RightDrawer: React.FC = observer(() => {
   const { editor } = useStores();
   const node = editor.selectedAstNode;
-  const [tabType, setTabType] = useState(TabTypes.ADD_CHILDREN);
+  const [tabType, setTabType] = useState(TabTypes.EDIT_STYLE);
   return (
     <div
       className={clsx([
@@ -64,11 +57,6 @@ const RightDrawer: React.FC = observer(() => {
           height: window.innerHeight - actionBarHeight - astTagTreePanelHeight,
         }}
       >
-        {tabType === TabTypes.ADD_CHILDREN && (
-          <>
-            <NewNodePanel />
-          </>
-        )}
         {tabType === TabTypes.EDIT_STYLE &&
           (node ? (
             <>

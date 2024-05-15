@@ -25,7 +25,7 @@ const ActionBar: React.FC = observer(() => {
 
   const onShortCutDelete = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "Backspace") {
+      if (e.ctrlKey && e.key === "Backspace") {
         if (selectedAstNode?.isSelfCanBeDeleted) {
           selectedAstNode.parent.deletChild(selectedAstNode);
         }
@@ -101,7 +101,7 @@ const ActionBar: React.FC = observer(() => {
           isDisable={!selectedAstNode?.isSelfCanBeDeleted}
           onClick={canRedo ? redoAst : undefined}
         >
-          Delete(Backspace)
+          Delete(ctrl + backspace)
         </ActionButton>
       </div>
       <div className={styles.actionBarRightArea}>

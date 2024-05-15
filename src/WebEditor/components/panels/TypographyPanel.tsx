@@ -1,18 +1,18 @@
 import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
-import Input from "../../components/Input";
+import Input from "../Input";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
 import { useState } from "react";
 import clsx from "clsx";
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "../ActionButton";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import Select from "../../components/Select";
-import options from "../../components/Select/options";
+import Select from "../Select";
+import options from "../Select/options";
 
 const TypographyPanel = observer(() => {
   const { editor } = useStores();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>

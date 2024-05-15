@@ -3,12 +3,50 @@
 .leftDrawer {
   display: none;
   flex: 0 0 0px;
+  flex-direction: column;
+  align-items: center;
   background-color: $panel-bg;
-  border-right: 1px solid $panel-border;
+  border-left: 1px solid $panel-border;
 }
 
 .leftDrawerOpen {
-  display: block;
-  flex: 1 0 300px;
+  flex: 1 0 250px;
+  display: flex;
+}
+
+.leftDrawerTabsArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: $gap2;
+  gap: $gap2;
+  overflow-y: scroll;
+  height: 50px;
+} 
+
+.leftDrawerPanelArea {
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+  gap: $gap3;
+  padding-top: $gap1;
+  padding-bottom: $gap1;
+}
+
+.leftDrawerPanelAreaNoSelectedNode {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   height: 100%;
+  width: 100%;
+}
+
+.gap {
+  border-top: 1px solid $panel-border;
+  width: 100%;
+  height: 1px;
+}
+
+.leftDrawerTreeArea {
+  padding-top: $gap3;
 }

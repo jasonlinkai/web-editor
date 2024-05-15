@@ -1,6 +1,6 @@
 import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "../ActionButton";
 import { useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown, FaImage } from "react-icons/fa";
@@ -9,7 +9,7 @@ import { GoTypography } from "react-icons/go";
 import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../../types";
 
 const NewNodePanel = observer(() => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   return (
     <div className={styles.panel}>
       <div className={styles.panelHeader}>

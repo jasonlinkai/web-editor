@@ -1,18 +1,18 @@
 import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
-import Select from "../../components/Select";
+import Select from "../Select";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 import { StyleEnum } from "../../types";
-import options from "../../components/Select/options";
-import Input from "../../components/Input";
+import options from "../Select/options";
+import Input from "../Input";
 import { useState } from "react";
 import clsx from "clsx";
-import ActionButton from "../../components/ActionButton";
+import ActionButton from "../ActionButton";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 
 const PositionPanel = observer(() => {
   const { editor } = useStores();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
   const node = editor.selectedAstNode;
   return (
     <div className={styles.panel}>
