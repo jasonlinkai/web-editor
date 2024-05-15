@@ -4,10 +4,11 @@ import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../mobx/AstNodeModel";
 import { useStores } from "../../mobx/useMobxStateTreeStores";
 import RenderNode from "./components/RenderNode";
+import { ContainerElementType, SelfClosingElementType, TextElementType } from "../types";
 
 const Renderer: React.FC = observer(() => {
   const { ast, editor } = useStores();
-  const { setSelectedAstNode, dragingAstNode, setDragingAstNode } = editor;
+  const { setSelectedAstNode, dragingAstNode, setDragingAstNode, newContainerNode, newImageNode, newTextNode } = editor;
 
   const handleOnClick: (ev: React.MouseEvent, node: AstNodeModelType) => void =
     useCallback(
@@ -24,6 +25,13 @@ const Renderer: React.FC = observer(() => {
   ) => void = useCallback(
     (ev, node) => {
       ev.dataTransfer.effectAllowed = "move";
+      ev.dataTransfer.setData(
+        "application/json",
+        JSON.stringify({
+          type: "move node",
+          data: null,
+        })
+      );
       setDragingAstNode(node);
     },
     [setDragingAstNode]
@@ -52,12 +60,30 @@ const Renderer: React.FC = observer(() => {
     useCallback(
       (ev, node) => {
         ev.stopPropagation();
-        if (dragingAstNode) {
-          dragingAstNode.parent.removeChild(dragingAstNode, node);
-          setDragingAstNode(undefined);
+        const jsonData = ev.dataTransfer.getData("application/json");
+        const { type, data } = JSON.parse(jsonData);
+        if (type === "move node") {
+          if (dragingAstNode) {
+            dragingAstNode.parent.removeChild(dragingAstNode, node);
+            setDragingAstNode(undefined);
+          }
+        } else if (type === "add new node") {
+          let newNode;
+          if (data.nodeType === ContainerElementType.div) {
+            newNode = newContainerNode();
+          } else if (data.nodeType === TextElementType.span) {
+            newNode = newTextNode();
+          } else if (data.nodeType === SelfClosingElementType.img) {
+            newNode = newImageNode();
+          }
+
+          if (newNode) {
+            node.addChild(newNode)
+            setSelectedAstNode(newNode);
+          }
         }
       },
-      [dragingAstNode, setDragingAstNode]
+      [dragingAstNode, setDragingAstNode, newContainerNode, newImageNode, newTextNode, setSelectedAstNode]
     );
   return (
     <div className={styles.renderer}>

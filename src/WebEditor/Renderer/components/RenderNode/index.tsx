@@ -27,7 +27,6 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
 
   const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid;
   const draggable = !ast.isRootNode && isSelectedNode;
-  const isTextElement = ast.isTextElement;
   // Base case: If the node is a text node, render it as is
 
   const node: AstNodeModelType = ast;
