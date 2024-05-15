@@ -3,11 +3,11 @@ import React from "react";
 // import { connectReduxDevtools } from "mst-middlewares";
 
 import { IStore, RootStore } from "./RootStore";
-import { templateDefault } from "../WebEditor/templates";
+import { testTemplate } from "../WebEditor/templates";
 import { onSnapshot } from "mobx-state-tree";
 
 const store = RootStore.create({
-  ast: templateDefault,
+  ast: (testTemplate as any),
 });
 
 export const StoreContext = React.createContext<IStore>(store);
