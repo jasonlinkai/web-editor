@@ -1,9 +1,9 @@
-import { ElementType } from "./types";
+import { ContainerElementType, TextElementType } from "./types";
 import { EventNames } from "./event";
 export const templateDefault = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
   parent: undefined,
-  type: ElementType.div,
+  type: ContainerElementType.div,
   props: {
     className: "",
     style: {
@@ -24,7 +24,7 @@ export const templateDefault = {
     {
       uuid: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: ElementType.h1,
+      type: TextElementType.h1,
       props: {
         className: "",
         style: {
@@ -32,28 +32,16 @@ export const templateDefault = {
         },
       },
       events: {},
-      children: [
-        {
-          uuid: "40dfd631-0a98-4c4e-9693-951278f68689",
-          parent: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
-          type: ElementType["pure-text"],
-          props: {
-            className: "",
-            style: {
-            },
-          },
-          events: {},
-          children: [],
-          content: "Default Template"
-        },
-      ],
+      children: [],
+      content: 'Default Template',
     },
   ],
 };
+
 export const template1 = {
   uuid: "5c5094a8-96a0-4467-aea4-5dec09b80582",
   parent: undefined,
-  type: ElementType.div,
+  type: ContainerElementType.div,
   props: {
     className: "container",
     style: {
@@ -72,7 +60,7 @@ export const template1 = {
     {
       uuid: "561773be-c7c9-4458-9cfb-c3db5972e5e9",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: ElementType.div,
+      type: ContainerElementType.div,
       props: {
         className: "",
         style: {
@@ -87,7 +75,7 @@ export const template1 = {
     {
       uuid: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
       parent: "5c5094a8-96a0-4467-aea4-5dec09b80582",
-      type: ElementType.button,
+      type: TextElementType.button,
       props: {
         style: {
           color: "blue",
@@ -100,25 +88,8 @@ export const template1 = {
           payload: { path: "/test!" },
         },
       },
-      children: [
-        {
-          uuid: "40dfd631-0a98-4c4e-9693-951278f68689",
-          parent: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
-          type: ElementType["pure-text"],
-          content: "Click Me",
-        },
-        {
-          uuid: "e04c3fca-1b83-4471-bc66-f2b35d279170",
-          parent: "a6ccca86-655b-4907-98f9-9aeee1b51f9f",
-          type: ElementType.div,
-          props: {
-            className: "",
-            style: {},
-          },
-          events: {},
-          children: [],
-        },
-      ],
+      children: [],
+      content: 'test',
     },
   ],
 };

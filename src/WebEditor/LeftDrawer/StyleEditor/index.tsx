@@ -149,7 +149,26 @@ const StyleEditor = observer(() => {
         <div>select node first</div>
       ) : (
         <div className={styles.styleEditorForm}>
-          {node.isPureTextNode ? (
+          {styleKeys.map((styleKey) => {
+            const config = renderConfigs[styleKey];
+            if (!config) return null;
+            const { Component, props, isPanelReady } = config;
+            if (isPanelReady) return null;
+            return (
+              <FormItem>
+                <Component
+                  key={styleKey}
+                  label={styleKey}
+                  value={`${node.props.style[styleKey] || ""}`}
+                  onChange={(v) => {
+                    node.updateStyle({ styleKey, styleValue: v });
+                  }}
+                  {...props}
+                />
+              </FormItem>
+            );
+          })}
+          {node.isTextElement && (
             <FormItem>
               <Input
                 label="content"
@@ -159,28 +178,6 @@ const StyleEditor = observer(() => {
                 }}
               ></Input>
             </FormItem>
-          ) : (
-            <>
-              {styleKeys.map((styleKey) => {
-                const config = renderConfigs[styleKey];
-                if (!config) return null;
-                const { Component, props, isPanelReady } = config;
-                if (isPanelReady) return null;
-                return (
-                  <FormItem>
-                    <Component
-                      key={styleKey}
-                      label={styleKey}
-                      value={`${node.props.style[styleKey] || ""}`}
-                      onChange={(v) => {
-                        node.updateStyle({ styleKey, styleValue: v });
-                      }}
-                      {...props}
-                    />
-                  </FormItem>
-                );
-              })}
-            </>
           )}
         </div>
       )}

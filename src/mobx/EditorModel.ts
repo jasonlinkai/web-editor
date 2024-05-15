@@ -29,13 +29,13 @@ export const EditorModel = t
         if (!self.selectedAstNode) {
           self.selectedAstNode = node;
           node.setStyle(node.props.style);
-          if (node.isPureTextNode) {
+          if (node.isTextElement) {
             node.setContent(node.content || "");
           }
         } else {
           if (node.uuid !== self.selectedAstNode.uuid) {
             self.selectedAstNode.setStyle({});
-            if (node.isPureTextNode) {
+            if (node.isTextElement) {
               node.setContent(node.content || "");
             }
             self.selectedAstNode = node;
@@ -47,7 +47,7 @@ export const EditorModel = t
           self.selectedAstNode = undefined;
         } else {
           self.selectedAstNode.setStyle({});
-          if (self.selectedAstNode.isPureTextNode) {
+          if (self.selectedAstNode.isTextElement) {
             self.selectedAstNode.setContent(
               self.selectedAstNode.content || ""
             );

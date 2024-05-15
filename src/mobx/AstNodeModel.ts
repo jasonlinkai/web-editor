@@ -7,7 +7,11 @@ import {
   detach,
 } from "mobx-state-tree";
 import { Event, EventNames } from "../WebEditor/event";
-import { ElementType } from "../WebEditor/types";
+import {
+  ContainerElementType,
+  SelfClosingElementType,
+  TextElementType,
+} from "../WebEditor/types";
 import { StyleEnum } from "../WebEditor/types";
 
 const AstNodeModelPropsStyle = t.model("AstNodeModelPropsStyle", {
@@ -52,7 +56,11 @@ export const AstNodeModel = t
   .model("AstNodeModel", {
     uuid: t.identifier,
     parent: t.maybe(t.reference(t.late((): IAnyModelType => AstNodeModel))),
-    type: t.enumeration([...Object.values(ElementType)]),
+    type: t.enumeration([
+      ...Object.values(ContainerElementType),
+      ...Object.values(TextElementType),
+      ...Object.values(SelfClosingElementType),
+    ]),
     events: t.optional(
       t.frozen<{
         onClick?: Event<EventNames>;
@@ -77,8 +85,10 @@ export const AstNodeModel = t
     get isRootNode() {
       return self.parent === undefined;
     },
-    get isPureTextNode() {
-      return self.type === ElementType["pure-text"];
+    get isTextElement() {
+      return Object.values(TextElementType).includes(
+        self.type as TextElementType
+      );
     },
   }))
   .actions((self) => ({
@@ -94,9 +104,7 @@ export const AstNodeModel = t
     setIsDragOvered(v: boolean) {
       self.isDragOvered = v;
     },
-    setStyle(
-      style: Partial<SnapshotOut<AstNodeModelPropsStyleType>>
-    ) {
+    setStyle(style: Partial<SnapshotOut<AstNodeModelPropsStyleType>>) {
       self.props.style = {
         ...self.props.style,
         ...style,

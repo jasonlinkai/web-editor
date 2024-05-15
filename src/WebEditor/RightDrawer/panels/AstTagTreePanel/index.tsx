@@ -9,7 +9,7 @@ const AstTagTree = observer(
   ({ node, level = 0 }: { node: AstNodeModelType; level?: number }) => {
     const { editor } = useStores();
     const { selectedAstNode, setSelectedAstNode } = editor;
-    const { isPureTextNode } = node;
+    const { isTextElement } = node;
     const marginLeft = `${10 * level}px`;
     return (
       <div
@@ -21,30 +21,20 @@ const AstTagTree = observer(
           setSelectedAstNode(node);
         }}
       >
-        {isPureTextNode ? (
-          <span
-            className={clsx([
-              styles.astTreePanelItemContent,
-              {
-                [styles.astTreePanelItemContentSelected]:
-                  selectedAstNode?.uuid === node.uuid,
-              },
-            ])}
-          >
-            {node.content}
-          </span>
+        <span
+          className={clsx([
+            styles.astTreePanelItemStartTag,
+            {
+              [styles.astTreePanelItemStartTagSelected]:
+                selectedAstNode?.uuid === node.uuid,
+            },
+          ])}
+        >{`<${node.type}>`}</span>
+        
+        {isTextElement ? (
+          node.content
         ) : (
           <>
-            <span
-              className={clsx([
-                styles.astTreePanelItemStartTag,
-                {
-                  [styles.astTreePanelItemStartTagSelected]:
-                    selectedAstNode?.uuid === node.uuid,
-                },
-              ])}
-            >{`<${node.type}>`}</span>
-
             {node.children.map((child: AstNodeModelType) => {
               return (
                 <AstTagTree
@@ -54,18 +44,18 @@ const AstTagTree = observer(
                 />
               );
             })}
-
-            <span
-              className={clsx([
-                styles.astTreePanelItemEndTag,
-                {
-                  [styles.astTreePanelItemEndTagSelected]:
-                    selectedAstNode?.uuid === node.uuid,
-                },
-              ])}
-            >{`</${node.type}>`}</span>
           </>
         )}
+
+        <span
+          className={clsx([
+            styles.astTreePanelItemEndTag,
+            {
+              [styles.astTreePanelItemEndTagSelected]:
+                selectedAstNode?.uuid === node.uuid,
+            },
+          ])}
+        >{`</${node.type}>`}</span>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import styles from "./RenderNode.module.scss";
 import clsx from "clsx";
-import React, { Fragment, SyntheticEvent } from "react";
+import React, { SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
 import { useStores } from "../../../../mobx/useMobxStateTreeStores";
@@ -27,13 +27,8 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
 
   const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid;
   const draggable = !ast.isRootNode && isSelectedNode;
-  const isPureTextNode = ast.isPureTextNode;
+  const isTextElement = ast.isTextElement;
   // Base case: If the node is a text node, render it as is
-  if (isPureTextNode) {
-    return (
-      <Fragment>{ast.content}</Fragment>
-    );
-  }
 
   const node: AstNodeModelType = ast;
   // Otherwise, it's an element node
@@ -85,9 +80,11 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
         },
       ]),
     },
-    renderChildren.map((child) => {
-      return <RenderNode key={child.uuid} ast={child} {...p} />;
-    })
+    isTextElement
+      ? node.content
+      : renderChildren.map((child) => {
+          return <RenderNode key={child.uuid} ast={child} {...p} />;
+        })
   );
 });
 
