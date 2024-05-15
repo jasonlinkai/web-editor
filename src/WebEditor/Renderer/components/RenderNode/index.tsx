@@ -44,9 +44,6 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
     handleOnClick(e, node);
   };
   if (draggable) {
-    editorEventListeners.onDrag = (e) => {
-      console.log(e);
-    }
     editorEventListeners.onDragStart = (e: React.DragEvent) => {
       handleOnDragStart(e, node);
     };
