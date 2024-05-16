@@ -11,8 +11,8 @@ import {
 import {
   MdFavorite
 } from "react-icons/md"
-import { useStores } from "../../mobx/useMobxStateTreeStores";
-import ActionButton from "../components/ActionButton";
+import { useStores } from "../../../mobx/useMobxStateTreeStores";
+import ActionButton from "../../components/ActionButton";
 
 export const actionBarHeight = 50;
 
