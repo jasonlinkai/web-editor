@@ -10,16 +10,8 @@
   padding-right: 10px;
 }
 
-.actionBarLeftArea {
+.actionBarArea {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  gap: 5px;
-}
-
-.actionBarRightArea {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  gap: 5px;
 }
