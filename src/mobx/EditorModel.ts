@@ -1,3 +1,4 @@
+import { v4 as uuid } from "uuid";
 import {
   types as t,
   Instance,
@@ -8,70 +9,22 @@ import {
   flow,
 } from "mobx-state-tree";
 import { AstNodeModel } from "./AstNodeModel";
-import type {
-  AstNodeModelSnapshotInType,
-  AstNodeModelType,
-} from "./AstNodeModel";
-import { v4 as uuid } from "uuid";
+import { SnippetAstNodeModel } from "./SnippetAstNodeModel";
+import { EditorLayoutModel } from "./EditorLayoutModel";
+import { getRandomColor } from "../WebEditor/utils";
+import { httpGetUploadedImages, httpPostUploadImage } from "../WebEditor/http";
 import {
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
 } from "../WebEditor/types";
-import { getRandomColor } from "../WebEditor/utils";
-import { httpGetUploadedImages, httpPostUploadImage } from "../WebEditor/http";
 
-const SnippetEnhencedModel = t
-  .model("SnippetEnhencedModel", {
-    alias: t.optional(t.string, ""),
-  })
-  .actions((self) => {
-    const setAlias = (alias: string) => {
-      self.alias = alias;
-    };
-    return { setAlias };
-  });
-
-export type SnippetEnhencedModelType = Instance<typeof SnippetEnhencedModel>;
-export type SnippetEnhencedModelSnapshotInType = SnapshotIn<
-  typeof SnippetEnhencedModel
->;
-export type SnippetEnhencedModelSnapshotOutType = SnapshotOut<
-  typeof SnippetEnhencedModel
->;
-
-const SnippetAstNodeModel = t
-  .compose(AstNodeModel, SnippetEnhencedModel)
-  .actions((self) => {
-    const afterCreate = () => {
-      if (!self.alias) {
-        self.alias = self.uuid;
-      }
-    };
-    return {
-      afterCreate,
-    };
-  });
-
-export type SnippetAstNodeModelType = Instance<typeof SnippetAstNodeModel>;
-export type SnippetAstNodeModelSnapshotInType = SnapshotIn<
-  typeof SnippetAstNodeModel
->;
-export type SnippetAstNodeModelSnapshotOutType = SnapshotOut<
-  typeof SnippetAstNodeModel
->;
-
-const EditorLayoutModel = t.model({
-  width: t.optional(t.string, "100%"),
-});
-
-export type EditorLayoutModelType = Instance<typeof EditorLayoutModel>;
-export type EditorLayoutModelSnapshotInType = SnapshotIn<
-  typeof EditorLayoutModel
->;
-export type EditorLayoutModelSnapshotOutType = SnapshotOut<
-  typeof EditorLayoutModel
->;
+import type {
+  AstNodeModelSnapshotInType,
+  AstNodeModelType,
+} from "./AstNodeModel";
+import type { SnippetAstNodeModelType } from "./SnippetAstNodeModel";
+import type { EditorLayoutModelType } from "./EditorLayoutModel";
 
 export const EditorModel = t
   .model("EditorModel", {
@@ -104,6 +57,9 @@ export const EditorModel = t
       },
     };
   })
+  //
+  // util functions
+  //
   .actions((self) => {
     const recursiveClearUuid = (
       ast: AstNodeModelSnapshotInType,
@@ -122,44 +78,10 @@ export const EditorModel = t
       recursiveClearUuid,
     };
   })
+  //
+  // model mutator
+  //
   .actions((self) => ({
-    setIsImageGalleryModalVisible(v: boolean) {
-      self.isImageGalleryModalVisible = v;
-    },
-    setIsUploadImageLoading(v: boolean) {
-      self.isUploadImageLoading = v;
-    },
-    setIsFetchImagesLoading(v: boolean) {
-      self.isFetchImagesLoading = v;
-    },
-    setImages(images: string[]) {
-      self.images = new Set(images);
-    },
-    setIsUploadModalVisible(visible: boolean) {
-      self.isUploadModalVisible = visible;
-    },
-    setEditorLayout(layout: EditorLayoutModelType) {
-      self.editorLayout = layout;
-    },
-    deleteSnippet(snippet: SnippetAstNodeModelType) {
-      detach(snippet);
-    },
-    pushToSnippets(snippet: AstNodeModelType) {
-      const snapshot = getSnapshot(snippet);
-      const clearedSnapshot = self.recursiveClearUuid(
-        JSON.parse(JSON.stringify(snapshot)),
-        undefined
-      );
-      const newSnippetAstNode = SnippetAstNodeModel.create(clearedSnapshot);
-      console.log(getSnapshot(newSnippetAstNode));
-      self.snippets.push(clearedSnapshot);
-    },
-    setIsLeftDrawerOpen(open: boolean) {
-      self.isLeftDrawerOpen = open;
-    },
-    setIsRightDrawerOpen(open: boolean) {
-      self.isRightDrawerOpen = open;
-    },
     setSelectedAstNode(node: AstNodeModelType | undefined) {
       if (node) {
         if (!self.selectedAstNode) {
@@ -193,10 +115,66 @@ export const EditorModel = t
     setDragingAstNode(node: AstNodeModelType | undefined) {
       self.dragingAstNode = node;
     },
-    deleteNode(node: AstNodeModelType) {
-      detach(node);
+    setEditorLayout(layout: EditorLayoutModelType) {
+      self.editorLayout = layout;
     },
-    newContainerNode() {
+    deleteSnippet(snippet: SnippetAstNodeModelType) {
+      detach(snippet);
+    },
+    pushToSnippets(snippet: AstNodeModelType) {
+      const snapshot = getSnapshot(snippet);
+      const clearedSnapshot = self.recursiveClearUuid(
+        JSON.parse(JSON.stringify(snapshot)),
+        undefined
+      );
+      const newSnippetAstNode = SnippetAstNodeModel.create(clearedSnapshot);
+      console.log(getSnapshot(newSnippetAstNode));
+      self.snippets.push(clearedSnapshot);
+    },
+  }))
+  //
+  // volatile setters
+  //
+  .actions((self) => {
+    const setIsLeftDrawerOpen = (open: boolean) => {
+      self.isLeftDrawerOpen = open;
+    };
+    const setIsRightDrawerOpen = (open: boolean) => {
+      self.isRightDrawerOpen = open;
+    };
+    const setIsImageGalleryModalVisible = (v: boolean) => {
+      self.isImageGalleryModalVisible = v;
+    };
+    const setIsUploadImageLoading = (v: boolean) => {
+      self.isUploadImageLoading = v;
+    };
+    const setIsFetchImagesLoading = (v: boolean) => {
+      self.isFetchImagesLoading = v;
+    };
+    const setImages = (images: string[]) => {
+      self.images = new Set(images);
+    };
+    const setIsUploadModalVisible = (visible: boolean) => {
+      self.isUploadModalVisible = visible;
+    };
+    return {
+      setIsLeftDrawerOpen,
+      setIsRightDrawerOpen,
+      setIsImageGalleryModalVisible,
+      setIsUploadImageLoading,
+      setIsFetchImagesLoading,
+      setImages,
+      setIsUploadModalVisible,
+    };
+  })
+  //
+  // node related methods
+  //
+  .actions((self) => {
+    const deleteNode = (node: AstNodeModelType) => {
+      detach(node);
+    };
+    const newContainerNode = () => {
       return AstNodeModel.create({
         uuid: uuid(),
         parent: undefined,
@@ -209,8 +187,8 @@ export const EditorModel = t
           },
         },
       });
-    },
-    newImageNode() {
+    };
+    const newImageNode = () => {
       const id = uuid();
       return AstNodeModel.create({
         uuid: id,
@@ -229,8 +207,8 @@ export const EditorModel = t
           },
         },
       });
-    },
-    newTextNode() {
+    };
+    const newTextNode = () => {
       return AstNodeModel.create({
         uuid: uuid(),
         parent: undefined,
@@ -242,8 +220,17 @@ export const EditorModel = t
         },
         content: "please enter text",
       });
-    },
-  }))
+    };
+    return {
+      deleteNode,
+      newContainerNode,
+      newImageNode,
+      newTextNode,
+    };
+  })
+  //
+  // async actions
+  //
   .actions((self) => {
     const uploadImage = flow(function* (formData: FormData) {
       self.setIsUploadImageLoading(true);
@@ -273,6 +260,9 @@ export const EditorModel = t
     });
     return { uploadImage, fetchImages };
   })
+  //
+  // lifecycle callbacks
+  //
   .actions((self) => {
     const afterCreate = () => {
       self.fetchImages();
