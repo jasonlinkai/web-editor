@@ -4,6 +4,7 @@ import { observer } from "mobx-react-lite";
 import clsx from "clsx";
 import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
 import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useEffect } from "react";
 
 const AstTagTree = observer(
   ({ node, level = 0 }: { node: AstNodeModelType; level?: number }) => {
@@ -13,6 +14,7 @@ const AstTagTree = observer(
     const marginLeft = `${10 * level}px`;
     return (
       <div
+        id={`ast-tree-panel-item-${node.uuid}`}
         key={`ast-tree-panel-item-${node.uuid}`}
         className={styles.astTreePanelItem}
         style={{ marginLeft }}
@@ -68,7 +70,15 @@ const AstTagTree = observer(
 export const astTagTreePanelHeight = 200;
 
 const AstTagTreePanel = observer(() => {
-  const { ast } = useStores();
+  const { ast, editor } = useStores();
+  useEffect(() => {
+    if (editor.selectedAstNode) {
+      const selected = document.getElementById(`ast-tree-panel-item-${editor.selectedAstNode.uuid}`)
+      if (selected) {
+        selected.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [editor.selectedAstNode]);
   return (
     <div className={panelStyles.panel}>
       <div className={panelStyles.panelTitle}>Tree</div>
