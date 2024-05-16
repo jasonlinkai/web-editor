@@ -87,7 +87,7 @@ const AstNodeModelProps = t.model("AstNodeModelProps", {
 export const AstNodeModel = t
   .model("AstNodeModel", {
     uuid: t.identifier,
-    parent: t.maybe(t.reference(t.late((): IAnyModelType => AstNodeModel))),
+    parent: t.maybe(t.safeReference(t.late((): IAnyModelType => AstNodeModel))),
     type: t.enumeration([
       ...Object.values(ContainerNodeType),
       ...Object.values(TextNodeType),

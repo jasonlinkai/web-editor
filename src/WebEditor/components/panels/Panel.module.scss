@@ -86,6 +86,26 @@
   align-items: center;
 }
 
+.panelItemActionRowBoxWithToolsWrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.panelItemActionRowBoxToolsArea {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: $gap2;
+}
+
+.panelItemActionRowBoxToolsAreaToolButton {
+  font-size: 1.2rem;
+  cursor: pointer;
+  &:hover {
+    color: $active; 
+  }
+}
+
 .panelItemActionRowBox {
   display: flex;
   justify-content: center;

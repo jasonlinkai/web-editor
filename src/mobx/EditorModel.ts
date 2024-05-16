@@ -30,22 +30,40 @@ const SnippetEnhencedModel = t
     return { setAlias };
   });
 
-const SnippetAstNode = t.compose(AstNodeModel, SnippetEnhencedModel).actions((self) => {
-  const afterCreate = () => {
-    if (!self.alias) {
-      self.alias = self.uuid;
-    }
-  }
-  return {
-    afterCreate,
-  }
-});
+export type SnippetEnhencedModelType = Instance<typeof SnippetEnhencedModel>;
+export type SnippetEnhencedModelSnapshotInType = SnapshotIn<
+  typeof SnippetEnhencedModel
+>;
+export type SnippetEnhencedModelSnapshotOutType = SnapshotOut<
+  typeof SnippetEnhencedModel
+>;
+
+const SnippetAstNodeModel = t
+  .compose(AstNodeModel, SnippetEnhencedModel)
+  .actions((self) => {
+    const afterCreate = () => {
+      if (!self.alias) {
+        self.alias = self.uuid;
+      }
+    };
+    return {
+      afterCreate,
+    };
+  });
+
+export type SnippetAstNodeModelType = Instance<typeof SnippetAstNodeModel>;
+export type SnippetAstNodeModelSnapshotInType = SnapshotIn<
+  typeof SnippetAstNodeModel
+>;
+export type SnippetAstNodeModelSnapshotOutType = SnapshotOut<
+  typeof SnippetAstNodeModel
+>;
 
 export const EditorModel = t
   .model("EditorModel", {
     selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
     dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
-    snippets: t.optional(t.array(SnippetAstNode), []),
+    snippets: t.optional(t.array(SnippetAstNodeModel), []),
   })
   .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
     isLeftDrawerOpen: true,
@@ -70,13 +88,18 @@ export const EditorModel = t
     };
   })
   .actions((self) => ({
+    deleteSnippet(snippet: SnippetAstNodeModelType) {
+      detach(snippet);
+    },
     pushToSnippets(snippet: AstNodeModelType) {
       const snapshot = getSnapshot(snippet);
       const clearedSnapshot = self.recursiveClearUuid(
         JSON.parse(JSON.stringify(snapshot)),
         undefined
       );
-      self.snippets.push(SnippetAstNode.create(clearedSnapshot));
+      const newSnippetAstNode = SnippetAstNodeModel.create(clearedSnapshot);
+      console.log(getSnapshot(newSnippetAstNode));
+      self.snippets.push(clearedSnapshot);
     },
     setIsLeftDrawerOpen(open: boolean) {
       self.isLeftDrawerOpen = open;
