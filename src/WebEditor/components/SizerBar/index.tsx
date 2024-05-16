@@ -13,11 +13,13 @@ const SizerBar: React.FC = observer(() => {
 
   const handleEditorLayoutWidth = (
     event: React.MouseEvent<HTMLElement>,
-    width: string
+    width: string | null
   ) => {
-    editor.setEditorLayout({
-      width,
-    });
+    if (width !== null) {
+      editor.setEditorLayout({
+        width,
+      });
+    }
   };
 
   return (
