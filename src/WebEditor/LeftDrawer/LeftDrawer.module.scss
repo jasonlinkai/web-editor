@@ -34,21 +34,3 @@
   padding-top: $gap1;
   padding-bottom: $gap1;
 }
-
-.leftDrawerPanelAreaNoSelectedNode {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
-}
-
-.gap {
-  border-top: 1px solid $panel-border;
-  width: 100%;
-  height: 1px;
-}
-
-.leftDrawerTreeArea {
-  padding-top: $gap3;
-}
