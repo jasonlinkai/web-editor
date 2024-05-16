@@ -49,7 +49,7 @@ const RightDrawer: React.FC = observer(() => {
           {tabs.map((tab) => {
             const { IconComponent, type } = tab;
             return (
-              <ToggleButton value={type} aria-label={type}>
+              <ToggleButton key={type} value={type} aria-label={type}>
                 <IconComponent />
               </ToggleButton>
             );
