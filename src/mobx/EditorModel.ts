@@ -220,6 +220,7 @@ export const EditorModel = t
           attributes: {
             src: "",
             alt: id,
+            crossOrigin: "anonymous",
           },
         },
       });

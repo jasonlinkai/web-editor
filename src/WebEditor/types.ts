@@ -25,6 +25,7 @@ export type ElementType =
 export enum AttributesEnum {
   src = "src",
   alt = "alt",
+  crossOrigin = "crossOrigin",
 }
 export enum StyleEnum {
   width = "width",

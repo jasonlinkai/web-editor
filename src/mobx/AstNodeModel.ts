@@ -19,6 +19,7 @@ const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
   datanodetype: t.optional(t.string, ""),
   src: t.maybe(t.string),
   alt: t.maybe(t.string),
+  crossOrigin: t.maybe(t.string),
 });
 
 export type AstNodeModelPropsAttributesType = Instance<

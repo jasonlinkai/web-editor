@@ -72,6 +72,16 @@ const InfoPanel = observer(() => {
                     });
                   }}
                 />
+                <Input
+                  label="crossOrigin:"
+                  value={node?.props.attributes.crossOrigin || ""}
+                  onChange={(e) => {
+                    node?.updateAttributes({
+                      key: AttributesEnum.crossOrigin,
+                      value: e,
+                    });
+                  }}
+                />
               </>
             )}
           </div>
