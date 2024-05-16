@@ -36,6 +36,7 @@ const SnippetsPanel = observer(() => {
             {snippets.map((snippet) => {
               return (
                 <div
+                  key={snippet.uuid}
                   className={styles.panelItemActionRowBox}
                   draggable
                   style={{
