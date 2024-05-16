@@ -19,11 +19,33 @@ import {
 } from "../WebEditor/types";
 import { getRandomColor } from "../WebEditor/utils";
 
+const SnippetEnhencedModel = t
+  .model("SnippetEnhencedModel", {
+    alias: t.optional(t.string, ""),
+  })
+  .actions((self) => {
+    const setAlias = (alias: string) => {
+      self.alias = alias;
+    };
+    return { setAlias };
+  });
+
+const SnippetAstNode = t.compose(AstNodeModel, SnippetEnhencedModel).actions((self) => {
+  const afterCreate = () => {
+    if (!self.alias) {
+      self.alias = self.uuid;
+    }
+  }
+  return {
+    afterCreate,
+  }
+});
+
 export const EditorModel = t
   .model("EditorModel", {
     selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
     dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
-    snippets: t.optional(t.array(AstNodeModel), []),
+    snippets: t.optional(t.array(SnippetAstNode), []),
   })
   .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
     isLeftDrawerOpen: true,
@@ -54,7 +76,7 @@ export const EditorModel = t
         JSON.parse(JSON.stringify(snapshot)),
         undefined
       );
-      self.snippets.push(AstNodeModel.create(clearedSnapshot));
+      self.snippets.push(SnippetAstNode.create(clearedSnapshot));
     },
     setIsLeftDrawerOpen(open: boolean) {
       self.isLeftDrawerOpen = open;

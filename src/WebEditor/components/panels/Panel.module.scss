@@ -90,13 +90,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center;
   gap: $gap1;
-  min-width: 150px;
-  min-height: 40px;
   width: 100%;
-  height: 100%;
   border: 1px solid $panel-border;
   border-radius: $gap1;
+  padding: $gap2;
   &:hover {
     border-color: $active;
     background-color: $active;

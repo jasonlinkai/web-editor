@@ -54,6 +54,9 @@ const NewNodePanel = observer(() => {
             <div
               className={styles.panelItemActionRowBox}
               draggable
+              style={{ 
+                cursor: 'grab',
+              }}
               onDragStart={(ev) => {
                 ev.dataTransfer.effectAllowed = "move";
                 ev.dataTransfer.setData("application/json", JSON.stringify({
@@ -70,6 +73,9 @@ const NewNodePanel = observer(() => {
             <div
               className={styles.panelItemActionRowBox}
               draggable
+              style={{ 
+                cursor: 'grab',
+              }}
               onDragStart={(ev) => {
                 ev.dataTransfer.effectAllowed = "move";
                 ev.dataTransfer.setData("application/json", JSON.stringify({

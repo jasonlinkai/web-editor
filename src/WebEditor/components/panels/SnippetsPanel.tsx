@@ -4,7 +4,6 @@ import ActionButton from "../ActionButton";
 import { useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import RenderNode from "../../Renderer/components/RenderNode";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 
 const SnippetsPanel = observer(() => {
@@ -38,22 +37,22 @@ const SnippetsPanel = observer(() => {
                 <div
                   key={snippet.uuid}
                   className={styles.panelItemActionRowBox}
-                  draggable
-                  style={{
-                    cursor: "grab",
-                  }}
-                  onDragStart={(ev) => {
-                    ev.dataTransfer.effectAllowed = "move";
-                    ev.dataTransfer.setData(
-                      "application/json",
-                      JSON.stringify({
-                        type: "add new node from snippets",
-                        data: editor.recursiveClearUuid(JSON.parse(JSON.stringify(snippet))),
-                      })
-                    );
-                  }}
+                  // draggable
+                  // style={{
+                  //   cursor: "grab",
+                  // }}
+                  // onDragStart={(ev) => {
+                  //   ev.dataTransfer.effectAllowed = "move";
+                  //   ev.dataTransfer.setData(
+                  //     "application/json",
+                  //     JSON.stringify({
+                  //       type: "add new node from snippets",
+                  //       data: editor.recursiveClearUuid(JSON.parse(JSON.stringify(snippet))),
+                  //     })
+                  //   );
+                  // }}
                 >
-                  <RenderNode ast={snippet} />
+                  {snippet.alias}
                 </div>
               );
             })}
