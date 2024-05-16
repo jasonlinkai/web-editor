@@ -6,6 +6,7 @@ import Renderer from "./Renderer";
 import RightDrawer from "./RightDrawer";
 import { MobxStateTreeStoreProvider } from "../mobx/MobxStateTreeProvider";
 import UploadModal from "./components/Modals/UploadModal";
+import ImageGalleryModal from "./components/Modals/ImageGalleryModal";
 
 const WebEditor: React.FC = () => {
   return (
@@ -22,6 +23,7 @@ const WebEditor: React.FC = () => {
         </div>
       </div>
       <UploadModal />
+      <ImageGalleryModal />
     </MobxStateTreeStoreProvider>
   );
 };

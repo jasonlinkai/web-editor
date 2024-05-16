@@ -87,6 +87,7 @@ export const EditorModel = t
     images: Set<string>;
     isFetchImagesLoading: boolean;
     isUploadImageLoading: boolean;
+    isImageGalleryModalVisible: boolean;
   }>(() => ({
     isLeftDrawerOpen: true,
     isRightDrawerOpen: true,
@@ -94,6 +95,7 @@ export const EditorModel = t
     images: new Set([]),
     isFetchImagesLoading: false,
     isUploadImageLoading: false,
+    isImageGalleryModalVisible: false,
   }))
   .views((self) => {
     return {
@@ -121,6 +123,9 @@ export const EditorModel = t
     };
   })
   .actions((self) => ({
+    setIsImageGalleryModalVisible(v: boolean) {
+      self.isImageGalleryModalVisible = v;
+    },
     setIsUploadImageLoading(v: boolean) {
       self.isUploadImageLoading = v;
     },

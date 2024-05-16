@@ -8,9 +8,7 @@ import ActionButton from "../ActionButton";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
 import Input from "../Input";
 import { AttributesEnum, SelfClosingNodeType } from "../../types";
-import Select from "../Select";
-import { makeOptions } from "../../utils";
-import { getStaticUrlByFilename } from "../../http";
+import Button from "@mui/material/Button";
 
 const InfoPanel = observer(() => {
   const { editor } = useStores();
@@ -51,17 +49,6 @@ const InfoPanel = observer(() => {
             )}
             {node?.type === SelfClosingNodeType.img && (
               <>
-                <Select
-                  label="src:"
-                  value={node?.props.attributes.src || ""}
-                  onChange={(e) => {
-                    node?.updateAttributes({
-                      key: AttributesEnum.src,
-                      value: getStaticUrlByFilename(e),
-                    });
-                  }}
-                  options={makeOptions(editor.displayImages)}
-                />
                 <Input
                   label="alt:"
                   value={node?.props.attributes.alt || ""}
@@ -82,6 +69,14 @@ const InfoPanel = observer(() => {
                     });
                   }}
                 />
+                <Button
+                  variant="text"
+                  onClick={() => {
+                    editor.setIsImageGalleryModalVisible(true);
+                  }}
+                >
+                  choose image
+                </Button>
               </>
             )}
           </div>
