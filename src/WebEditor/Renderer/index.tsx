@@ -14,13 +14,16 @@ const findInsertIndex = (
   const children = Array.from(container.children);
   let newIndex = children.length - 1;
   for (let i = 0; i < children.length; i++) {
-      const childRect = children[i].getBoundingClientRect();
-      // 判斷鼠標位置是否在子元素的左側
-      if (dragX < childRect.left + (childRect.width / 2) && dragY < childRect.top + (childRect.height / 2)) {
-          newIndex = i;
-          break;
-      }
-      newIndex = i + 1;
+    const childRect = children[i].getBoundingClientRect();
+    // 判斷鼠標位置是否在子元素的左側
+    if (
+      dragX < childRect.left + childRect.width / 2 &&
+      dragY < childRect.top + childRect.height / 2
+    ) {
+      newIndex = i;
+      break;
+    }
+    newIndex = i + 1;
   }
   return newIndex;
 };
@@ -139,4 +142,13 @@ const Renderer: React.FC = observer(() => {
   );
 });
 
-export default Renderer;
+const RendererWithWrap = observer(() => {
+  const { editor } = useStores();
+  return <div className={styles.rendererWithWrap}>
+    <div className={styles.resizer} style={{...editor.editorLayout}}>
+      <Renderer />
+    </div>
+  </div>;
+});
+
+export default RendererWithWrap;

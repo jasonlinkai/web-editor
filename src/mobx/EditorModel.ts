@@ -59,11 +59,20 @@ export type SnippetAstNodeModelSnapshotOutType = SnapshotOut<
   typeof SnippetAstNodeModel
 >;
 
+const EditorLayoutModel = t.model({
+  width: t.optional(t.string, '100%'),
+})
+
+export type EditorLayoutModelType = Instance<typeof EditorLayoutModel>;
+export type EditorLayoutModelSnapshotInType = SnapshotIn<typeof EditorLayoutModel>;
+export type EditorLayoutModelSnapshotOutType = SnapshotOut<typeof EditorLayoutModel>;
+
 export const EditorModel = t
   .model("EditorModel", {
     selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
     dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
     snippets: t.optional(t.array(SnippetAstNodeModel), []),
+    editorLayout: t.optional(EditorLayoutModel, {}),
   })
   .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
     isLeftDrawerOpen: true,
@@ -88,6 +97,9 @@ export const EditorModel = t
     };
   })
   .actions((self) => ({
+    setEditorLayout(layout: EditorLayoutModelType) {
+      self.editorLayout = layout;
+    },
     deleteSnippet(snippet: SnippetAstNodeModelType) {
       detach(snippet);
     },

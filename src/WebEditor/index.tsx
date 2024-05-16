@@ -1,4 +1,4 @@
-import styles from "./WebEditor.module.scss"
+import styles from "./WebEditor.module.scss";
 import ActionBar from "./ActionBar";
 import LeftDrawer from "./LeftDrawer";
 import SizerBar from "./SizerBar";
@@ -14,10 +14,8 @@ const WebEditor: React.FC = () => {
         <div className={styles.webEditorMainArea}>
           <LeftDrawer />
           <div className={styles.webEditorMainAreaEditScreen}>
-              <SizerBar />
-            <div className={styles.webEditorMainAreaEditScreenRendererWrap}>
-              <Renderer />
-            </div>
+            <SizerBar />
+            <Renderer />
           </div>
           <RightDrawer />
         </div>

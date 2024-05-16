@@ -23,6 +23,7 @@
 
 .actionButtonActive {
   border-color: $active;
+  color: $active;
 }
 .actionButtonDisable {
   border-color: $disable;
