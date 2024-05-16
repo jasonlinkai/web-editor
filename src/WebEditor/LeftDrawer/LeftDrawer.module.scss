@@ -2,15 +2,17 @@
 
 .leftDrawer {
   display: none;
+  height: 100%;
   flex: 0 0 0px;
   flex-direction: column;
   align-items: center;
   background-color: $panel-bg;
   border-left: 1px solid $panel-border;
+  overflow: scroll;
 }
 
 .leftDrawerOpen {
-  flex: 1 0 250px;
+  flex: 0 0 250px;
   display: flex;
 }
 
