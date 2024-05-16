@@ -262,7 +262,6 @@ export const EditorModel = t
       self.setIsFetchImagesLoading(true);
       try {
         const { data: images } = yield httpGetUploadedImages();
-        console.log("images", images);
         self.setImages(images);
         self.setIsFetchImagesLoading(false);
         return self.images;
