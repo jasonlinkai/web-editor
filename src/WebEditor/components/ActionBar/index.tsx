@@ -76,6 +76,7 @@ const ActionBar: React.FC = observer(() => {
       window.removeEventListener("keyup", onShortCutDelete);
       window.removeEventListener("keyup", onShortCutUndo);
       window.removeEventListener("keyup", onShortCutRedo);
+      window.removeEventListener("keyup", onShortCutAddToSnippets);
     };
   }, [onShortCutDelete, onShortCutUndo, onShortCutRedo, onShortCutAddToSnippets]);
 
