@@ -7,6 +7,7 @@ import { useStores } from "../../../../mobx/useMobxStateTreeStores";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;
+  isEditMode?: boolean;
   handleOnClick?: (ev: React.MouseEvent, node: AstNodeModelType) => void;
   handleOnDragStart?: (ev: React.DragEvent, node: AstNodeModelType) => void;
   handleOnDragOver?: (ev: React.DragEvent, node: AstNodeModelType) => void;
@@ -14,7 +15,7 @@ interface RenderNodeProps {
   handleOnDrop?: (ev: React.DragEvent, node: AstNodeModelType) => void;
 }
 
-const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
+const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, isEditMode = false, ...p }) => {
   const { editor } = useStores();
   const {
     handleOnClick,
@@ -25,10 +26,10 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   } = p;
   if (!ast) return null;
 
-  const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid;
-  const draggable = !ast.isRootNode && isSelectedNode;
+  const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid && isEditMode;
+  const draggable = !ast.isRootNode && isSelectedNode && isEditMode;
   const dropable =
-    ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid;
+    ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid && isEditMode;
   // Base case: If the node is a text node, render it as is
 
   const node: AstNodeModelType = ast;
@@ -68,7 +69,7 @@ const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, ...p }) => {
   if (node.isContainerNode) {
     renderChildren = Array.isArray(children) ? children : [children];
     renderChildren = renderChildren.map((child) => {
-      return <RenderNode key={child.uuid} ast={child} {...p} />;
+      return <RenderNode key={child.uuid} ast={child} isEditMode={isEditMode} {...p} />;
     });
   } else if (node.isTextNode) {
     renderChildren = node.content;

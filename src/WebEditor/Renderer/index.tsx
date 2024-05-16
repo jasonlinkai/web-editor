@@ -128,6 +128,7 @@ const Renderer: React.FC = observer(() => {
     <div className={styles.renderer}>
       <RenderNode
         ast={ast}
+        isEditMode={true}
         handleOnClick={handleOnClick}
         handleOnDragStart={handleOnDragStart}
         handleOnDragOver={handleOnDragOver}
