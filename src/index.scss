@@ -1,8 +1,4 @@
-@import "./variables";
-
-html {
-  background-color: $background;
-}
-h1,h2,h3,h4,h5,h6 {
-  margin: 0;
-}
+@import '@fontsource/roboto/300.css';
+@import '@fontsource/roboto/400.css';
+@import '@fontsource/roboto/500.css';
+@import '@fontsource/roboto/700.css';

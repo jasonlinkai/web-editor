@@ -5,6 +5,7 @@ import {
   SnapshotOut,
   getSnapshot,
   detach,
+  flow,
 } from "mobx-state-tree";
 import { AstNodeModel } from "./AstNodeModel";
 import type {
@@ -18,6 +19,7 @@ import {
   TextNodeType,
 } from "../WebEditor/types";
 import { getRandomColor } from "../WebEditor/utils";
+import { httpGetUploadedImages, httpPostUploadImage } from "../WebEditor/http";
 
 const SnippetEnhencedModel = t
   .model("SnippetEnhencedModel", {
@@ -60,12 +62,16 @@ export type SnippetAstNodeModelSnapshotOutType = SnapshotOut<
 >;
 
 const EditorLayoutModel = t.model({
-  width: t.optional(t.string, '100%'),
-})
+  width: t.optional(t.string, "100%"),
+});
 
 export type EditorLayoutModelType = Instance<typeof EditorLayoutModel>;
-export type EditorLayoutModelSnapshotInType = SnapshotIn<typeof EditorLayoutModel>;
-export type EditorLayoutModelSnapshotOutType = SnapshotOut<typeof EditorLayoutModel>;
+export type EditorLayoutModelSnapshotInType = SnapshotIn<
+  typeof EditorLayoutModel
+>;
+export type EditorLayoutModelSnapshotOutType = SnapshotOut<
+  typeof EditorLayoutModel
+>;
 
 export const EditorModel = t
   .model("EditorModel", {
@@ -74,10 +80,28 @@ export const EditorModel = t
     snippets: t.optional(t.array(SnippetAstNodeModel), []),
     editorLayout: t.optional(EditorLayoutModel, {}),
   })
-  .volatile<{ isLeftDrawerOpen: boolean; isRightDrawerOpen: boolean }>(() => ({
+  .volatile<{
+    isLeftDrawerOpen: boolean;
+    isRightDrawerOpen: boolean;
+    isUploadModalVisible: boolean;
+    images: Set<string>;
+    isFetchImagesLoading: boolean;
+    isUploadImageLoading: boolean;
+  }>(() => ({
     isLeftDrawerOpen: true,
     isRightDrawerOpen: true,
+    isUploadModalVisible: false,
+    images: new Set([]),
+    isFetchImagesLoading: false,
+    isUploadImageLoading: false,
   }))
+  .views((self) => {
+    return {
+      get displayImages() {
+        return Array.from(self.images);
+      },
+    };
+  })
   .actions((self) => {
     const recursiveClearUuid = (
       ast: AstNodeModelSnapshotInType,
@@ -97,6 +121,18 @@ export const EditorModel = t
     };
   })
   .actions((self) => ({
+    setIsUploadImageLoading(v: boolean) {
+      self.isUploadImageLoading = v;
+    },
+    setIsFetchImagesLoading(v: boolean) {
+      self.isFetchImagesLoading = v;
+    },
+    setImages(images: string[]) {
+      self.images = new Set(images);
+    },
+    setIsUploadModalVisible(visible: boolean) {
+      self.isUploadModalVisible = visible;
+    },
     setEditorLayout(layout: EditorLayoutModelType) {
       self.editorLayout = layout;
     },
@@ -201,7 +237,49 @@ export const EditorModel = t
         content: "please enter text",
       });
     },
-  }));
+  }))
+  .actions((self) => {
+    const uploadImage = flow(function* (formData: FormData) {
+      self.setIsUploadImageLoading(true);
+      try {
+        const { data: imageUrl } = yield httpPostUploadImage(formData);
+        self.images.add(imageUrl);
+        self.setIsUploadImageLoading(false);
+        return imageUrl;
+      } catch (error) {
+        console.error("Failed to fetch uploadImage", error);
+        self.setIsUploadImageLoading(false);
+        return "";
+      }
+    });
+    const fetchImages = flow(function* () {
+      self.setIsFetchImagesLoading(true);
+      try {
+        const { data: images } = yield httpGetUploadedImages();
+        console.log("images", images);
+        self.setImages(images);
+        self.setIsFetchImagesLoading(false);
+        return self.images;
+      } catch (error) {
+        console.error("Failed to fetch fetchImages", error);
+        self.setIsFetchImagesLoading(false);
+        return [];
+      }
+    });
+    return { uploadImage, fetchImages };
+  })
+  .actions((self) => {
+    const afterCreate = () => {
+      self.fetchImages();
+    };
+    const beforeAll = () => {
+      console.log("self.images", self.images);
+    };
+    return {
+      afterCreate,
+      beforeAll,
+    };
+  });
 
 export type EditorModelType = Instance<typeof EditorModel>;
 export type EditorModelSnapshotInType = SnapshotIn<typeof EditorModel>;

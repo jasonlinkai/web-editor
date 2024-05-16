@@ -5,6 +5,7 @@ import SizerBar from "./SizerBar";
 import Renderer from "./Renderer";
 import RightDrawer from "./RightDrawer";
 import { MobxStateTreeStoreProvider } from "../mobx/MobxStateTreeProvider";
+import UploadModal from "./components/Modals/UploadModal";
 
 const WebEditor: React.FC = () => {
   return (
@@ -20,6 +21,7 @@ const WebEditor: React.FC = () => {
           <RightDrawer />
         </div>
       </div>
+      <UploadModal />
     </MobxStateTreeStoreProvider>
   );
 };

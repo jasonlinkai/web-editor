@@ -7,8 +7,10 @@ import { FaArrowUp, FaArrowDown, FaImage } from "react-icons/fa";
 import { LuContainer } from "react-icons/lu";
 import { GoTypography } from "react-icons/go";
 import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../../types";
+import { useStores } from "../../../mobx/useMobxStateTreeStores";
 
 const NewNodePanel = observer(() => {
+  const { editor } = useStores()
   const [isOpen, setIsOpen] = useState(true);
   return (
     <div className={styles.panel}>
@@ -56,6 +58,9 @@ const NewNodePanel = observer(() => {
               draggable
               style={{ 
                 cursor: 'grab',
+              }}
+              onClick={() => {
+                editor.setIsUploadModalVisible(true);
               }}
               onDragStart={(ev) => {
                 ev.dataTransfer.effectAllowed = "move";
