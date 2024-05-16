@@ -1,9 +1,9 @@
 import styles from "./WebEditor.module.scss";
 import ActionBar from "./ActionBar";
-import LeftDrawer from "./LeftDrawer";
+import LeftDrawer from "./components/Drawers/LeftDrawer";
 import SizerBar from "./SizerBar";
 import Renderer from "./Renderer";
-import RightDrawer from "./RightDrawer";
+import RightDrawer from "./components/Drawers/RightDrawer";
 import { MobxStateTreeStoreProvider } from "../mobx/MobxStateTreeProvider";
 import UploadModal from "./components/Modals/UploadModal";
 import ImageGalleryModal from "./components/Modals/ImageGalleryModal";

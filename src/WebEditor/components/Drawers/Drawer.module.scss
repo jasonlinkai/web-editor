@@ -1,6 +1,6 @@
-@import "../../_variables";
+@import "../../../_variables";
 
-.rightDrawer {
+.drawer {
   display: none;
   height: 100%;
   flex: 0 0 0px;
@@ -11,12 +11,12 @@
   overflow: scroll;
 }
 
-.rightDrawerOpen {
+.drawerOpen {
   flex: 0 0 250px;
   display: flex;
 }
 
-.rightDrawerTabsArea {
+.drawerTabsArea {
   width: 100%;
   display: flex;
   align-items: center;
@@ -24,9 +24,10 @@
   gap: $gap2;
   overflow-y: scroll;
   height: 50px;
+  min-height: 50px;
 } 
 
-.rightDrawerPanelArea {
+.drawerPanelArea {
   overflow: scroll;
   display: flex;
   flex-direction: column;
@@ -35,20 +36,10 @@
   padding-bottom: $gap1;
 }
 
-.rightDrawerPanelAreaNoSelectedNode {
+.drawerPanelAreaNoSelectedNode {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100%;
   width: 100%;
-}
-
-.gap {
-  border-top: 1px solid $panel-border;
-  width: 100%;
-  height: 1px;
-}
-
-.rightDrawerTreeArea {
-  padding-top: $gap3;
 }

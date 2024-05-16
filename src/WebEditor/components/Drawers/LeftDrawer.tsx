@@ -1,4 +1,4 @@
-import styles from "./LeftDrawer.module.scss";
+import styles from "./Drawer.module.scss";
 import clsx from "clsx";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
@@ -6,11 +6,11 @@ import { FaPlus } from "react-icons/fa";
 import { MdFavoriteBorder } from "react-icons/md";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import InfoPanel from "../components/panels/InfoPanel";
-import NewNodePanel from "../components/panels/NewNodePanel";
-import AstTagTreePanel from "../components/panels/AstTagTreePanel";
-import SnippetsPanel from "../components/panels/SnippetsPanel";
-import { useStores } from "../../mobx/useMobxStateTreeStores";
+import InfoPanel from "../../components/panels/InfoPanel";
+import NewNodePanel from "../../components/panels/NewNodePanel";
+import AstTagTreePanel from "../../components/panels/AstTagTreePanel";
+import SnippetsPanel from "../../components/panels/SnippetsPanel";
+import { useStores } from "../../../mobx/useMobxStateTreeStores";
 
 enum TabTypes {
   INFO = "INFO",
@@ -34,13 +34,13 @@ const LeftDrawer: React.FC = observer(() => {
   return (
     <div
       className={clsx([
-        styles.leftDrawer,
+        styles.drawer,
         {
-          [styles.leftDrawerOpen]: editor.isLeftDrawerOpen,
+          [styles.drawerOpen]: editor.isLeftDrawerOpen,
         },
       ])}
     >
-      <div className={styles.leftDrawerTabsArea}>
+      <div className={styles.drawerTabsArea}>
         <ToggleButtonGroup
           value={tabType}
           exclusive
@@ -61,7 +61,7 @@ const LeftDrawer: React.FC = observer(() => {
           })}
         </ToggleButtonGroup>
       </div>
-      <div className={styles.leftDrawerPanelArea}>
+      <div className={styles.drawerPanelArea}>
         {tabType === TabTypes.ADD_CHILDREN && (
           <>
             <NewNodePanel />
@@ -73,10 +73,10 @@ const LeftDrawer: React.FC = observer(() => {
           </>
         )}
       </div>
-      <div className={styles.leftDrawerPanelArea}>
+      <div className={styles.drawerPanelArea}>
         <InfoPanel />
       </div>
-      <div className={styles.leftDrawerPanelArea}>
+      <div className={styles.drawerPanelArea}>
         <AstTagTreePanel />
       </div>
     </div>
