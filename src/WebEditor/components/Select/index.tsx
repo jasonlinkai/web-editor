@@ -1,5 +1,5 @@
 import styles from "./Select.module.scss";
-
+import { IoMdArrowDropdown } from "react-icons/io";
 interface SelectProps {
   label?: string;
   value?: string;
@@ -11,7 +11,6 @@ const Select = ({
   label = "",
   value = "",
   onChange = (v) => console.log(v),
-
   options = [],
 }: SelectProps) => {
   return (
@@ -20,7 +19,9 @@ const Select = ({
       <select
         className={styles.select}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => {
+          onChange(e.target.value);
+        }}
       >
         {options.map((option) => {
           return (
@@ -30,6 +31,7 @@ const Select = ({
           );
         })}
       </select>
+      <IoMdArrowDropdown className={styles.selectRightIcon} />
     </div>
   );
 };

@@ -37,7 +37,7 @@ const TypographyPanel = observer(() => {
         <div className={styles.panelItem}>
           <div className={styles.panelItemColumnArea}>
             <Input
-              label="color:"
+              label="color"
               value={node?.props.style.color || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -47,7 +47,7 @@ const TypographyPanel = observer(() => {
               }
             />
             <Input
-              label="fontSize:"
+              label="fontSize"
               value={node?.props.style.fontSize || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -57,7 +57,7 @@ const TypographyPanel = observer(() => {
               }
             />
             <Input
-              label="fontWeight:"
+              label="fontWeight"
               value={node?.props.style.fontWeight || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -67,7 +67,7 @@ const TypographyPanel = observer(() => {
               }
             />
             <Select
-              label="textAlign:"
+              label="textAlign"
               value={node?.props.style.textAlign || ""}
               onChange={(e) =>
                 node?.updateStyle({

@@ -48,7 +48,9 @@ const RightDrawer: React.FC = observer(() => {
         },
       ])}
     >
-      <div className={styles.drawerContentWrap}>
+      <div className={styles.drawerContentWrap} style={{
+        height: '100%',
+      }}>
         <div className={styles.drawerTabsArea}>
           <Tabs
             value={tabType}

@@ -3,7 +3,7 @@
 .panel {
   width: 225px;
   border: 1px solid $panel-border;
-  border-radius: 20px;
+  border-radius: $gap1;
 }
 
 .panelHeader {
@@ -24,9 +24,10 @@
   align-items: center;
   padding-top: $gap3;
   padding-bottom: $gap3;
-  color: $text;
+  color: $label;
   font-size: 1.2rem;
   font-weight: bolder;
+  font-family: "Roboto","Helvetica","Arial", "sans-serif";
 }
 
 .panelArea {
@@ -46,10 +47,24 @@
 }
 
 .panelItemLabel {
+  color: $label;
+  font-family: "Roboto","Helvetica","Arial", "sans-serif";
+  position: relative;
+  width: 100%;
+  text-align: center;
   font-size: 1.1rem;
   font-weight: 500;
   align-self: start;
+  margin-top: $gap2;
   margin-bottom: $gap2;
+  &::after {
+    display: block;
+    content: '';
+    margin-top: $gap1;
+    width: 100%;
+    height: 1px;
+    border-top: 1px solid $panel-border;
+  }
 }
 
 .panelItemRowCenterArea {

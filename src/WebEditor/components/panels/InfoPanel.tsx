@@ -36,11 +36,11 @@ const InfoPanel = observer(() => {
       >
         <div className={styles.panelItem}>
           <div className={styles.panelItemColumnArea}>
-            <InfoField label="uuid:" value={node?.uuid || ""} />
-            <InfoField label="parent:" value={node?.parent?.uuid || ""} />
+            <InfoField label="uuid" value={node?.uuid || ""} />
+            <InfoField label="parent" value={node?.parent?.uuid || ""} />
             {node?.isTextNode && (
               <Input
-                label="content:"
+                label="content"
                 value={node?.content || ""}
                 onChange={(e) => {
                   node?.setContent(e);
@@ -50,7 +50,7 @@ const InfoPanel = observer(() => {
             {node?.type === SelfClosingNodeType.img && (
               <>
                 <Input
-                  label="alt:"
+                  label="alt"
                   value={node?.props.attributes.alt || ""}
                   onChange={(e) => {
                     node?.updateAttributes({
@@ -60,7 +60,7 @@ const InfoPanel = observer(() => {
                   }}
                 />
                 <Input
-                  label="crossOrigin:"
+                  label="crossOrigin"
                   value={node?.props.attributes.crossOrigin || ""}
                   onChange={(e) => {
                     node?.updateAttributes({

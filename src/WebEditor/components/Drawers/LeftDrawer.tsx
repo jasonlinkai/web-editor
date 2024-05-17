@@ -54,7 +54,7 @@ const LeftDrawer: React.FC = observer(() => {
           <Tabs
             value={tabType}
             variant="scrollable"
-            scrollButtons="auto"
+            scrollButtons={true}
             onChange={(e: React.SyntheticEvent, v: TabTypes | null) => {
               if (v !== null) {
                 setTabType(v);

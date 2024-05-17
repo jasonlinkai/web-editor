@@ -35,7 +35,7 @@ const BorderPanel = observer(() => {
         <div className={styles.panelItem}>
           <div className={styles.panelItemColumnArea}>
             <Input
-              label="border-style:"
+              label="border-style"
               value={node?.props.style.borderStyle || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -45,7 +45,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="border-color:"
+              label="border-color"
               value={node?.props.style.borderColor || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -60,7 +60,7 @@ const BorderPanel = observer(() => {
           <label className={styles.panelItemLabel}>BorderWidth</label>
           <div className={styles.panelItemColumnArea}>
             <Input
-              label="top:"
+              label="top"
               value={node?.props.style.borderTopWidth || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -70,7 +70,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="bottom:"
+              label="bottom"
               value={node?.props.style.borderBottomWidth || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -80,7 +80,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="left:"
+              label="left"
               value={node?.props.style.borderLeftWidth || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -90,7 +90,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="right:"
+              label="right"
               value={node?.props.style.borderRightWidth || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -105,7 +105,7 @@ const BorderPanel = observer(() => {
           <label className={styles.panelItemLabel}>BorderRadius</label>
           <div className={styles.panelItemColumnArea}>
             <Input
-              label="top-left:"
+              label="top-left"
               value={node?.props.style.borderTopLeftRadius || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -115,7 +115,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="top-right:"
+              label="top-right"
               value={node?.props.style.borderTopRightRadius || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -125,7 +125,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="bottom-left:"
+              label="bottom-left"
               value={node?.props.style.borderBottomLeftRadius || ""}
               onChange={(e) =>
                 node?.updateStyle({
@@ -135,7 +135,7 @@ const BorderPanel = observer(() => {
               }
             />
             <Input
-              label="bottom-right:"
+              label="bottom-right"
               value={node?.props.style.borderBottomRightRadius || ""}
               onChange={(e) =>
                 node?.updateStyle({

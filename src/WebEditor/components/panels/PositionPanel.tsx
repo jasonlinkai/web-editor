@@ -53,7 +53,7 @@ const PositionPanel = observer(() => {
           <div className={styles.panelItem}>
             <div className={styles.panelItemColumnArea}>
               <Input
-                label="top:"
+                label="top"
                 value={node?.props.style.top || ""}
                 onChange={(e) =>
                   node?.updateStyle({
@@ -63,7 +63,7 @@ const PositionPanel = observer(() => {
                 }
               />
               <Input
-                label="bottom:"
+                label="bottom"
                 value={node?.props.style.bottom || ""}
                 onChange={(e) =>
                   node?.updateStyle({
@@ -73,7 +73,7 @@ const PositionPanel = observer(() => {
                 }
               />
               <Input
-                label="left:"
+                label="left"
                 value={node?.props.style.left || ""}
                 onChange={(e) =>
                   node?.updateStyle({
@@ -83,7 +83,7 @@ const PositionPanel = observer(() => {
                 }
               />
               <Input
-                label="right:"
+                label="right"
                 value={node?.props.style.right || ""}
                 onChange={(e) =>
                   node?.updateStyle({
