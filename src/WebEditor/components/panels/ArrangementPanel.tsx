@@ -15,6 +15,7 @@ import options from "../Select/options";
 import { useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
+import Input from "../Input";
 
 const ArrangementPanel = observer(() => {
   const { editor } = useStores();
@@ -183,6 +184,68 @@ const ArrangementPanel = observer(() => {
               </div>
             </div>
           </>
+        )}
+        <div className={styles.panelItem}>
+          <label className={styles.panelItemLabel}>Position</label>
+          <div className={styles.panelItemRowCenterArea}>
+            <Select
+              value={node?.props.style.position || ""}
+              onChange={(e) =>
+                node?.updateStyle({
+                  styleKey: StyleEnum.position,
+                  styleValue: e,
+                })
+              }
+              options={options.position}
+            />
+          </div>
+        </div>
+        {(node?.props.style.position === "fixed" ||
+          node?.props.style.position === "absolute") && (
+          <div className={styles.panelItem}>
+            <div className={styles.panelItemColumnArea}>
+              <Input
+                label="top:"
+                value={node?.props.style.top || ""}
+                onChange={(e) =>
+                  node?.updateStyle({
+                    styleKey: StyleEnum.top,
+                    styleValue: e,
+                  })
+                }
+              />
+              <Input
+                label="bottom:"
+                value={node?.props.style.bottom || ""}
+                onChange={(e) =>
+                  node?.updateStyle({
+                    styleKey: StyleEnum.bottom,
+                    styleValue: e,
+                  })
+                }
+              />
+              <Input
+                label="left:"
+                value={node?.props.style.left || ""}
+                onChange={(e) =>
+                  node?.updateStyle({
+                    styleKey: StyleEnum.left,
+                    styleValue: e,
+                  })
+                }
+              />
+              <Input
+                label="right:"
+                value={node?.props.style.right || ""}
+                onChange={(e) =>
+                  node?.updateStyle({
+                    styleKey: StyleEnum.right,
+                    styleValue: e,
+                  })
+                }
+              />
+            </div>
+          </div>
         )}
       </div>
     </div>

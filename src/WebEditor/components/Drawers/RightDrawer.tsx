@@ -2,30 +2,43 @@ import styles from "./Drawer.module.scss";
 import clsx from "clsx";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
-import { TfiPanel } from "react-icons/tfi";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import PositionPanel from "../../components/panels/PositionPanel";
+import { TfiLayout, TfiText } from "react-icons/tfi";
+import { CgArrangeBack } from "react-icons/cg";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import LayoutPanel from "../../components/panels/LayoutPanel";
 import ArrangementPanel from "../../components/panels/ArrangementPanel";
 import TypographyPanel from "../../components/panels/TypographyPanel";
-import BorderPanel from "../../components/panels/BorderPanel";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 
 enum TabTypes {
-  EDIT_STYLE = "EDIT_STYLE",
+  ARRANGEMENT = "ARRANGEMENT",
+  LAYOUT = "LAYOUT",
+  TYPOGRAPHY = "TYPOGRAPHY",
 }
+
 const tabs = [
   {
-    type: TabTypes.EDIT_STYLE,
-    IconComponent: TfiPanel,
+    type: TabTypes.ARRANGEMENT,
+    label: "Arrange",
+    IconComponent: CgArrangeBack,
+  },
+  {
+    type: TabTypes.LAYOUT,
+    label: "Layout",
+    IconComponent: TfiLayout,
+  },
+  {
+    type: TabTypes.TYPOGRAPHY,
+    label: "Text",
+    IconComponent: TfiText,
   },
 ];
 
 const RightDrawer: React.FC = observer(() => {
   const { editor } = useStores();
   const node = editor.selectedAstNode;
-  const [tabType, setTabType] = useState(TabTypes.EDIT_STYLE);
+  const [tabType, setTabType] = useState(TabTypes.ARRANGEMENT);
   return (
     <div
       className={clsx([
@@ -36,41 +49,43 @@ const RightDrawer: React.FC = observer(() => {
       ])}
     >
       <div className={styles.drawerTabsArea}>
-        <ToggleButtonGroup
+        <Tabs
           value={tabType}
-          exclusive
-          onChange={(e: React.MouseEvent<HTMLElement>, v: TabTypes | null) => {
+          variant="scrollable"
+          scrollButtons="auto"
+          onChange={(e: React.SyntheticEvent, v: TabTypes | null) => {
             if (v !== null) {
               setTabType(v);
             }
           }}
-          aria-label="left drawer panel type"
+          aria-label="left drawer panel tabs"
         >
           {tabs.map((tab) => {
-            const { IconComponent, type } = tab;
+            const { IconComponent, type, label } = tab;
             return (
-              <ToggleButton key={type} value={type} aria-label={type}>
-                <IconComponent />
-              </ToggleButton>
+              <Tab
+                key={type}
+                label={label}
+                icon={<IconComponent />}
+                value={type}
+                aria-label={`left drawer panel tab ${type}`}
+              />
             );
           })}
-        </ToggleButtonGroup>
+        </Tabs>
       </div>
       <div className={styles.drawerPanelArea}>
-        {tabType === TabTypes.EDIT_STYLE &&
-          (node ? (
-            <>
-              <PositionPanel />
-              <ArrangementPanel />
-              <LayoutPanel />
-              <BorderPanel />
-              <TypographyPanel />
-            </>
-          ) : (
-            <div className={styles.drawerPanelAreaNoSelectedNode}>
-              select node first
-            </div>
-          ))}
+        {node ? (
+          <>
+            {tabType === TabTypes.ARRANGEMENT && <ArrangementPanel />}
+            {tabType === TabTypes.LAYOUT && <LayoutPanel />}
+            {tabType === TabTypes.TYPOGRAPHY && <TypographyPanel />}
+          </>
+        ) : (
+          <div className={styles.drawerPanelAreaNoSelectedNode}>
+            select node first
+          </div>
+        )}
       </div>
     </div>
   );
