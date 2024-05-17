@@ -48,44 +48,46 @@ const RightDrawer: React.FC = observer(() => {
         },
       ])}
     >
-      <div className={styles.drawerTabsArea}>
-        <Tabs
-          value={tabType}
-          variant="scrollable"
-          scrollButtons="auto"
-          onChange={(e: React.SyntheticEvent, v: TabTypes | null) => {
-            if (v !== null) {
-              setTabType(v);
-            }
-          }}
-          aria-label="left drawer panel tabs"
-        >
-          {tabs.map((tab) => {
-            const { IconComponent, type, label } = tab;
-            return (
-              <Tab
-                key={type}
-                label={label}
-                icon={<IconComponent />}
-                value={type}
-                aria-label={`left drawer panel tab ${type}`}
-              />
-            );
-          })}
-        </Tabs>
-      </div>
-      <div className={styles.drawerPanelArea}>
-        {node ? (
-          <>
-            {tabType === TabTypes.ARRANGEMENT && <ArrangementPanel />}
-            {tabType === TabTypes.LAYOUT && <LayoutPanel />}
-            {tabType === TabTypes.TYPOGRAPHY && <TypographyPanel />}
-          </>
-        ) : (
-          <div className={styles.drawerPanelAreaNoSelectedNode}>
-            select node first
-          </div>
-        )}
+      <div className={styles.drawerContentWrap}>
+        <div className={styles.drawerTabsArea}>
+          <Tabs
+            value={tabType}
+            variant="scrollable"
+            scrollButtons="auto"
+            onChange={(e: React.SyntheticEvent, v: TabTypes | null) => {
+              if (v !== null) {
+                setTabType(v);
+              }
+            }}
+            aria-label="left drawer panel tabs"
+          >
+            {tabs.map((tab) => {
+              const { IconComponent, type, label } = tab;
+              return (
+                <Tab
+                  key={type}
+                  label={label}
+                  icon={<IconComponent />}
+                  value={type}
+                  aria-label={`left drawer panel tab ${type}`}
+                />
+              );
+            })}
+          </Tabs>
+        </div>
+        <div className={styles.drawerPanelArea}>
+          {node ? (
+            <>
+              {tabType === TabTypes.ARRANGEMENT && <ArrangementPanel />}
+              {tabType === TabTypes.LAYOUT && <LayoutPanel />}
+              {tabType === TabTypes.TYPOGRAPHY && <TypographyPanel />}
+            </>
+          ) : (
+            <div className={styles.drawerPanelAreaNoSelectedNode}>
+              select node first
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

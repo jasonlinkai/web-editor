@@ -67,7 +67,7 @@ const AstTagTree = observer(
   }
 );
 
-export const astTagTreePanelHeight = 200;
+export const astTagTreePanelHeight = 150;
 
 const AstTagTreePanel = observer(() => {
   const { ast, editor } = useStores();
