@@ -3,9 +3,10 @@ import clsx from "clsx";
 import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { FaPlus } from "react-icons/fa";
-import { MdFavoriteBorder } from "react-icons/md";
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
+import { MdSnippetFolder } from "react-icons/md";
+import { LuTableProperties } from "react-icons/lu";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
 import InfoPanel from "../../components/panels/InfoPanel";
 import NewNodePanel from "../../components/panels/NewNodePanel";
 import AstTagTreePanel from "../../components/panels/AstTagTreePanel";
@@ -13,24 +14,32 @@ import SnippetsPanel from "../../components/panels/SnippetsPanel";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
 
 enum TabTypes {
-  INFO = "INFO",
-  ADD_CHILDREN = "ADD_CHILDREN",
-  ADD_SNIPPETS = "ADD_SNIPPETS",
+  ATTRIBUTES = "ATTRIBUTES",
+  CHILDREN = "CHILDREN",
+  SNIPPETS = "SNIPPETS",
 }
 const tabs = [
   {
-    type: TabTypes.ADD_CHILDREN,
+    type: TabTypes.SNIPPETS,
+    label: "SNIPPETS",
+    IconComponent: MdSnippetFolder,
+  },
+  {
+    type: TabTypes.CHILDREN,
+    label: "CHILDREN",
     IconComponent: FaPlus,
   },
   {
-    type: TabTypes.ADD_SNIPPETS,
-    IconComponent: MdFavoriteBorder,
+    type: TabTypes.ATTRIBUTES,
+    label: "ATTRIBUTES",
+    IconComponent: LuTableProperties,
   },
 ];
 
 const LeftDrawer: React.FC = observer(() => {
   const { editor } = useStores();
-  const [tabType, setTabType] = useState(TabTypes.ADD_CHILDREN);
+  const node = editor.selectedAstNode;
+  const [tabType, setTabType] = useState(TabTypes.ATTRIBUTES);
   return (
     <div
       className={clsx([
@@ -41,40 +50,43 @@ const LeftDrawer: React.FC = observer(() => {
       ])}
     >
       <div className={styles.drawerTabsArea}>
-        <ToggleButtonGroup
+        <Tabs
           value={tabType}
-          exclusive
-          onChange={(e: React.MouseEvent<HTMLElement>, v: TabTypes | null) => {
+          variant="scrollable"
+          scrollButtons="auto"
+          onChange={(e: React.SyntheticEvent, v: TabTypes | null) => {
             if (v !== null) {
               setTabType(v);
             }
           }}
-          aria-label="left drawer panel type"
+          aria-label="left drawer panel tabs"
         >
           {tabs.map((tab) => {
-            const { IconComponent, type } = tab;
+            const { IconComponent, type, label } = tab;
             return (
-              <ToggleButton key={type} value={type} aria-label={type}>
-                <IconComponent />
-              </ToggleButton>
+              <Tab
+                key={type}
+                label={label}
+                icon={<IconComponent />}
+                value={type}
+                aria-label={`left drawer panel tab ${type}`}
+              />
             );
           })}
-        </ToggleButtonGroup>
+        </Tabs>
       </div>
       <div className={styles.drawerPanelArea}>
-        {tabType === TabTypes.ADD_CHILDREN && (
+        {node ? (
           <>
-            <NewNodePanel />
+            {tabType === TabTypes.ATTRIBUTES && <InfoPanel />}
+            {tabType === TabTypes.CHILDREN && <NewNodePanel />}
+            {tabType === TabTypes.SNIPPETS && <SnippetsPanel />}
           </>
+        ) : (
+          <div className={styles.drawerPanelAreaNoSelectedNode}>
+            select node first
+          </div>
         )}
-        {tabType === TabTypes.ADD_SNIPPETS && (
-          <>
-            <SnippetsPanel />
-          </>
-        )}
-      </div>
-      <div className={styles.drawerPanelArea}>
-        <InfoPanel />
       </div>
       <div className={styles.drawerPanelArea}>
         <AstTagTreePanel />
