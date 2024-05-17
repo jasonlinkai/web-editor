@@ -1,18 +1,12 @@
 import styles from "./ActionBar.module.scss";
 import { useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import {
-  FaAngleDoubleLeft,
-  FaAngleDoubleRight,
-  FaArrowLeft,
-  FaArrowRight,
-  FaTrash,
-} from "react-icons/fa";
-import {
-  MdFavorite
-} from "react-icons/md"
+import { FaAngleDoubleLeft, FaAngleDoubleRight, FaTrash } from "react-icons/fa";
+import { MdSnippetFolder } from "react-icons/md";
+import { ImRedo, ImUndo } from "react-icons/im";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
 import { useStores } from "../../../mobx/useMobxStateTreeStores";
-import ActionButton from "../../components/ActionButton";
 
 export const actionBarHeight = 50;
 
@@ -78,7 +72,12 @@ const ActionBar: React.FC = observer(() => {
       window.removeEventListener("keyup", onShortCutRedo);
       window.removeEventListener("keyup", onShortCutAddToSnippets);
     };
-  }, [onShortCutDelete, onShortCutUndo, onShortCutRedo, onShortCutAddToSnippets]);
+  }, [
+    onShortCutDelete,
+    onShortCutUndo,
+    onShortCutRedo,
+    onShortCutAddToSnippets,
+  ]);
 
   return (
     <div
@@ -86,7 +85,7 @@ const ActionBar: React.FC = observer(() => {
       style={{ height: `${actionBarHeight}px` }}
     >
       <div className={styles.actionBarLeftArea}>
-        <ActionButton
+        <Button
           onClick={() => {
             setIsLeftDrawerOpen(!isLeftDrawerOpen);
           }}
@@ -100,48 +99,43 @@ const ActionBar: React.FC = observer(() => {
               }}
             />
           )}
-        </ActionButton>
-        <ActionButton
-          IconComponent={FaArrowLeft}
-          isDisable={!canUndo}
-          onClick={canUndo ? undoAst : undefined}
-        >
-          Undo(ctrl + z)
-        </ActionButton>
-        <ActionButton
-          IconComponent={FaArrowRight}
-          isDisable={!canRedo}
-          onClick={canRedo ? redoAst : undefined}
-        >
-          Redo(ctrl + r)
-        </ActionButton>
-        <ActionButton
-          IconComponent={FaTrash}
-          isDisable={!selectedAstNode?.isSelfCanBeDeleted}
-          onClick={
-            selectedAstNode?.isSelfCanBeDeleted
-              ? () => {
-                  selectedAstNode.parent.deletChild(selectedAstNode);
-                }
-              : undefined
-          }
-        >
-          Delete(ctrl + backspace)
-        </ActionButton>
-        <ActionButton
-          IconComponent={MdFavorite}
-          isDisable={!selectedAstNode}
-          onClick={() => {
-            if (selectedAstNode) {
-              pushToSnippets(selectedAstNode);
-            }
-          }}
-        >
-          Add to Snippets(ctrl + f)
-        </ActionButton>
+        </Button>
+        <ButtonGroup>
+          <Button disabled={!canUndo} onClick={canUndo ? undoAst : undefined}>
+            <ImUndo></ImUndo>
+            Undo(z)
+          </Button>
+          <Button disabled={!canRedo} onClick={canRedo ? redoAst : undefined}>
+            <ImRedo></ImRedo>Redo(r)
+          </Button>
+        </ButtonGroup>
       </div>
       <div className={styles.actionBarRightArea}>
-        <ActionButton
+        <ButtonGroup>
+          <Button
+            disabled={!selectedAstNode?.isSelfCanBeDeleted}
+            onClick={
+              selectedAstNode?.isSelfCanBeDeleted
+                ? () => {
+                    selectedAstNode.parent.deletChild(selectedAstNode);
+                  }
+                : undefined
+            }
+          >
+            <FaTrash></FaTrash>Delete(backspace)
+          </Button>
+          <Button
+            disabled={!selectedAstNode}
+            onClick={() => {
+              if (selectedAstNode) {
+                pushToSnippets(selectedAstNode);
+              }
+            }}
+          >
+            <MdSnippetFolder></MdSnippetFolder>Add to Snippets(f)
+          </Button>
+        </ButtonGroup>
+        <Button
           onClick={() => {
             setIsRightDrawerOpen(!isRightDrawerOpen);
           }}
@@ -155,7 +149,7 @@ const ActionBar: React.FC = observer(() => {
               }}
             />
           )}
-        </ActionButton>
+        </Button>
       </div>
     </div>
   );
