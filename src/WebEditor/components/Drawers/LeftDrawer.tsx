@@ -77,17 +77,16 @@ const LeftDrawer: React.FC = observer(() => {
           </Tabs>
         </div>
         <div className={styles.drawerPanelArea}>
-          {node ? (
-            <>
-              {tabType === TabTypes.ATTRIBUTES && <InfoPanel />}
-              {tabType === TabTypes.CHILDREN && <NewNodePanel />}
-              {tabType === TabTypes.SNIPPETS && <SnippetsPanel />}
-            </>
-          ) : (
-            <div className={styles.drawerPanelAreaNoSelectedNode}>
-              select node first
-            </div>
-          )}
+          {tabType === TabTypes.ATTRIBUTES &&
+            (node ? (
+              <InfoPanel />
+            ) : (
+              <div className={styles.drawerPanelAreaNoSelectedNode}>
+                select node first
+              </div>
+            ))}
+          {tabType === TabTypes.CHILDREN && <NewNodePanel />}
+          {tabType === TabTypes.SNIPPETS && <SnippetsPanel />}
         </div>
         <div className={styles.drawerFooterArea}>
           <div className={styles.drawerPanelArea}>
