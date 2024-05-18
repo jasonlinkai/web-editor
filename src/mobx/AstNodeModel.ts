@@ -6,14 +6,14 @@ import {
   SnapshotOut,
   detach,
 } from "mobx-state-tree";
-import { Event, EventNames } from "../WebEditor/event";
+import { Event, EventNames } from "../pages/WebEditor/event";
 import {
   AttributesEnum,
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
-} from "../WebEditor/types";
-import { StyleEnum } from "../WebEditor/types";
+} from "../pages/WebEditor/types";
+import { StyleEnum } from "../pages/WebEditor/types";
 
 const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
   datanodetype: t.optional(t.string, ""),

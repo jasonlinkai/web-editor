@@ -11,13 +11,13 @@ import {
 import { AstNodeModel } from "./AstNodeModel";
 import { SnippetAstNodeModel } from "./SnippetAstNodeModel";
 import { EditorLayoutModel } from "./EditorLayoutModel";
-import { getRandomColor } from "../WebEditor/utils";
-import { httpGetUploadedImages, httpPostUploadImage } from "../WebEditor/http";
+import { getRandomColor } from "../pages/WebEditor/utils";
+import { httpGetUploadedImages, httpPostUploadImage } from "../pages/WebEditor/http";
 import {
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
-} from "../WebEditor/types";
+} from "../pages/WebEditor/types";
 
 import type {
   AstNodeModelSnapshotInType,

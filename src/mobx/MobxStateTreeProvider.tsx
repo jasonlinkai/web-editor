@@ -3,8 +3,11 @@ import React from "react";
 // import { connectReduxDevtools } from "mst-middlewares";
 
 import { IStore, RootStore } from "./RootStore";
-import { testTemplate } from "../WebEditor/templates";
 import { onSnapshot } from "mobx-state-tree";
+import { pages } from "../pages/WebEditor/templates";
+import { v4 } from "uuid";
+
+console.log(v4());
 
 export const SNAPSHOT_KEYS = {
   ROOT_STORE: "ROOT_STORE",
@@ -15,11 +18,11 @@ const memorizedRootStoreSnapshot = localStorage.getItem(
 );
 
 const store = RootStore.create(
-  (memorizedRootStoreSnapshot
+  memorizedRootStoreSnapshot
     ? JSON.parse(memorizedRootStoreSnapshot)
     : {
-        ast: testTemplate,
-      }) as any
+        pages: [pages.default],
+      }
 );
 
 export const StoreContext = React.createContext<IStore>(store);
