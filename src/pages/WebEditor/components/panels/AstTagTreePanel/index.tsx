@@ -2,8 +2,8 @@ import panelStyles from "../Panel.module.scss";
 import styles from "./AstTagTreePanel.module.scss";
 import { observer } from "mobx-react-lite";
 import clsx from "clsx";
-import { AstNodeModelType } from "../../../../../mobx/AstNodeModel";
-import { useStores } from "../../../../../mobx/useMobxStateTreeStores";
+import { AstNodeModelType } from "@/libs/mobx/AstNodeModel";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 import { useEffect } from "react";
 
 const AstTagTree = observer(

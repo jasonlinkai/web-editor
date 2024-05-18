@@ -11,18 +11,15 @@ import {
 import { AstNodeModel } from "./AstNodeModel";
 import { SnippetAstNodeModel } from "./SnippetAstNodeModel";
 import { EditorLayoutModel } from "./EditorLayoutModel";
-import { getRandomColor } from "../pages/WebEditor/utils";
-import { httpGetUploadedImages, httpPostUploadImage } from "../pages/WebEditor/http";
+import { getRandomColor, recursiveClearUuid } from "@/libs/utils";
+import { httpGetUploadedImages, httpPostUploadImage } from "@/libs/http";
 import {
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
-} from "../pages/WebEditor/types";
+} from "@/libs/types";
 
-import type {
-  AstNodeModelSnapshotInType,
-  AstNodeModelType,
-} from "./AstNodeModel";
+import type { AstNodeModelSnapshotOutType, AstNodeModelType } from "./AstNodeModel";
 import type { SnippetAstNodeModelType } from "./SnippetAstNodeModel";
 import type { EditorLayoutModelType } from "./EditorLayoutModel";
 
@@ -54,27 +51,6 @@ export const EditorModel = t
       get displayImages() {
         return Array.from(self.images);
       },
-    };
-  })
-  //
-  // util functions
-  //
-  .actions((self) => {
-    const recursiveClearUuid = (
-      ast: AstNodeModelSnapshotInType,
-      parentUuid?: string
-    ) => {
-      ast.uuid = uuid();
-      ast.parent = parentUuid;
-      if (ast.children) {
-        ast.children.forEach((child) => {
-          recursiveClearUuid(child, ast.uuid);
-        });
-      }
-      return ast;
-    };
-    return {
-      recursiveClearUuid,
     };
   })
   //
@@ -121,12 +97,11 @@ export const EditorModel = t
     },
     pushToSnippets(snippet: AstNodeModelType) {
       const snapshot = getSnapshot(snippet);
-      const clearedSnapshot = self.recursiveClearUuid(
-        JSON.parse(JSON.stringify(snapshot)),
+      const clearedSnapshot = recursiveClearUuid(
+        (JSON.parse(JSON.stringify(snapshot)) as AstNodeModelSnapshotOutType),
         undefined
       );
-      const newSnippetAstNode = SnippetAstNodeModel.create(clearedSnapshot);
-      console.log(getSnapshot(newSnippetAstNode));
+      SnippetAstNodeModel.create(clearedSnapshot);
       self.snippets.push(clearedSnapshot);
     },
   }))

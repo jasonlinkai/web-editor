@@ -66,7 +66,7 @@ const Dailog = forwardRef<DialogRefType, DialogProps>(
     }, [isOpen, onShortCutCloseModal]);
 
     return (
-      <dialog ref={dialogRef} open={isOpen}>
+      <dialog ref={dialogRef} open={isOpen} style={{ border: 0 }}>
         <div className={styles.dialog}>
           <div className={styles.dialogContent}>
             <div className={styles.dialogCloseButtonWrap} onClick={closeDialog}>

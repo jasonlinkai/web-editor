@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { MobxStateTreeStoreProvider } from "./mobx/MobxStateTreeProvider";
+import { MobxStateTreeStoreProvider } from "@/libs/mobx/MobxStateTreeProvider";
 import Home from "./pages/Home";
 import WebEditor from "./pages/WebEditor";
 

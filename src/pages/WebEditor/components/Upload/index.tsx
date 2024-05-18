@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import CircularProgress from '@mui/material/CircularProgress';
 import { observer } from "mobx-react-lite";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 
 const VisuallyHiddenInput = styled("input")({
   clip: "rect(0 0 0 0)",

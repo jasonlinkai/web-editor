@@ -1,11 +1,11 @@
 import { observer } from "mobx-react-lite";
 import { useEffect, useRef } from "react";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
-import Dialog, { DialogRefType } from "../Dialog";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
+import Dialog, { DialogRefType } from "@/shared-components/Dialog";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
-import { makeOptions } from "../../utils";
-import { AttributesEnum } from "../../types";
+import { makeOptions } from "@/libs/utils";
+import { AttributesEnum } from "@/libs/types";
 
 const ImageGalleryModal = observer(() => {
   const { selectedPage } = useStores();

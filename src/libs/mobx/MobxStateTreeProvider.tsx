@@ -4,10 +4,9 @@ import React from "react";
 
 import { IStore, RootStore } from "./RootStore";
 import { onSnapshot } from "mobx-state-tree";
-import { pages } from "../pages/WebEditor/templates";
-import { v4 } from "uuid";
-
-console.log(v4());
+import { pageTemplates } from "@/libs/templates";
+import { v4 as uuid } from "uuid";
+import { recursiveClearUuid } from "../utils";
 
 export const SNAPSHOT_KEYS = {
   ROOT_STORE: "ROOT_STORE",
@@ -21,7 +20,14 @@ const store = RootStore.create(
   memorizedRootStoreSnapshot
     ? JSON.parse(memorizedRootStoreSnapshot)
     : {
-        pages: [pages.default],
+        pages: JSON.parse(JSON.stringify(pageTemplates)),
+        templates: pageTemplates.map((pageTemplate) => {
+          return {
+            ...pageTemplate,
+            uuid: uuid(),
+            ast: recursiveClearUuid(pageTemplate.ast),
+          }
+        }),
       }
 );
 

@@ -4,7 +4,7 @@ import { FaLaptop, FaMobile } from "react-icons/fa";
 import { TbDeviceIpad } from "react-icons/tb";
 import ToggleButton from "@mui/material/ToggleButton";
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 
 export const actionBarHeight = 50;
 

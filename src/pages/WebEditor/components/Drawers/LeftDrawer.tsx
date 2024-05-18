@@ -11,7 +11,7 @@ import InfoPanel from "../panels/InfoPanel";
 import NewNodePanel from "../panels/NewNodePanel";
 import AstTagTreePanel from "../panels/AstTagTreePanel";
 import SnippetsPanel from "../panels/SnippetsPanel";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 
 enum TabTypes {
   ATTRIBUTES = "ATTRIBUTES",

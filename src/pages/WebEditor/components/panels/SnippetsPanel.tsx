@@ -4,9 +4,10 @@ import ActionButton from "../ActionButton";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown, FaRegEye, FaTrash } from "react-icons/fa";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
-import Dailog, { DialogRefType } from "../Dialog";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
+import Dailog, { DialogRefType } from "@/shared-components/Dialog";
 import RenderNode from "../../Renderer/components/RenderNode";
+import { recursiveClearUuid } from "@/libs/utils";
 
 const SnippetsPanel = observer(() => {
   const { selectedPage } = useStores();
@@ -84,7 +85,7 @@ const SnippetsPanel = observer(() => {
                         "application/json",
                         JSON.stringify({
                           type: "add new node from snippets",
-                          data: editor.recursiveClearUuid(
+                          data: recursiveClearUuid(
                             JSON.parse(JSON.stringify(snippet))
                           ),
                         })

@@ -2,7 +2,7 @@ import styles from "./RenderNode.module.scss";
 import clsx from "clsx";
 import React, { SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
-import { AstNodeModelType } from "../../../../../mobx/AstNodeModel";
+import { AstNodeModelType } from "@/libs/mobx/AstNodeModel";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;

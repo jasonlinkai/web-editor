@@ -9,7 +9,7 @@ import Tab from "@mui/material/Tab";
 import LayoutPanel from "../panels/LayoutPanel";
 import ArrangementPanel from "../panels/ArrangementPanel";
 import TypographyPanel from "../panels/TypographyPanel";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 
 enum TabTypes {
   ARRANGEMENT = "ARRANGEMENT",

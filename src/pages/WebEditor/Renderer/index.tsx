@@ -1,10 +1,10 @@
 import styles from "./Renderer.module.scss";
 import React, { useCallback } from "react";
 import { observer } from "mobx-react-lite";
-import { AstNodeModel, AstNodeModelType } from "../../../mobx/AstNodeModel";
-import { useStores } from "../../../mobx/useMobxStateTreeStores";
+import { AstNodeModel, AstNodeModelType } from "@/libs/mobx/AstNodeModel";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 import RenderNode from "./components/RenderNode";
-import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "../types";
+import { ContainerNodeType, SelfClosingNodeType, TextNodeType } from "@/libs/types";
 
 const findInsertIndex = (
   container: HTMLElement,

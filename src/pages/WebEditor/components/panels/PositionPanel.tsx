@@ -1,10 +1,10 @@
 import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
-import Select from "../Select";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
-import { StyleEnum } from "../../types";
-import options from "../Select/options";
-import Input from "../Input";
+import Select from "@/shared-components/Select";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
+import { StyleEnum } from "@/libs/types";
+import options from "@/shared-components/Select/options";
+import Input from "@/shared-components/Input";
 import { useState } from "react";
 import clsx from "clsx";
 import ActionButton from "../ActionButton";

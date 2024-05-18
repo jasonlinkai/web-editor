@@ -5,6 +5,7 @@
   @include flex-column-center-center();
   width: 100vw;
   height: 100vh;
+  background-color: $panel-bg;
 }
 
 .homeTitle {
@@ -30,5 +31,14 @@
 .previousWorkArea {
   @include flex-column-center-center();
   padding: $gap2;
-  border: 1px solid $panel-bg
+  border: 1px solid $panel-border;
+  border-radius: $gap1;
+  margin-bottom: $gap2;
+  width: 400px;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+.addNewPage {
+  color: red;
 }

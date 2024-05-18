@@ -1,13 +1,13 @@
 import styles from "./Panel.module.scss";
 import { observer } from "mobx-react-lite";
-import InfoField from "../InfoField";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import InfoField from "@/shared-components/InfoField";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 import { useState } from "react";
 import clsx from "clsx";
 import ActionButton from "../ActionButton";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import Input from "../Input";
-import { AttributesEnum, SelfClosingNodeType } from "../../types";
+import Input from "@/shared-components/Input";
+import { AttributesEnum, SelfClosingNodeType } from "@/libs/types";
 import Button from "@mui/material/Button";
 
 const InfoPanel = observer(() => {

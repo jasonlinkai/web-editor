@@ -1,6 +1,6 @@
-@import "../../../../variables";
+@import "../../variables";
 
-.selectWrap {
+.inputWrap {
   position: relative;
   display: flex;
   flex-direction: row;
@@ -9,31 +9,25 @@
   width: 100%;
 }
 
-.selectLabel {
+.inputLabel {
   flex: 1;
   color: $label;
   text-align: left;
   font-family: "Roboto","Helvetica","Arial", "sans-serif";
 }
 
-.select {
+.input {
   flex: 1;
   width: 100%;
   height: 1.2rem;
   font-size: 0.9rem;
   appearance: none;
   border: 1px solid $panel-border;
-  padding-left: $gap2;
-  padding-right: $gap2;
+  padding-left: $gap1;
+  padding-right: $gap1;
   border-radius: $gap1;
   &:focus {
     outline: none;
     border: 1px solid $active;
   }
-}
-
-.selectRightIcon {
-  position: absolute;
-  right: $gap2;
-  pointer-events: none;
 }

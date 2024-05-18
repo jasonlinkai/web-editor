@@ -1,17 +1,19 @@
 import styles from "./ActionBar.module.scss";
 import { useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { FaAngleDoubleLeft, FaAngleDoubleRight, FaTrash } from "react-icons/fa";
+import { FaAngleDoubleLeft, FaAngleDoubleRight, FaHome, FaTrash } from "react-icons/fa";
 import { MdSnippetFolder } from "react-icons/md";
 import { ImRedo, ImUndo } from "react-icons/im";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
+import { useNavigate } from "react-router-dom";
 
 export const actionBarHeight = 50;
 
 const ActionBar: React.FC = observer(() => {
-  const { selectedPage } = useStores();
+  const navigate = useNavigate();
+  const { selectedPage, setSelectedPage } = useStores();
   if (!selectedPage) return null;
   const { canUndo, canRedo, undoAst, redoAst, editor } = selectedPage;
   const {
@@ -87,6 +89,14 @@ const ActionBar: React.FC = observer(() => {
       style={{ height: `${actionBarHeight}px` }}
     >
       <div className={styles.actionBarLeftArea}>
+        <Button
+          onClick={() => {
+            navigate('/');
+            setSelectedPage(undefined);
+          }}
+        >
+          <FaHome />
+        </Button>
         <Button
           onClick={() => {
             setIsLeftDrawerOpen(!isLeftDrawerOpen);

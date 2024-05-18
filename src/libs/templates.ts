@@ -197,10 +197,91 @@ const defaultAstTemplate = {
   content: "",
 };
 
-export const pages = {
+const blogAstTemplate = {
+  uuid: "67ec50d6-e64c-41a6-bfd2-105ea6454151",
+  type: "div",
+  events: {},
+  props: {
+    className: "",
+    style: {
+      width: "100%",
+      height: "100%",
+      display: "block",
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "white",
+      paddingTop: "",
+      paddingRight: "",
+      paddingBottom: "",
+      paddingLeft: "",
+    },
+    attributes: { datanodetype: "" },
+  },
+  children: [
+    {
+      uuid: "31dddaa4-6f35-4027-b383-c5d28fbea8ec",
+      parent: "67ec50d6-e64c-41a6-bfd2-105ea6454151",
+      type: "div",
+      events: {},
+      props: {
+        className: "",
+        style: {
+          width: "100%",
+          height: "auto",
+          color: "white",
+          backgroundColor: "black",
+          paddingTop: "10px",
+          paddingRight: "10px",
+          paddingBottom: "10px",
+          paddingLeft: "10px",
+        },
+        attributes: { datanodetype: "" },
+      },
+      children: [
+        {
+          uuid: "10a8f617-2dce-4205-9b34-e8065479d744",
+          parent: "31dddaa4-6f35-4027-b383-c5d28fbea8ec",
+          type: "h1",
+          events: {},
+          props: {
+            className: "",
+            style: { color: "" },
+            attributes: { datanodetype: "" },
+          },
+          children: [],
+          content: "web-editor.js",
+        },
+        {
+          uuid: "d36256e6-5a88-49f5-a3ef-2197ce02652c",
+          parent: "31dddaa4-6f35-4027-b383-c5d28fbea8ec",
+          type: "span",
+          events: {},
+          props: {
+            className: "",
+            style: { height: "", display: "block", paddingTop: "" },
+            attributes: { datanodetype: "" },
+          },
+          children: [],
+          content: "this is a online web editor for anyone.",
+        },
+      ],
+      content: "",
+    },
+  ],
+  content: "",
+};
+
+export const pageTemplateMap = {
   default: {
-    uuid: '727cd85f-c49d-4a74-a25e-1e04c11b60ba',
-    title: 'page1',
+    uuid: "727cd85f-c49d-4a74-a25e-1e04c11b60ba",
+    title: "default-template",
     ast: defaultAstTemplate,
-  }
-}
+  },
+  blog: {
+    uuid: "0171f267-1b13-4053-baa6-7b69c7dcd0b8",
+    title: "blog-template",
+    ast: blogAstTemplate,
+  },
+};
+
+export const pageTemplates = [pageTemplateMap.default, pageTemplateMap.blog];

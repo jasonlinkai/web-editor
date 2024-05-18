@@ -1,3 +1,4 @@
+export declare const addNewPage: string;
 export declare const home: string;
 export declare const homeTitle: string;
 export declare const previousWork: string;

@@ -6,14 +6,14 @@ import {
   SnapshotOut,
   detach,
 } from "mobx-state-tree";
-import { Event, EventNames } from "../pages/WebEditor/event";
+import { Event, EventNames } from "@/libs/event";
 import {
   AttributesEnum,
   ContainerNodeType,
   SelfClosingNodeType,
   TextNodeType,
-} from "../pages/WebEditor/types";
-import { StyleEnum } from "../pages/WebEditor/types";
+} from "@/libs/types";
+import { StyleEnum } from "@/libs/types";
 
 const AstNodeModelPropsAttributes = t.model("AstNodeModelPropsAttributes", {
   datanodetype: t.optional(t.string, ""),
@@ -90,9 +90,16 @@ export const AstNodeModel = t
     uuid: t.identifier,
     parent: t.maybe(t.safeReference(t.late((): IAnyModelType => AstNodeModel))),
     type: t.enumeration([
-      ...Object.values(ContainerNodeType),
-      ...Object.values(TextNodeType),
-      ...Object.values(SelfClosingNodeType),
+      "div",
+      "span",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "button",
+      "img",
+      "video",
     ]),
     events: t.optional(
       t.frozen<{

@@ -7,15 +7,15 @@ import {
   LuAlignHorizontalSpaceBetween,
   LuAlignHorizontalSpaceAround,
 } from "react-icons/lu";
-import Select from "../Select";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
-import { StyleEnum } from "../../types";
+import Select from "@/shared-components/Select";
+import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
+import { StyleEnum } from "@/libs/types";
 import ActionButton from "../ActionButton";
-import options from "../Select/options";
+import options from "@/shared-components/Select/options";
 import { useState } from "react";
 import clsx from "clsx";
 import { FaArrowUp, FaArrowDown } from "react-icons/fa";
-import Input from "../Input";
+import Input from "@/shared-components/Input";
 
 const ArrangementPanel = observer(() => {
   const { selectedPage } = useStores();

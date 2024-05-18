@@ -17,10 +17,8 @@ export const PageModel = t
   .model("PageModel", {
     uuid: t.identifier,
     title: t.string,
-    meta: t.optional(MetaModel, {}),
-    favicon: t.optional(t.string, ""),
-    path: t.optional(t.string, ""),
     ast: AstNodeModel,
+    //
     editor: t.optional(EditorModel, {}),
   })
   .volatile<{
