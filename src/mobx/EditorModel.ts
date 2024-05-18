@@ -29,7 +29,6 @@ import type { EditorLayoutModelType } from "./EditorLayoutModel";
 export const EditorModel = t
   .model("EditorModel", {
     selectedAstNode: t.maybe(t.safeReference(AstNodeModel)),
-    dragingAstNode: t.maybe(t.safeReference(AstNodeModel)),
     snippets: t.optional(t.array(SnippetAstNodeModel), []),
     editorLayout: t.optional(EditorLayoutModel, {}),
   })
@@ -92,6 +91,7 @@ export const EditorModel = t
           }
         } else {
           if (node.uuid !== self.selectedAstNode.uuid) {
+            self.selectedAstNode.setIsSelected(false);
             self.selectedAstNode.setStyle({});
             if (node.isTextNode) {
               node.setContent(node.content || "");
@@ -104,6 +104,7 @@ export const EditorModel = t
         if (!self.selectedAstNode) {
           self.selectedAstNode = undefined;
         } else {
+          self.selectedAstNode.setIsSelected(false);
           self.selectedAstNode.setStyle({});
           if (self.selectedAstNode.isTextNode) {
             self.selectedAstNode.setContent(self.selectedAstNode.content || "");
@@ -111,9 +112,6 @@ export const EditorModel = t
           self.selectedAstNode = undefined;
         }
       }
-    },
-    setDragingAstNode(node: AstNodeModelType | undefined) {
-      self.dragingAstNode = node;
     },
     setEditorLayout(layout: EditorLayoutModelType) {
       self.editorLayout = layout;

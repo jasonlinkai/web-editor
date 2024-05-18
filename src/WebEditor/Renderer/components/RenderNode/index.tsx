@@ -3,7 +3,6 @@ import clsx from "clsx";
 import React, { SyntheticEvent } from "react";
 import { observer } from "mobx-react-lite";
 import { AstNodeModelType } from "../../../../mobx/AstNodeModel";
-import { useStores } from "../../../../mobx/useMobxStateTreeStores";
 
 interface RenderNodeProps {
   ast: AstNodeModelType | undefined;
@@ -15,88 +14,94 @@ interface RenderNodeProps {
   handleOnDrop?: (ev: React.DragEvent, node: AstNodeModelType) => void;
 }
 
-const RenderNode: React.FC<RenderNodeProps> = observer(({ ast, isEditMode = false, ...p }) => {
-  const { editor } = useStores();
-  const {
-    handleOnClick,
-    handleOnDragStart,
-    handleOnDragOver,
-    handleOnDragLeave,
-    handleOnDrop,
-  } = p;
-  if (!ast) return null;
+const RenderNode: React.FC<RenderNodeProps> = observer(
+  ({ ast, isEditMode = false, ...p }) => {
+    const {
+      handleOnClick,
+      handleOnDragStart,
+      handleOnDragOver,
+      handleOnDragLeave,
+      handleOnDrop,
+    } = p;
+    if (!ast) return null;
 
-  const isSelectedNode = ast.uuid === editor.selectedAstNode?.uuid && isEditMode;
-  const draggable = !ast.isRootNode && isSelectedNode && isEditMode;
-  const dropable =
-    ast.isContainerNode && ast.uuid !== editor.dragingAstNode?.uuid && isEditMode;
-  // Base case: If the node is a text node, render it as is
+    const isSelected = isEditMode && ast.isSelected;
+    const draggable = isEditMode && ast.isSelected && !ast.isRootNode;
+    const dropable = isEditMode && ast.isContainerNode;
 
-  const node: AstNodeModelType = ast;
-  // Otherwise, it's an element node
-  const { type, props, children } = node;
+    const node: AstNodeModelType = ast;
+    const { type, props, children } = node;
 
-  // register event for web-editor
-  const editorEventListeners: {
-    [key: string]: React.EventHandler<SyntheticEvent> | undefined;
-  } = {};
-  editorEventListeners.onClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    handleOnClick && handleOnClick(e, node);
-  };
-  if (draggable) {
-    editorEventListeners.onDragStart = (e: React.DragEvent) => {
-      handleOnDragStart && handleOnDragStart(e, node);
+    // register event for web-editor
+    const editorEventListeners: {
+      [key: string]: React.EventHandler<SyntheticEvent> | undefined;
+    } = {};
+    editorEventListeners.onClick = (e: React.MouseEvent) => {
+      e.stopPropagation();
+      handleOnClick && handleOnClick(e, node);
+      node.setIsSelected(true);
     };
-  }
-  if (dropable) {
-    editorEventListeners.onDragOver = (e: React.DragEvent) => {
-      handleOnDragOver && handleOnDragOver(e, node);
-      node.setIsDragOvered(true);
-    };
-    editorEventListeners.onDragLeave = (e: React.DragEvent) => {
-      handleOnDragLeave && handleOnDragLeave(e, node);
-      node.setIsDragOvered(false);
-    };
+    if (draggable) {
+      editorEventListeners.onDragStart = (e: React.DragEvent) => {
+        handleOnDragStart && handleOnDragStart(e, node);
+      };
+    }
+    if (dropable) {
+      editorEventListeners.onDragOver = (e: React.DragEvent) => {
+        handleOnDragOver && handleOnDragOver(e, node);
+        node.setIsDragOvered(true);
+      };
+      editorEventListeners.onDragLeave = (e: React.DragEvent) => {
+        handleOnDragLeave && handleOnDragLeave(e, node);
+        node.setIsDragOvered(false);
+      };
 
-    editorEventListeners.onDrop = (e: React.DragEvent) => {
-      handleOnDrop && handleOnDrop(e, node);
-      node.setIsDragOvered(false);
-    };
-  }
+      editorEventListeners.onDrop = (e: React.DragEvent) => {
+        handleOnDrop && handleOnDrop(e, node);
+        node.setIsDragOvered(false);
+      };
+    }
 
-  let renderChildren;
-  if (node.isContainerNode) {
-    renderChildren = Array.isArray(children) ? children : [children];
-    renderChildren = renderChildren.map((child) => {
-      return <RenderNode key={child.uuid} ast={child} isEditMode={isEditMode} {...p} />;
-    });
-  } else if (node.isTextNode) {
-    renderChildren = node.content;
-  } else if (node.isSelfClosingNode) {
-    renderChildren = undefined;
-  }
-  return React.createElement(
-    type,
-    {
-      ...props,
-      ...editorEventListeners,
-      ...{ ...props.attributes, datanodetype: type },
-      style: {
-        ...props.style,
-      },
-      className: clsx([
-        props.className,
-        {
-          [styles.node]: true,
-          [styles.selectedNode]: isSelectedNode && !node.isDragOvered,
-          [styles.dragOverNode]: !isSelectedNode && node.isDragOvered,
+    let renderChildren;
+    if (node.isContainerNode) {
+      renderChildren = Array.isArray(children) ? children : [children];
+      renderChildren = renderChildren.map((child) => {
+        return (
+          <RenderNode
+            key={child.uuid}
+            ast={child}
+            isEditMode={isEditMode}
+            {...p}
+          />
+        );
+      });
+    } else if (node.isTextNode) {
+      renderChildren = node.content;
+    } else if (node.isSelfClosingNode) {
+      renderChildren = undefined;
+    }
+    return React.createElement(
+      type,
+      {
+        ...props,
+        ...editorEventListeners,
+        ...{ ...props.attributes, datanodetype: type }, // datanodetpye是為了選中時::psesudo element content可以拿到節點類型
+        style: {
+          ...props.style,
         },
-      ]),
-      draggable,
-    },
-    renderChildren
-  );
-});
+        className: clsx([
+          props.className,
+          {
+            [styles.node]: true,
+            [styles.selectedNode]: isSelected,
+            [styles.dragOverNode]: !isSelected && node.isDragOvered,
+          },
+        ]),
+        draggable,
+      },
+      renderChildren
+    );
+  }
+);
 
 export default RenderNode;

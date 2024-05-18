@@ -31,9 +31,8 @@ const findInsertIndex = (
 const Renderer: React.FC = observer(() => {
   const { ast, editor } = useStores();
   const {
+    selectedAstNode,
     setSelectedAstNode,
-    dragingAstNode,
-    setDragingAstNode,
     newContainerNode,
     newImageNode,
     newTextNode,
@@ -62,9 +61,8 @@ const Renderer: React.FC = observer(() => {
           data: "",
         })
       );
-      setDragingAstNode(node);
     },
-    [setDragingAstNode]
+    []
   );
 
   const handleOnDragOver: (
@@ -90,6 +88,10 @@ const Renderer: React.FC = observer(() => {
     useCallback(
       (ev, node) => {
         ev.stopPropagation();
+        // 防止元素把自己移入自己的操作
+        if (selectedAstNode?.uuid === node.uuid) {
+          return;
+        }
         const jsonData = ev.dataTransfer.getData("application/json");
         const { type, data } = JSON.parse(jsonData);
         let newNode;
@@ -99,9 +101,8 @@ const Renderer: React.FC = observer(() => {
           ev.clientY
         );
         if (type === "move node") {
-          if (dragingAstNode) {
-            newNode = node.moveToChildren(dragingAstNode, insertIndex);
-            setDragingAstNode(undefined);
+          if (selectedAstNode) {
+            newNode = node.moveToChildren(selectedAstNode, insertIndex);
           }
         } else if (type === "add new node") {
           if (data.nodeType === ContainerNodeType.div) {
@@ -119,8 +120,7 @@ const Renderer: React.FC = observer(() => {
         setSelectedAstNode(newNode);
       },
       [
-        dragingAstNode,
-        setDragingAstNode,
+        selectedAstNode,
         newContainerNode,
         newImageNode,
         newTextNode,
