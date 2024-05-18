@@ -7,7 +7,7 @@ import {
   FaHome,
   FaTrash,
 } from "react-icons/fa";
-import { MdSnippetFolder } from "react-icons/md";
+import { MdSnippetFolder, MdOutlinePublish } from "react-icons/md";
 import { ImRedo, ImUndo } from "react-icons/im";
 import ButtonGroup from "@mui/material/ButtonGroup";
 import Button from "@mui/material/Button";
@@ -20,7 +20,8 @@ const ActionBar: React.FC = observer(() => {
   const navigate = useNavigate();
   const { selectedPage, setSelectedPage } = useStores();
   if (!selectedPage) return null;
-  const { canUndo, canRedo, undoAst, redoAst, editor } = selectedPage;
+  const { canUndo, canRedo, undoAst, redoAst, uploadAst, editor } =
+    selectedPage;
   const {
     isLeftDrawerOpen,
     setIsLeftDrawerOpen,
@@ -28,6 +29,7 @@ const ActionBar: React.FC = observer(() => {
     setIsRightDrawerOpen,
     selectedAstNode,
     pushToSnippets,
+    isUploadPageLoading,
   } = editor;
 
   const onShortCutDelete = useCallback(
@@ -150,6 +152,12 @@ const ActionBar: React.FC = observer(() => {
         </ButtonGroup>
       </div>
       <div className={styles.actionBarRightArea}>
+        <ButtonGroup>
+          <Button disabled={isUploadPageLoading} onClick={uploadAst}>
+            <MdOutlinePublish />
+            Publish(p)
+          </Button>
+        </ButtonGroup>
         <Button
           onClick={() => {
             setIsRightDrawerOpen(!isRightDrawerOpen);

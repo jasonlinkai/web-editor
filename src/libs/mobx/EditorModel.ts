@@ -12,7 +12,7 @@ import { AstNodeModel } from "./AstNodeModel";
 import { SnippetAstNodeModel } from "./SnippetAstNodeModel";
 import { EditorLayoutModel } from "./EditorLayoutModel";
 import { getRandomColor, recursiveClearUuid } from "@/libs/utils";
-import { httpGetUploadedImages, httpPostUploadImage } from "@/libs/http";
+import { httpGetUploadedImages, httpPostUploadImage, httpPostUploadPage } from "@/libs/http";
 import {
   ContainerNodeType,
   SelfClosingNodeType,
@@ -37,6 +37,7 @@ export const EditorModel = t
     isFetchImagesLoading: boolean;
     isUploadImageLoading: boolean;
     isImageGalleryModalVisible: boolean;
+    isUploadPageLoading: boolean;
   }>(() => ({
     isLeftDrawerOpen: true,
     isRightDrawerOpen: true,
@@ -45,6 +46,7 @@ export const EditorModel = t
     isFetchImagesLoading: false,
     isUploadImageLoading: false,
     isImageGalleryModalVisible: false,
+    isUploadPageLoading: false,
   }))
   .views((self) => {
     return {
@@ -130,6 +132,9 @@ export const EditorModel = t
     const setIsUploadModalVisible = (visible: boolean) => {
       self.isUploadModalVisible = visible;
     };
+    const setIsUploadPageLoading = (v: boolean) => {
+      self.isUploadPageLoading = v;
+    };
     return {
       setIsLeftDrawerOpen,
       setIsRightDrawerOpen,
@@ -138,6 +143,7 @@ export const EditorModel = t
       setIsFetchImagesLoading,
       setImages,
       setIsUploadModalVisible,
+      setIsUploadPageLoading,
     };
   })
   //
@@ -231,7 +237,20 @@ export const EditorModel = t
         return [];
       }
     });
-    return { uploadImage, fetchImages };
+    const uploadPage = flow(function* (json: string) {
+      console.log('json', json);
+      self.setIsUploadPageLoading(true);
+      try {
+        const { data } = yield httpPostUploadPage(json);
+        self.setIsUploadPageLoading(false);
+        return data;
+      } catch (error) {
+        console.error("Failed to fetch uploadImage", error);
+        self.setIsUploadPageLoading(false);
+        return "";
+      }
+    });
+    return { uploadImage, fetchImages, uploadPage };
   })
   //
   // lifecycle callbacks

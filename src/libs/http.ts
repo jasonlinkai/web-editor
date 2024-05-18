@@ -44,3 +44,21 @@ export const httpGetUploadedImages = async () => {
     throw e;
   }
 };
+
+export type PostUploadPageResponse = boolean;
+export const httpPostUploadPage = async (json: string) => {
+  try {
+    const response = await fetch(getApiUrlByPath("upload-page-s3"), {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: json,
+    });
+    const data = await response.json();
+    return data as Response<PostUploadPageResponse>;
+  } catch (e) {
+    console.error("Error httpPostUploadPage:", e);
+    throw e;
+  }
+};
