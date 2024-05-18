@@ -117,6 +117,7 @@ const Renderer: React.FC = observer(() => {
           node.addToChildren(newNode, insertIndex);
         }
         setSelectedAstNode(newNode);
+        (newNode as AstNodeModelType).setIsSelected(true);
       },
       [
         selectedAstNode,
