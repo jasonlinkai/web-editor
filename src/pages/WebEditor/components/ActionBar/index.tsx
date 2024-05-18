@@ -1,7 +1,12 @@
 import styles from "./ActionBar.module.scss";
 import { useCallback, useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { FaAngleDoubleLeft, FaAngleDoubleRight, FaHome, FaTrash } from "react-icons/fa";
+import {
+  FaAngleDoubleLeft,
+  FaAngleDoubleRight,
+  FaHome,
+  FaTrash,
+} from "react-icons/fa";
 import { MdSnippetFolder } from "react-icons/md";
 import { ImRedo, ImUndo } from "react-icons/im";
 import ButtonGroup from "@mui/material/ButtonGroup";
@@ -91,7 +96,7 @@ const ActionBar: React.FC = observer(() => {
       <div className={styles.actionBarLeftArea}>
         <Button
           onClick={() => {
-            navigate('/');
+            navigate("/");
             setSelectedPage(undefined);
           }}
         >
@@ -120,10 +125,16 @@ const ActionBar: React.FC = observer(() => {
           <Button disabled={!canRedo} onClick={canRedo ? redoAst : undefined}>
             <ImRedo></ImRedo>Redo(r)
           </Button>
-        </ButtonGroup>
-      </div>
-      <div className={styles.actionBarRightArea}>
-        <ButtonGroup>
+          <Button
+            disabled={!selectedAstNode}
+            onClick={() => {
+              if (selectedAstNode) {
+                pushToSnippets(selectedAstNode);
+              }
+            }}
+          >
+            <MdSnippetFolder></MdSnippetFolder>Add to Snippets(f)
+          </Button>
           <Button
             disabled={!selectedAstNode?.isSelfCanBeDeleted}
             onClick={
@@ -136,17 +147,9 @@ const ActionBar: React.FC = observer(() => {
           >
             <FaTrash></FaTrash>Delete(backspace)
           </Button>
-          <Button
-            disabled={!selectedAstNode}
-            onClick={() => {
-              if (selectedAstNode) {
-                pushToSnippets(selectedAstNode);
-              }
-            }}
-          >
-            <MdSnippetFolder></MdSnippetFolder>Add to Snippets(f)
-          </Button>
         </ButtonGroup>
+      </div>
+      <div className={styles.actionBarRightArea}>
         <Button
           onClick={() => {
             setIsRightDrawerOpen(!isRightDrawerOpen);
