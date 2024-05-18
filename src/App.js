@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MobxStateTreeStoreProvider } from "@/libs/mobx/MobxStateTreeProvider";
-import Home from "./pages/Home";
-import WebEditor from "./pages/WebEditor";
+import Home from "@/pages/Home";
+import WebEditor from "@/pages/WebEditor";
 
 export const routes = [
   {
@@ -27,9 +27,8 @@ function App() {
   return (
     <MobxStateTreeStoreProvider>
       <div className="App">
-        <header className="App-header">
-          <RouterProvider router={router} />
-        </header>
+        <header className="App-header"></header>
+        <RouterProvider router={router} />
       </div>
     </MobxStateTreeStoreProvider>
   );

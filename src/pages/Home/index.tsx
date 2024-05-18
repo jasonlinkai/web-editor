@@ -1,4 +1,5 @@
 import styles from "./Home.module.scss";
+import { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
 import List from "@mui/material/List";
@@ -14,9 +15,14 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Button, ButtonGroup } from "@mui/material";
 import { useStores } from "@/libs/mobx/useMobxStateTreeStores";
 import TemplateGalleryModal from "./components/TemplateGalleryModal";
+import Snackbar from "@/shared-components/SnackBar";
 
 const Home = observer(() => {
   const navigate = useNavigate();
+  const [
+    deletePageSuccessSnackbarVisible,
+    setDeletePageSuccessSnackbarVisible,
+  ] = useState(false);
   const {
     pages,
     setSelectedPage,
@@ -42,6 +48,7 @@ const Home = observer(() => {
                       aria-label="delete"
                       onClick={() => {
                         deletePage(page);
+                        setDeletePageSuccessSnackbarVisible(true);
                       }}
                     >
                       <DeleteIcon />
@@ -61,10 +68,7 @@ const Home = observer(() => {
                         <FolderIcon />
                       </Avatar>
                     </ListItemAvatar>
-                    <ListItemText
-                      primary={page.title}
-                      secondary={page.uuid}
-                    />
+                    <ListItemText primary={page.title} secondary={page.uuid} />
                   </ListItemButton>
                 </ListItem>
               );
@@ -85,6 +89,14 @@ const Home = observer(() => {
         </div>
       </div>
       <TemplateGalleryModal />
+      <Snackbar
+        open={deletePageSuccessSnackbarVisible}
+        serverity="success"
+        message="Delete page successed!"
+        onClose={() => {
+          setDeletePageSuccessSnackbarVisible(false);
+        }}
+      />
     </div>
   );
 });
