@@ -7,19 +7,18 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
   align-items: center;
-  border: none;
-  padding: 0;
+  pointer-events: none;
 }
 
 .dialogContent {
   position: relative;
   background-color: $panel-bg;
   border-radius: 8px;
-  padding: 20px;
+  padding: $gap3;
+  pointer-events: painted;
 }
 
 .dialogCloseButtonWrap {
@@ -38,4 +37,5 @@
 
 .dialogCloseButton {
   color: $text-reverse;
+  cursor: pointer;
 }

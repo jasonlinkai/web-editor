@@ -8,6 +8,7 @@ import React, {
   forwardRef,
   useEffect,
 } from "react";
+import { Backdrop } from "@mui/material";
 
 export interface DialogRefType {
   openDialog: () => void;
@@ -53,7 +54,7 @@ const Dailog = forwardRef<DialogRefType, DialogProps>(
       },
       [isOpen, closeDialog]
     );
-  
+
     useEffect(() => {
       if (isOpen) {
         window.addEventListener("keyup", onShortCutCloseModal);
@@ -67,6 +68,10 @@ const Dailog = forwardRef<DialogRefType, DialogProps>(
 
     return (
       <dialog ref={dialogRef} open={isOpen} style={{ border: 0 }}>
+        <Backdrop
+          open={isOpen}
+          onClick={closeDialog}
+        ></Backdrop>
         <div className={styles.dialog}>
           <div className={styles.dialogContent}>
             <div className={styles.dialogCloseButtonWrap} onClick={closeDialog}>
